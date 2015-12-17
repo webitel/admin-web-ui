@@ -1,0 +1,252 @@
+
+<div class="modal-header">
+    <button class="close" data-dismiss="modal">
+        <span>&times;</span>
+    </button>
+    <h5>Edit account</h5>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal col-sm-12">
+
+        <div id="editCallerName" class="form-group">
+            <label class="col-sm-3 control-label">Name</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control input-sm" value="<%= callerName %>">
+                <small class="error-block"></small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Id</label>
+            <div class="col-sm-6">
+                <input readonly type="text" class="form-control input-sm" style="background-color: white; cursor: default;  border-color: #eee;" value="<%= name %>">
+                <div class="lock-input"></div>
+            </div>
+        </div>
+
+        <div id="editExtension" class="form-group">
+            <label class="col-sm-3 control-label is-required">Extension</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control input-sm" value="<%= extension %>">
+                <small class="error-block"></small>
+            </div>
+        </div>
+
+        <div id="editAccessPin" class="form-group">
+            <label class="col-sm-3 control-label">Access PIN</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control input-sm" value="<%= accessPin %>">
+                <small class="error-block"></small>
+            </div>
+        </div>
+
+        <div id="editUseVoicemail" class="form-group">
+            <label class="col-sm-3 control-label">Use voicemail</label>
+            <div style="height: 30px; line-height: 30px;" class="col-sm-1">
+                <% if ( useVoicemail === "true" ) { %>
+                <label class="form-checkbox form-normal form-primary active">
+                    <input type="checkbox" checked>
+                </label>
+                <% } else { %>
+                <label class="form-checkbox form-normal form-primary">
+                    <input type="checkbox">
+                </label>
+                <% } %>
+            </div>
+        </div>
+
+        <div id="editRole" class="form-group">
+            <label class="col-sm-3 control-label">Role</label>
+            <div class="col-sm-6" style="line-height: 29px;">
+                <div class="select-wrap">
+                    <select>
+                        <% if ( role === "admin" ) { %>
+                            <option value="admin" selected>Admin</option>
+                            <option value="user">User</option>
+                        <% } else { %>
+                            <option value="admin">Admin</option>
+                            <option value="user" selected>User</option>
+                        <% } %>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div id="editIsAgent" class="form-group">
+            <label class="col-sm-3 control-label">Agent</label>
+            <div style="height: 30px; line-height: 30px;" class="col-sm-1">
+                <% if ( isAgent ) { %>
+                <label class="form-checkbox form-normal form-primary active">
+                    <input type="checkbox" checked>
+                </label>
+                <% } else { %>
+                <label class="form-checkbox form-normal form-primary">
+                    <input type="checkbox">
+                </label>
+                <% } %>
+            </div>
+        </div>
+
+        <div id="editPassword" class="form-group">
+            <label class="col-sm-3 control-label">Password</label>
+            <div style="line-height: 29px;" class="col-sm-6">
+                <span class="passChangeBtn btn btn-info btn-xs">Change</span>
+                <div class="col-sm-10" style="padding-left: 0px; display: none;">
+                    <input id="editPassInput" class="form-control input-sm" type="text">
+                    <small class="error-block"></small>
+                    <span class="passCancelBtn btn btn-danger btn-xs">Cancel</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <ul id="editParamsVarsTab" class="nav nav-tabs">
+                <li class="active">
+                    <a data-toggle="tab" href=".editVariables">Variables</a>
+                </li>
+                <% if ( isAgent ) { %>
+                    <li>
+                        <a data-toggle="tab" href=".editParameters">Agent parameters</a>
+                    </li>
+                <% } else { %>
+                    <li style="display: none;">
+                        <a data-toggle="tab" href=".editParameters">Agent parameters</a>
+                    </li>
+                <% } %>
+            </ul>
+            <div class="tab-content">
+                <div class="editVariables tab-pane fade active in" role="tabpanel">
+                    <div style="margin: 0;" class="form-group">
+                        <div style="border-bottom: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd;" class="panel">
+                            <div aria-expanded="false">
+                                <div class="panel-body">
+                                    <div style="padding-bottom: 10px;">
+                                        <span id="editAddVariable" class="btn btn-success btn-xs">Add</span>
+                                    </div>
+                                    <div id="editVariablesContainer">
+                                        <% for (var i = 0; i < variables.length; i++) { %>
+                                            <div class="form-group">
+                                                <label class="col-sm-1 control-label">Key</label>
+                                                <div class="col-sm-4">
+                                                    <input class="variableKey form-control input-sm" type="text" value="<%= variables[i].key %>">
+                                                </div>
+                                                <label class="col-sm-1 control-label">Value</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="variableValue form-control input-sm" value="<%= variables[i].value %>">
+                                                </div>
+                                                <div class="col-sm-2" style="line-height: 29px;">
+                                                    <span class="btn btn-default btn-xs" data-action="removeVariable">remove</span>
+                                                </div>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="editParameters tab-pane fade" role="tabpanel">
+                    <div style="margin: 0;" class="form-group">
+                        <div style="border-bottom: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd;" class="panel">
+                            <div aria-expanded="false">
+                                <div class="panel-body">
+                                    <div style="padding-bottom: 10px;">
+                                        <div id="editParametersCont" class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Call timeout</label>
+                                                <div class="col-md-5">
+                                                    <input type="text" name="name" data-name="cc-agent-contact" class="form-control input-sm">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Wrap up time</label>
+                                                <div class="col-md-5">
+                                                    <input type="text" name="name" data-name="cc-agent-wrap-up-time" class="form-control input-sm">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Max no answer</label>
+                                                <div class="col-md-5">
+                                                    <input type="text" name="name" data-name="cc-agent-max-no-answer" class="form-control input-sm">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Busy delay time</label>
+                                                <div class="col-md-5">
+                                                    <input type="text" name="name" data-name="cc-agent-busy-delay-time" class="form-control input-sm">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Reject delay time</label>
+                                                <div class="col-md-5">
+                                                    <input type="text" name="name" data-name="cc-agent-reject-delay-time" class="form-control input-sm">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">No answer delay time</label>
+                                                <div class="col-md-5">
+                                                    <input type="text" name="name" data-name="cc-agent-no-answer-delay-time" class="form-control input-sm">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <div class="clearfix"></div>
+</div>
+<div class="modal-footer">
+    <button class="cancel btn btn-danger" data-dismiss="modal">Cancel</button>
+    <button class="save btn btn-success">Save</button>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

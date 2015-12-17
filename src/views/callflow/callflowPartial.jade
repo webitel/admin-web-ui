@@ -1,0 +1,253 @@
+div#page-title
+    h1.page-header.text-overflow Callflow
+div#page-content
+    div#callflow-panel.panel.panel-primary(style="height: 100%;")
+        div.panel-heading
+            div.panel-control(style="float: left")
+                ul.nav.nav-tabs.tab-stacked-left
+                    li(style="opacity: 1;")
+                        if domain
+                            button#domain-id.selectDomainBtn.btn.btn-success.btn-labeled.fa.fa-search(data='#{domain}',style="display:none")
+                        else
+                            button#domain-id.selectDomainBtn.btn.btn-success.btn-labeled.fa.fa-search Select domain
+                    li(style="opacity: 1;")
+                        button.addVariablesBtn.btn.btn-info(style="visibility: hidden;") Variables
+
+            div.panel-control(style="float: right")
+                ul#callflow-nav.nav.nav-tabs
+                    li.active
+                        a#default-tab-btn(data-toggle="tab", href="#default-tabs-box") Default
+                    li
+                        a#public-tab-btn(data-toggle="tab", href="#public-tabs-box") Public
+                    li
+                        a#extension-tab-btn(data-toggle="tab", href="#extension-tabs-box") Extensions
+        div.panel-body
+            div.tab-content
+                div#default-tabs-box.tab-pane.fade.active.in
+                    div.row
+                        div.eq-height
+                            div#wrap-def-table.col-xs-6.col-sm-4.eq-box-sm
+                                div.newtoolbar
+                                    div.table-toolbar-left
+                                        button#default-add-record.btn.btn-success.fa.fa-plus.disabled(style="line-height: normal;")
+                                        //button#default-add-record.btn.btn-purple.btn-icon.btn-circle.icon.fa.fa-plus(style="margin-left: 3px")
+                                        button#default-refresh-table.btn.btn-info.btn-icon.icon.fa.fa-refresh(style="margin-left: 10px")
+                                table#default-table.table-striped
+
+                                div(style="clear: both;")
+
+                            div#default-edit-page.col-xs-6.col-sm-4.eq-box-sm(style="display: none;")
+                                div.row(style="padding-left: 12px;")
+                                    div.newtoolbar
+                                        div.table-toolbar-left
+                                            div.text-left
+                                                i.btn-hide-grid.btn.fa.fa-arrows-h(data="wrap-def-table")
+                                                button#default-save.btn.btn-success.btn-labeled.fa.fa-floppy-o(style="margin-left: 5px; line-height: normal;") Save
+                                                button#default-add.btn.btn-success.btn-labeled.fa.fa-floppy-o(style="margin-left: 5px; line-height: normal;") Add
+                                                button#default-cancel.btn.btn-danger(style="margin-left: 5px; padding-bottom: 0; padding-top: 0; height: 26px;") Cancel
+                                div.row
+                                    div.col-sm-6
+                                        div.form-group
+                                            label.control-label Name
+                                            input#def-input-name.form-control(type="text", style="width: 100%;", placeholder="Name")
+
+                                    div.def-tz-cont.col-sm-12
+                                        div.form-group
+                                            label.control-label Time zone
+                                            input#def-timeZoneInput.form-control(type="text", placeholder="Choose timezone", timeZoneValue="")
+                                            div.flag-cont.f32
+                                                div.flag.ad
+                                            div#def-timeZoneCont
+                                    div.col-sm-12
+                                        div.form-group
+                                            label.control-label Number
+                                            div.input-group.mar-btm
+                                                span.input-group-btn
+                                                    button.btn.btn-purple.dropdown(data-toggle="dropdown")
+                                                        i.fa.fa-cogs
+                                                    div.dropdown-menu.dropdown-menu-md.dropdown-menu-right.with-arrow.panel-default(role="menu" onclick="event.stopPropagation();")
+                                                        div.form-group
+                                                            h5(style="text-align: center") Test number
+                                                            input#test-default-number.form-control(type="text",style="width: 100%;")
+                                                            div.form-control
+                                                                p#result-default-test Result:
+                                                input#def-input-number.form-control(type="text",style="width: 100%;")
+
+                                    //div.col-sm-12
+                                        div.panel.panel-bordered.panel-info
+                                            div.panel-heading(style="height: 31px;")
+                                                a(data-toggle="collapse" href="#def-variables-cont", style="color: white; display: block; line-height: 31px; padding: 0 15px;") Variables
+                                            div.panel-collapse.collapse#def-variables-cont
+                                                div.panel-body
+                                                    button#def-add-variables.btn.btn-success.btn-xs(style="cursor: pointer;") Add
+                                                    div.col-sm-12
+                                                        label.col-sm-5.control-label(style="text-align: center;") Key
+                                                        label.col-sm-5.control-label(style="text-align: center;") Value
+
+                                                    div.clearfix
+
+                                                    hr(style="margin-top: 10px; margin-bottom: 10px;")
+
+                                                    form
+                                                        ul(style="margin: 0; padding: 0; list-style: none;")
+
+
+
+                                div#def-jsoneditor(style="min-height: 100px; width: 100%; height: 483px;")
+                div#public-tabs-box.tab-pane.fade
+                    div.row
+                        div.eq-height
+                            div#wrap-pub-table.col-xs-6.col-sm-4.eq-box-sm
+                                div.newtoolbar
+                                    div.table-toolbar-left
+                                        button#public-add-record.btn.btn-success.fa.fa-plus.disabled(style="line-height: normal;")
+                                        button#public-refresh-table.btn.btn-info.btn-icon.icon.fa.fa-refresh(style="margin-left: 10px")
+                                table#public-table.table-striped
+
+                            div#public-edit-page.col-xs-6.col-sm-4.eq-box-sm(style="display: none;")
+                                div.row(style="padding-left: 12px;")
+                                    div.newtoolbar
+                                        div.table-toolbar-left
+                                            div.text-left
+                                                i.btn-hide-grid.btn.fa.fa-arrows-h(data="wrap-pub-table")
+                                                button#public-save.btn.btn-success.btn-labeled.fa.fa-floppy-o(style="margin-left: 5px; line-height: normal;") Save
+                                                button#public-add.btn.btn-success.btn-labeled.fa.fa-floppy-o(style="margin-left: 5px; line-height: normal;") Add
+                                                button#public-cancel.btn.btn-danger(style="margin-left: 5px; padding-bottom: 0; padding-top: 0; height: 26px;") Cancel
+
+                                div.row
+                                    div.col-sm-6
+                                        div.form-group(style="width:100%")
+                                            label.control-label Name
+                                            input#public-input-name.form-control(type="text",style="width: 100%;", placeholder="Name")
+
+                                    div.pub-tz-cont.col-sm-12
+                                        div.form-group
+                                            label.control-label Time zone
+                                            input#pub-timeZoneInput.form-control(type="text", placeholder="Choose timezone", timeZoneValue="")
+                                            div.flag-cont.f32
+                                                div.flag.ad
+                                            div#pub-timeZoneCont
+
+                                    div.col-sm-12
+                                        div.form-group
+                                            label.control-label Number
+                                            input#public-input-number.form-control(type="text",placeholder="Add number",data-role="tagsinput",style="display: none")
+
+                                    //div.col-sm-12
+                                        div.panel.panel-bordered.panel-info
+                                            div.panel-heading(style="height: 31px;")
+                                                a(data-toggle="collapse" href="#public-variables-cont", style="color: white; display: block; line-height: 31px; padding: 0 15px;") Variables
+                                            div.panel-collapse.collapse#public-variables-cont
+                                                div.panel-body
+                                                    button#public-add-variables.btn.btn-success.btn-xs(style="cursor: pointer;") Add
+                                                    div.col-sm-12
+                                                        label.col-sm-5.control-label(style="text-align: center;") Key
+                                                        label.col-sm-5.control-label(style="text-align: center;") Value
+                                                    div.clearfix
+                                                    hr(style="margin-top: 10px; margin-bottom: 10px;")
+                                                    form
+                                                        ul(style="margin: 0; padding: 0; list-style: none;")
+
+
+                                div#public-jsoneditor(style="min-height: 100px; width: 100%; height: 483px;")
+
+
+
+                div#extension-tabs-box.tab-pane.fade
+                    div.row
+                        div.eq-height
+                            div#wrap-extension-table.col-xs-6.col-sm-4.eq-box-sm
+                                div.newtoolbar
+                                    div.table-toolbar-left
+                                        //button#extension-add-record.btn.btn-success.fa.fa-plus.disabled(style="line-height: normal;")
+                                        button#extension-refresh-table.btn.btn-info.btn-icon.icon.fa.fa-refresh
+                                table#extension-table.table-striped
+
+                            div#extension-edit-page.col-xs-6.col-sm-4.eq-box-sm(style="display: none;")
+                                div.row(style="padding-left: 12px;")
+                                    div.newtoolbar
+                                        div.table-toolbar-left
+                                            div.text-left
+                                                i.btn-hide-grid.btn.fa.fa-arrows-h(data="wrap-extension-table")
+                                                button#extension-save.btn.btn-success.btn-labeled.fa.fa-floppy-o(style="margin-left: 5px; line-height: normal;") Save
+                                                button#extension-add.btn.btn-success.btn-labeled.fa.fa-floppy-o(style="margin-left: 5px; line-height: normal;") Add
+                                                button#extension-cancel.btn.btn-danger(style="margin-left: 5px; padding-bottom: 0; padding-top: 0; height: 26px;") Cancel
+
+                                div.row
+                                    div.col-sm-6
+                                        div.form-group(style="width:100%")
+                                            label.control-label Name
+                                            input#extension-input-name.form-control(type="text",style="width: 100%; background-color: white;", placeholder="Name", disabled)
+
+                                    div.ex-tz-cont.col-sm-12
+                                        div.form-group
+                                            label.control-label Time zone
+                                            input#extension-timeZoneInput.form-control(type="text", placeholder="Choose timezone", timeZoneValue="")
+                                            div.flag-cont.f32
+                                                div.flag.ad
+                                            div#extension-timeZoneCont
+                                    div.col-sm-12
+                                        div.form-group
+                                            label.control-label Number
+                                            input#extension-input-number.form-control(type="text",placeholder="Add number", data-role="tagsinput", style="display: none", disabled)
+
+                                    //div.col-sm-12
+                                        div.panel.panel-bordered.panel-info
+                                            div.panel-heading(style="height: 31px;")
+                                                a(data-toggle="collapse" href="#extension-variables-cont", style="color: white; display: block; line-height: 31px; padding: 0 15px;") Variables
+                                            div.panel-collapse.collapse#extension-variables-cont
+                                                div.panel-body
+                                                    button#extension-add-variables.btn.btn-success.btn-xs(style="cursor: pointer;") Add
+                                                    div.col-sm-12
+                                                        label.col-sm-5.control-label(style="text-align: center;") Key
+                                                        label.col-sm-5.control-label(style="text-align: center;") Value
+                                                    div.clearfix
+                                                    hr(style="margin-top: 10px; margin-bottom: 10px;")
+                                                    form
+                                                        ul(style="margin: 0; padding: 0; list-style: none;")
+
+                                div#extension-jsoneditor(style="min-height: 100px; width: 100%; height: 483px;")
+
+
+
+
+
+    //  модальне вікно вибору домена
+    div#domain-lookup-modal.modal.fade(tabindex="-1", role="dialog")
+        div.modal-dialog
+            div.modal-content
+                div.modal-header
+                    button.close(data-dismiss="modal")
+                        span &times;
+                    h4 Select domain
+                div.modal-body
+                    table#domainListTable
+
+    //  модальне вікно додавання варібл
+    div#add-variables-modal.modal.fade(tabindex="-1", role="dialog")
+        div.modal-dialog
+            div.modal-content
+                div.modal-header
+                    button.close(data-dismiss="modal")
+                        span &times;
+                    h4 Add variables
+                div.modal-body
+                    button#add-variables-btn.btn.btn-success.btn-xs(style="cursor: pointer;") Add
+                    div.col-sm-12
+                        label.col-sm-5.control-label(style="text-align: center;") Key
+                        label.col-sm-5.control-label(style="text-align: center;") Value
+                    div.clearfix
+                    hr(style="margin-top: 10px; margin-bottom: 10px;")
+                    form
+                        ul(style="margin: 0; padding: 0; list-style: none;")
+                div.modal-footer
+                    button.btn.btn-danger(data-dismiss="modal") Cancel
+                    button.saveVariables.btn.btn-success Save
+
+
+
+
+<!-- CSS && js -->
+link(href="/css/callflow/callflow.css", rel="stylesheet", type="text/css")
+link(href="/js/libs/bootstrap-tagsinput/bootstrap-tagsinput.css", rel="stylesheet", type="text/css")
+link(href="/js/libs/jsoneditor/dist/jsoneditor.css", rel="stylesheet", type="text/css")

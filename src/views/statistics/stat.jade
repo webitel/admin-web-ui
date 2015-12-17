@@ -1,0 +1,8 @@
+extends ../layout
+block body
+    if role == "root"
+        include ./statRoot
+    else if role == "admin"
+        include ./statAdmin
+    else if role == "user"
+        include ./statUser

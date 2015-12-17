@@ -1,0 +1,64 @@
+/* Ліба відображення для fa = display: inline-block. Перекриваю цей стиль */
+#datepicker span.fa {
+    display: table-cell;
+}
+
+
+/* Випадаючий список фіксованих періодів дат */
+.panel-body .fixedPeriodDate {
+    padding: 10px 15px;
+    cursor: pointer;
+}
+.panel-body .fixedPeriodDate:hover {
+    background: #458fd2;
+    color: #ffffff;
+}
+
+
+/* Перекриваю z-index ліби bootstrapTable, який = 99 */
+.bootstrap-table .fixed-table-body .fixed-table-loading {
+    z-index: 10;
+}
+
+/* Кнопка відкривання додаткової інформації по статистиці */
+#statisticsBootstrapTable  .statMoreInfoTr {
+
+}
+
+
+/* Export to excel */
+.export-excel-cont {
+	float: right;
+	position: relative;
+}
+.export-excel-cont i {
+	position: absolute;
+	top: 9px;
+	left: 8px;
+	color: #000000;
+	display: none;
+}
+#exportToExcelLink {
+	cursor: pointer;
+	height: 30px;
+	width: 30px;
+	opacity: 1;
+}
+#exportToExcelLink img {
+	width: 30px;
+	height: 30px;
+}
+
+.export-excel-cont.active i {
+	display: block;
+}
+.export-excel-cont.active #exportToExcelLink {
+	cursor: default;
+	opacity: 0.3;
+}
+
+
+/* last-bridge-to */
+#statisticsBootstrapTable .last-bridge-to {
+	background: antiquewhite;
+}

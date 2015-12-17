@@ -1,0 +1,361 @@
+
+body {
+    background-color: #f0f0f0 !important;
+}
+
+/* cfd */
+#cfd {
+    position: absolute;
+    top: 71px;
+    left: 3px;
+    right: 3px;
+    bottom: 3px;
+    font-size: 13px;
+    font-family: verdana, sans-serif;
+    box-shadow: 0 0 2px #337ab7;
+    background-color: white;
+    margin: 0;
+}
+
+/* tools */
+#cfd-toolbar-container {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    right: 3px;
+}
+
+/* elements */
+#cfd-elements {
+    width: 150px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+}
+#cfd-elements-container {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+.cfd-elements-group {
+    margin: 2px;
+    border: 1px solid silver;
+}
+.cfd-elements-group-caption {
+    background-color: #e0e0e0;
+    margin: 0;
+    padding: 5px;
+    color: black;
+}
+.cfd-elements-group-caption-collapsed:before {
+    content: "+ ";
+}
+.cfd-elements-group-caption-expanded:before {
+    content: "- ";
+}
+.cfd-elements-group-caption:hover {
+    cursor: pointer;
+}
+.cfd-elements-group-canvas {
+    background-color: #f0f0f0;
+}
+
+/* canvas */
+#cfd-canvas {
+    height: 100%;
+    position: absolute;
+    border-left: 1px solid #337ab7;
+    border-right: 1px solid #337ab7;
+    left: 150px;
+    right: 300px;
+}
+#cfd-canvas-container {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+/* property */
+#cfd-property {
+    width: 300px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    padding-left: 8px;
+}
+#cfd-property-container {
+    width: 100%;
+    height: 75%;
+    position: relative;
+    padding: 10px;
+}
+#cfd-property-container hr {
+    margin: 7px 0;
+}
+#cfd-property-container .property-table td {
+    padding: 0 0 5px 5px;
+}
+#cfd-property-container .property-label {
+    font-size: 12px;
+}
+#cfd-property-container .property-input,
+#cfd-property-container .property-select {
+    font-size: 12px;
+    padding: 2px 5px;
+    height: 23px;
+}
+
+/* property key value list */
+#cfd-property-container .property-keyValueList {
+    margin-left: 4px;
+    margin-top: 2px;
+    position: relative;
+}
+#cfd-property-container .property-keyValueList .panel-heading,
+#cfd-property-container .property-keyValueList .panel-body {
+    padding: 3px;
+}
+#cfd-property-container .property-keyValueList-add {
+    border-color: #82A8CA;
+    color: #337ab7;
+    background-color: #E3F2FF;
+    height: 18px;
+    width: 18px;
+    padding: 0;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    font-size: 11px;
+}
+#cfd-property-container .property-keyValueList-remove {
+    padding: 2px;
+    font-size: 12px;
+    margin-left: 3px;
+}
+#cfd-property-container .property-keyValueList-item {
+    margin-bottom: 2px;
+}
+#cfd-property-container .property-keyValueList-item-key {
+    display: inline;
+    width: 30%;
+    border-radius: 3px 0 0 3px;
+}
+#cfd-property-container .property-keyValueList-item-value {
+    display: inline;
+    width: 50%;
+    border-radius: 0 3px 3px 0;
+    border-left: none;
+}
+
+/* property-close */
+#cfd-property-close {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 8px;
+    background-color: #E3F2FF;
+    border-right: 1px solid #82A8CA;
+}
+#cfd-property-close.property-closed {
+    border-radius: 0 4px 4px 0;
+    border-right: none;
+}
+#cfd-property-close .property-close-btn {
+    position: absolute;
+    top: 43%;
+    border: 1px solid #82A8CA;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    height: 40px;
+    width: 100%;
+    padding: 0;
+    line-height: 40px;
+    font-weight: bold;
+    font-size: 8px;
+    color: #337ab7;
+}
+
+/* preview */
+#cfd-preview-container {
+    position: relative;
+    border-top: 1px solid #82A8CA;
+    height: 25%;
+    padding: 15px 5px 5px 5px;
+}
+#cfd-preview-container span {
+    position: absolute;
+    left: 1px;
+    top: -2px;
+    font-size: 11px;
+}
+#cfd-preview-container svg {
+    border: 1px dotted #82A8CA;
+}
+
+/* drag */
+#cfd-drag {
+    position: absolute;
+    display: none;
+    border: 2px dashed gray;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    opacity: 0.7;
+}
+
+/* select */
+#cfd-select {
+    position: relative;
+    display: none;
+    border: 2px dashed gray;
+    pointer-events: none;
+}
+.cfd-select-button {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    vertical-align: middle;
+    opacity: 0.5;
+    cursor: pointer;
+    pointer-events: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(../../img/button/default.png);
+    display: none;
+}
+.cfd-select-button:hover {
+    opacity: 1;
+}
+.cfd-select-button-leftTop {
+    top: -17px;
+    left: -17px;
+    background-image: url(../../img/button/delete.png);
+    display: block;
+}
+.cfd-select-button-rightMiddle {
+    top: 16px;
+    left: 53px;
+    background-image: url(../../img/button/link.png);
+    display: block;
+}
+.cfd-select-button-leftBottom {
+    bottom: -17px;
+    left: -17px;
+}
+.cfd-select-button-rightTop {
+    top: -17px;
+    right: -17px;
+}
+.cfd-select-button-rightBottom {
+    bottom: -17px;
+    right: -17px;
+}
+
+/* modal box */
+.cfd-modal-box-cover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+    opacity: 0.3;
+    display: none;
+}
+.cfd-modal-box {
+    position: absolute;
+    padding: 3px;
+    box-shadow: 0 0 2px #337ab7 !important;
+    display: none;
+}
+.cdf-modal-box-header {
+    background-color: #E3F2FF;
+    height: 29px;
+    padding: 5px 20px 5px 10px;
+}
+.cfd-modal-box-title {
+    color: #337ab7;
+    font-weight: bold;
+}
+.cfd-modal-box-close {
+    position: absolute;
+    top: 8px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 15px;
+    color: #337ab7;
+    font-weight: bold;
+}
+.cfd-modal-box-close:hover {
+    cursor: pointer;
+}
+.cfd-modal-box-content {
+    position: absolute;
+    top: 35px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 1px solid #337ab7;
+    font-size: 13px;
+}
+
+
+/* joint marker */
+.marker-arrowhead {
+    fill: white;
+    stroke: black;
+}
+.marker-arrowhead:hover {
+    cursor: pointer;
+    fill: white;
+    stroke: black;
+}
+.marker-vertex {
+    fill: white;
+    stroke: black;
+    stroke-width: 2px;
+}
+
+/* joint link tools */
+.link-tools .link-tool {
+    opacity: 0.7;
+}
+.link-tools .link-tool:hover {
+    opacity: 1;
+}
+.link-tools .tool-remove circle {
+    fill: white !important;
+    stroke: gray;
+}
+.link-tools .tool-remove path {
+    fill: gray !important;
+}
+.link-tools .tool-options {
+    display: block;
+}
+.link-tools .tool-options circle {
+    fill: white !important;
+    stroke: gray;
+}
+.link-tools .tool-options path {
+    fill: gray !important;
+}
+
+/* joint vertex */
+.marker-vertex-remove {
+    fill: gray;
+}
+.marker-vertex-remove-area {
+    fill: white;
+    stroke: black;
+}
+
+/* joint highlighted */
+.highlighted {
+    outline: 2px solid silver;
+    outline-offset: 1px;
+}

@@ -1,0 +1,248 @@
+.panel-webitel .panel-heading, .panel-webitel .panel-footer, .panel-webitel.panel-colorful {
+    background-color: #32404e !important;
+    border-color: #32404e !important;
+    color: #fff !important;
+}
+
+.remove-queue-modal .modal-body {
+    min-height: 0;
+}
+
+
+/* Основний контейнер карточки */
+#addAcdPageContainer {
+    padding: 0px 15px;
+}
+
+    /* Контенер для кнопок в карточці створення черги */
+    .add-acd-page-actions {
+        background: #ffffff;
+        margin: 0;
+        padding: 10px 0px;
+    }
+
+    /* Хедер з полями карточки створення черги */
+    .add-acd-page-header {
+        padding: 10px 0px;
+        background: #ffffff;
+    }
+        /* Селект вибору стратегії */
+        .add-acd-strategy-field, .add-acd-timeBaseScore-field {
+            border: 1px solid #e9e9e9;
+            background-color: #fff;
+            padding: 5px 10px;
+            height: 30px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+
+
+
+
+/* Форма для перекидання операторів */
+#agentsListForm {
+    display: none;
+}
+
+
+/* Контейнер із списокм всіх операторів */
+.agents-list-wrap {
+    margin: 5px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 5px;
+    border-radius: 2px;
+    background: white;
+}
+    /* Заголовок списку всіх операторів */
+    .agents-list-wrap .agents-list-header {
+        display: block;
+        text-align: center;
+        font-weight: bold;
+        padding: 10px 15px;
+    }
+    /* Footer списку всіх операторів */
+    .agents-list-wrap .agents-list-footer {
+        display: block;
+        cursor: pointer;
+    }
+        .agents-list-wrap .agents-list-footer .move-all {
+            display: inline-block;
+            width: 49%;
+            padding: 10px 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .agents-list-wrap .agents-list-footer .move-all:hover {
+            background: #97c664;
+            color: #ffffff;
+        }
+        .agents-list-wrap .agents-list-footer .move-selected {
+            display: inline-block;
+            width: 49%;
+            padding: 10px 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .agents-list-wrap .agents-list-footer .move-selected:hover {
+            background: #97c664;
+            color: #ffffff;
+        }
+
+    /* Список всіх операторів */
+    #agentsList {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        text-align: left;
+    }
+        #agentsList li {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        #agentsList li:hover {
+            background: #458fd2;
+            color: #ffffff;
+        }
+        #agentsList li.active {
+            background: #458fd2;
+            color: #ffffff;
+        }
+            /* Імя оператора */
+            #agentsList li .agent-name {
+                line-height: 17px;
+            }
+            /* Позначка статуса оператора */
+            #agentsList li .agent-status {
+                float: right;
+                line-height: 17px;
+            }
+            #agentsList li .agent-status.ONHOOK {
+                color: greenyellow;
+            }
+            #agentsList li .agent-status.ISBUSY {
+                color: orange;
+            }
+            #agentsList li .agent-status.NONREG {
+                color: #808080;
+            }
+            #agentsList li .agent-status.WAITING {
+                color: greenyellow;
+            }
+
+
+    /* Список всіх операторів в черзі */
+    #queueAgentsList {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        text-align: left;
+    }
+        #queueAgentsList li {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        #queueAgentsList li:hover {
+            background: #458fd2;
+            color: #ffffff;
+        }
+        #queueAgentsList li.active {
+            background: #458fd2;
+            color: #ffffff;
+        }
+            /* Імя оператора */
+            #queueAgentsList li .agent-name {
+                line-height: 17px;
+            }
+            /* Позначка статуса оператора */
+            #queueAgentsList li .agent-status {
+                float: right;
+                line-height: 17px;
+            }
+            #queueAgentsList li .agent-status.ONHOOK {
+                color: greenyellow;
+            }
+            #queueAgentsList li .agent-status.ISBUSY {
+                color: orange;
+            }
+            #queueAgentsList li .agent-status.NONREG {
+                color: #808080;
+            }
+            #queueAgentsList li .agent-status.WAITING {
+                color: greenyellow;
+            }
+
+
+    /* Контейнер дял повідомлення, що немає операторів в домені */
+    #agentsListEmpty {
+        display: none;
+    }
+
+
+/**                                             AcdPageContainer
+ **********************************************************************************************************************/
+/* Контейнер для картчоки черги */
+#acdPageContainer {
+    padding: 0px 15px;
+}
+    /* Хедер карточки черги */
+    #acdPageContainer .open-acd-page-header {
+        padding: 10px 0px;
+        background: white;
+    }
+
+
+
+/**                                        ACD SWITCH ENABLE/DISABLE
+ **********************************************************************************************************************/
+.onoffswitch {
+    position: relative; width: 56px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    /*border: 2px solid #999999;*/
+    border-radius: 20px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 19px; padding: 0; line-height: 19px;       /* Change height */
+    font-size: 12px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "ON";
+    padding-left: 10px;
+    background-color: #97C664; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "OFF";
+    padding-right: 10px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 14px; margin: 3.5px;
+    background: #FFFFFF;
+    border: 2px solid #999999; border-radius: 20px;
+    position: absolute; top: 0; bottom: 0; right: 35px;
+    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
+    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px;
+}

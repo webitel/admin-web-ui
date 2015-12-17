@@ -1,0 +1,8 @@
+extends ../layout
+block body
+    if role == "root"
+        include acdRoot
+    else if role == "admin"
+        include acdAdmin
+    else if role == "user"
+        include acdUser

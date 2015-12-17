@@ -1,0 +1,51 @@
+div#page-title
+    h1.page-header.text-overflow Media
+
+div#page-content
+    div.wrap-audio-cont
+        div.wrap-custom-audio-cont
+            div.custom-audio-heading
+                div.pull-left
+                    h3.audio-cont-title Audio list
+
+
+
+            div#uploadProgressBarCont.progress
+                div.progress-bar.progress-bar-primary.uploadProgressBar
+
+            div.custom-audio-body
+                div.audio-body-controls
+                    div(style="display: inline;")
+                        button.addAudio.btn.btn-success.btn-icon.icon.fa.fa-plus
+                        input.addAudioInput(multiple, accept=".mp3, .wav", type="file", style="visibility: hidden; position: absolute; width: 0; height: 0;")
+                    button.refreshAudio.btn.btn-info.btn-icon.icon.fa.fa-refresh(data-target="#play-list-cont")
+
+                div.clearfix
+
+                hr(style="margin-top: 15px; margin-bottom: 15px;")
+
+                div.audio-body-content
+                    div#play-list-cont
+                        ul#list
+
+        div.clearfix
+
+    //  контейнер для збереження аудіо плеєра
+    div#audioPlayerHome(style="display: none;")
+        div#mediaelement-wrap
+            div.mediaelement-cont
+                audio.audio-player(src="./img/mediaSection/demo.mp3", controls="controls")
+
+    //  модальне вікно вибору домена для фільтрації статистики по домену
+    div#stat-domain-lookup-modal.modal.fade(tabindex="-1", role="dialog")
+        div.modal-dialog
+            div.modal-content
+                div.modal-header
+                    button.close(data-dismiss="modal")
+                        span &times;
+                    h4 Select domain
+                div.modal-body
+                    table#statDomainListTable
+
+    <!-- CSS mediaSection -->
+    link(href="css/media/media.css", rel="stylesheet")

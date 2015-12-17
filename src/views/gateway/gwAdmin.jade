@@ -1,0 +1,176 @@
+div#page-title
+    h1.page-header.text-overflow Gateway
+
+div#page-content
+    div.panel.panel-default.panel-left
+        div.panel-body.gatewayPanelBody
+            div.row
+                div.col-sm-6
+                    div.pull-left(style="line-height: 31px;")
+                        button.addGateway.btn.btn-success.btn-icon.icon.fa.fa-plus(style="margin: 0 3px;")  Gateway
+
+                div.col-sm-6
+                    div.pull-right(style="line-height: 31px;")
+                        button.refGatewayList.btn.btn-info.btn-icon.icon.fa.fa-refresh(style="margin: 0 3px;", data-target=".gatewayPanelBody .gatewayList")
+
+            hr.hr-sm
+
+            ul.gatewayList
+
+        div.panel-body.gwCardCont(style="display: none;")
+            div.row
+                div.col-sm-12.gwCardHeader
+                    div.pull-left
+                        div.gwLogo
+                            img(src="")
+                        div.gwName
+                            span
+
+                    div.pull-right
+                        div.gwStatus
+                            span.label.label-danger
+                        div.gwDomain
+                            span.label.label-mint
+
+                div(style="clear: both;")
+
+                hr.hr-sm
+
+                div.gwCardBody
+                    div.gwSpecialParams.col-sm-6
+                        div.col-sm-12(style="margin: 5px 0; text-align: center; font-weight: 600;")
+                            span.control-label Values:
+                        div.gwValues
+                    div.gwParamsCont.col-sm-6
+                        div.col-sm-12(style="margin: 5px 0; text-align: center; font-weight: 600;")
+                            span.control-label Params:
+                        div.gwParams
+
+                div(style="clear: both;")
+
+                hr.hr-sm
+
+                div.gwCardFooter
+                    div.col-sm-6
+                        div.pull-left
+                            div.wrapAddParamCont
+                                button#addParamToGwCard.btn.btn-info.btn-sm Add parameter
+                                div#addParamsToGwInCard
+                                    button.addParams.btn.btn-default(type="button", paramName="auth-username") auth-username
+                                    button.addParams.btn.btn-default(type="button", paramName="caller-id-in-from") caller-id-in-from
+                                    button.addParams.btn.btn-default(type="button", paramName="extension") extension
+                                    button.addParams.btn.btn-default(type="button", paramName="proxy") proxy
+                                    button.addParams.btn.btn-default(type="button", paramName="expire-seconds") expire-seconds
+                                    button.addParams.btn.btn-default(type="button", paramName="retry-seconds") retry-seconds
+                                    button.addParams.btn.btn-default(type="button", paramName="from-user") from-user
+                                    button.addParams.btn.btn-default(type="button", paramName="from-domain") from-domain
+                                    button.addParams.btn.btn-default(type="button", paramName="register-proxy") register-proxy
+                                    button.addParams.btn.btn-default(type="button", paramName="contact-params") contact-params
+                                    button.addParams.btn.btn-default(type="button", paramName="register-transport") register-transport
+                                    button.addParams.btn.btn-default(type="button", paramName="outbound-proxy") outbound-proxy
+
+                    div.col-sm-6
+                        div.pull-right
+                            button#saveGwCard.btn.btn-success.btn-sm(style="margin: 0 5px;") Save
+                            button.closeGwCard.btn.btn-default.btn-sm Close
+    //  Модальне вікно додавання нового шлюза
+    div#addGwWizardModal.modal.fade(tabindex="-1", role="dialog", data-backdrop="static")
+        div.modal-dialog
+            div.modal-content
+                div.modal-header
+                    button.close(data-dismiss="modal")
+                        span &times;
+                    h5 Add gateway
+                div.modal-body
+                    div#addGwWizard
+                        ul.wz-nav-off.wz-icon-inline.wz-classic
+                            li.col-xs-3.bg-primary
+                                a(data-toggle="tab", href="#addGw-cls-tab1", aria-expanded="false")
+                                    span.icon-wrap.icon-wrap-xs.bg-trans-dark
+                                        i.fa.fa-info
+                                    |  Provider
+                            li.col-xs-3.bg-primary
+                                a(data-toggle="tab", href="#addGw-cls-tab2", aria-expanded="false")
+                                    span.icon-wrap.icon-wrap-xs.bg-trans-dark
+                                        i.fa.fa-user
+                                    |  Name
+                            li.col-xs-3.bg-primary
+                                a(data-toggle="tab", href="#addGw-cls-tab3", aria-expanded="false")
+                                    span.icon-wrap.icon-wrap-xs.bg-trans-dark
+                                        i.fa.fa-user
+                                    |  Param
+                            li.col-xs-3.bg-primary
+                                a(data-toggle="tab", href="#addGw-cls-tab4", aria-expanded="false")
+                                    span.icon-wrap.icon-wrap-xs.bg-trans-dark
+                                        i.fa.fa-user
+                                    |  Finish
+
+                        div.progress.progress-sm.progress-striped.active
+                            div.progress-bar.progress-bar-info(style="width: 75%;")
+
+                        //form.form-horizontal.mar-top
+                        div.panel-body
+                            div.tab-content
+                                div#addGw-cls-tab1.tab-pane(style="text-align: center;")
+                                    div(style="display: inline-flex;")
+                                        div(style="line-height: 100px;")
+                                            img(src="./img/addGateway/sipTrunkTree.png", gwType="isSipTrunk", style="width: 100px; height: 100px;")
+                                        div(style="line-height: 100px;")
+                                            img(src="./img/addGateway/skypeConnect.jpg", gwType="isSkypeConnect", style="width: 200px;")
+                                        div(style="line-height: 100px;")
+                                            img(src="./img/addGateway/sipProvider.png", gwType="isSipProvider", style="width: 200px;")
+
+                                div#addGw-cls-tab2.tab-pane
+                                    form.form-horizontal
+
+                                div#addGw-cls-tab3.tab-pane
+                                    form.form-horizontal
+
+                                    hr.hr-sm
+
+                                    div.addParamsCont
+                                        button.addParams.btn.btn-default(type="button", paramName="auth-username") auth-username
+                                        button.addParams.btn.btn-default(type="button", paramName="caller-id-in-from") caller-id-in-from
+                                        button.addParams.btn.btn-default(type="button", paramName="extension") extension
+                                        button.addParams.btn.btn-default(type="button", paramName="proxy") proxy
+                                        button.addParams.btn.btn-default(type="button", paramName="expire-seconds") expire-seconds
+                                        button.addParams.btn.btn-default(type="button", paramName="retry-seconds") retry-seconds
+                                        button.addParams.btn.btn-default(type="button", paramName="from-user") from-user
+                                        button.addParams.btn.btn-default(type="button", paramName="from-domain") from-domain
+                                        button.addParams.btn.btn-default(type="button", paramName="register-proxy") register-proxy
+                                        button.addParams.btn.btn-default(type="button", paramName="contact-params") contact-params
+                                        button.addParams.btn.btn-default(type="button", paramName="register-transport") register-transport
+                                        button.addParams.btn.btn-default(type="button", paramName="outbound-proxy") outbound-proxy
+
+                                div#addGw-cls-tab4.tab-pane
+                                    h5(style="text-align: center;") Do you really want to add this gateway?
+                                        //span.selectedDomain(style="text-decoration: underline; margin-left: 3px;")
+                                        //span ?
+                                    //table#gwDomainTable
+
+                        div.panel-footer.text-right
+                            div.box-inline
+                                input.btn.button-first(type='button', name='first', value='First', style="display: none;")
+                                button.previous.btn.btn-primary(type="button") Previous
+                                button.next.btn.btn-primary(type="button", style="display: inline-block;") Next
+                                button.finish.btn.btn-success(type="button", disabled="" style="display: none;") Finish
+    //  REMOVE GW MODAL
+    div#remove-gw-modal.modal.fade(tabindex="-1", role="dialog")
+        div.modal-dialog.modal-sm
+            div.modal-content
+                div.modal-header
+                    button.close(data-dismiss="modal")
+                        span &times;
+                    h5 Do you want to remove this gateway ?
+                div.modal-body
+                    form.form-horizontal
+                        div.form-group
+                            label.col-md-3.control-label Remove
+                            div.col-md-6
+                                p.gwName.form-control-static(style="font-weight: bold;") 4548
+                div.modal-footer
+                    button.btn.btn-danger(data-dismiss="modal") No
+                    button.agreeRemGw.btn.btn-success(data-dismiss="modal") Yes
+    <!-- CSS Datepicker3 -->
+    link(href="css/gateway/gateway.css", rel="stylesheet")
+                                                                  

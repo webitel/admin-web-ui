@@ -1,0 +1,60 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset='utf-8')
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Webitel | Auth
+
+        <!--Open Sans Font -->
+        link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin", rel="stylesheet")
+
+        <!--Bootstrap Stylesheet -->
+        link(href="/css/common/bootstrap.min.css", rel="stylesheet")
+
+        <!--Nifty Stylesheet -->
+        link(href="/css/common/nifty.min.css", rel="stylesheet")
+
+        <!--Font Awesome -->
+        link(href="/css/common/font-awesome.min.css", rel="stylesheet")
+
+        <!--Page Load Progress Bar -->
+        link(href="/css/common/pace.min.css", rel="stylesheet")
+        script(src="/js/common/pace.min.js")
+
+        <!--Custom layuot Stylesheet -->
+        link(href="/css/layout.css", rel="stylesheet")
+
+    body
+        div#container.cls-container
+
+            div#bg-overlay.bg-img.demo-my-bg
+
+            div.cls-header.cls-header-lg
+                div.cls-brand
+                    a.box-inline(onclick="return false;", style="cursor: default;")
+                        <!-- <img alt="Nifty Admin" src="img/logo.png" class="brand-icon"> -->
+                        span.brand-title Webitel
+                            span.text-thin  UI
+
+            div.cls-content
+                div.cls-content-sm.panel
+                    div.panel-body
+
+
+
+
+        <!--jQuery -->
+        script(src="/js/common/jquery-2.1.1.min.js")
+        <!--BootstrapJS -->
+        script(src="/js/common/bootstrap.min.js")
+        <!--Fast Click -->
+        script(src="/js/common/fastclick.min.js")
+        <!--Nifty Admin -->
+        script(src="/js/common/nifty.min.js")
+
+        <!--Underscore/Backbone -->
+        script(src="/js/libs/Backbone/underscore.min.js")
+        script(src="/js/libs/Backbone/backbone.min.js")
+
+        <!--RequireJS -->
+        script(data-main="/js/app/mainLogin", src="/js/libs/RequireJS/require.min.js")

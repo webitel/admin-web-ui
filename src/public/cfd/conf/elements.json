@@ -1,0 +1,118 @@
+
+[
+    {
+        "group": "basic",
+        "caption": "Basic",
+        "collapsed": false,
+        "visible": true,
+        "index": 0,
+        "items": [
+            {
+                "elType": "start",
+                "shapeType": "circle",
+                "caption": "Start",
+                "text": "start1",
+                "imgUrl": "/cfd/img/element/start.png"
+            },
+            {
+                "elType": "terminate",
+                "shapeType": "circle",
+                "caption": "Terminate",
+                "text": "terminate1",
+                "imgUrl": "/cfd/img/element/terminate.png"
+            }
+        ]
+    },
+    {
+        "group": "webitel",
+        "caption": "Webitel",
+        "collapsed": false,
+        "visible": true,
+        "index": 1,
+        "items": [
+            {
+                "elType": "answer",
+                "caption": "Answer",
+                "text": "answer1",
+                "imgUrl": "/cfd/img/element/answer.png",
+                "properties": {
+                    "status": {
+                        "value": "200",
+                        "visible": true
+                    }
+                }
+            },
+            {
+                "elType": "hangup",
+                "caption": "Hangup",
+                "text": "hangup1",
+                "imgUrl": "/cfd/img/element/hangup.png",
+                "properties": {}
+            },
+            {
+                "elType": "setVar",
+                "caption": "Set variable",
+                "text": "setVar1",
+                "imgUrl": "/cfd/img/element/setVar.png",
+                "properties": {
+                    "variables": {
+                        "value": [],
+                        "visible": true
+                    }
+                }
+            },
+            {
+                "elType": "sleep",
+                "caption": "Sleep",
+                "text": "sleep1",
+                "imgUrl": "/cfd/img/element/sleep.png",
+                "properties": {
+                    "time": {
+                        "value": "100",
+                        "visible": true
+                    }
+                }
+            },
+            {
+                "elType": "bridge",
+                "caption": "Bridge",
+                "text": "bridge1",
+                "imgUrl": "/cfd/img/element/bridge.png",
+                "properties": {}
+            },
+            {
+                "elType": "recordSession",
+                "caption": "Record session",
+                "text": "recordSession1",
+                "imgUrl": "/cfd/img/element/recordSession.png",
+                "properties": {
+                    "record": {
+                        "value": "start",
+                        "visible": true
+                    }
+                }
+            },
+            {
+                "elType": "playback",
+                "caption": "Playback",
+                "text": "playback1",
+                "imgUrl": "/cfd/img/element/playback.png",
+                "properties": {}
+            },
+            {
+                "elType": "if",
+                "caption": "If",
+                "text": "if1",
+                "imgUrl": "/cfd/img/element/default.png",
+                "properties": {}
+            },
+            {
+                "elType": "switch",
+                "caption": "Switch",
+                "text": "switch1",
+                "imgUrl": "/cfd/img/element/default.png",
+                "properties": {}
+            }
+        ]
+    }
+]

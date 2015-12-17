@@ -1,0 +1,8 @@
+extends ../layout
+block body
+    if role == "root"
+        include ./mediaRoot
+    else if role == "admin"
+        include ./mediaAdmin
+    else if role == "user"
+        include ./mediaUser

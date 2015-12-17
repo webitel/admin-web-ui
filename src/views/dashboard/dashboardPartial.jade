@@ -1,0 +1,45 @@
+
+div#page-title
+    h1.page-header.text-overflow Dashboard
+
+
+div#page-content
+    | Dashboard
+    //div.row
+        div.col-lg-5
+
+            div#demo-weather-widget.panel.panel-mint.panel-colorful.text-center
+                div.panel-body
+
+                    div.row.pad-top
+                        div.col-xs-6
+                            canvas#demo-weather-icon-1(width="98", height="98")
+                        div.col-xs-6
+                            p.text-4x 27&#176
+                            p.text-semibold Partly Cloudy Day
+
+                    h4.mar-no.pad-top San Jose, CA
+                    p Today
+                    hr
+
+                    ul.list-unstyled.text-center.clearfix
+                        li.col-xs-3
+                            canvas#demo-weather-icon-2(width="32", height="32")
+                            p.text-sm.mar-no Saturday
+                            p 25 &#176;C
+                        li.col-xs-3
+                            canvas#demo-weather-icon-3(width="32", height="32")
+                            p.text-sm.mar-no Sunday
+                            p 22 &#176;C
+                        li.col-xs-3
+                            canvas#demo-weather-icon-4(width="32", height="32")
+                            p.text-sm.mar-no Monday
+                            p 20 &#176;C
+                        li.col-xs-3
+                            canvas#demo-weather-icon-5(width="32", height="32")
+                            p.text-sm.mar-no Monday
+                            p 28 &#176;C
+
+
+
+//  link(href="css/dashboard/dashboard.css", rel="stylesheet")

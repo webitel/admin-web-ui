@@ -1,0 +1,17 @@
+div#page-title
+    h1.page-header.text-overflow Account
+
+div#page-content
+    div.panel.panel-primary
+        div.panel-heading
+            div.panel-control(style="float: left;")
+                ul.accountTabs.nav.nav-tabs
+                    li.active
+                        a(data-toggle="tab", href="#acc-tabs-box-1", isAccount="true") Accounts
+        div.panel-body
+            div.tab-content
+                div#acc-tabs-box-1.tab-pane.fade.active.in
+                    div(style="height: 31px;")
+                        button.selectDomainBtn.btn.btn-success(disabled="disabled" style="visibility: hidden;")
+                        button.refAccTable.btn.btn-info.btn-icon.fa.fa-refresh(style="float: right; margin: 0 3px;", data-target="#accountListTable" )
+                    table#accountListTable

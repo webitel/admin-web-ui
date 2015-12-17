@@ -1,0 +1,15 @@
+{
+    "application": {
+        "port": "10020",
+        "logLevel": "LOGLEVEL",
+        "session": {
+            "secret": "SESSION_SECRET"
+        }
+    },
+    "ssl": {
+        "enabled": SSL,
+        "keyFile": "wss.pem",
+        "certFile": "wss.pem"
+    }
+}
+

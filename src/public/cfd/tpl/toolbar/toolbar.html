@@ -1,0 +1,53 @@
+
+<!-- Toolbar logo -->
+<div class="toolbar-logo panel panel-primary">
+    <h4 class="text-primary">Callflow Designer</h4>
+</div>
+
+<!-- Toolbar tabs -->
+<div class="toolbar-tabs panel panel-primary">
+
+    <ul class="nav nav-tabs nav-justified">
+        <li class="active">
+            <a data-toggle="tab" href="#toolbar-json-tab" aria-expanded="true" onclick="return false;">JSON</a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#toolbar-view-tab" aria-expanded="true" onclick="return false;">View</a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#toolbar-help-tab" aria-expanded="true" onclick="return false;">Help</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <!-- Json tab -->
+        <div id="toolbar-json-tab" class="tab-pane fade active in">
+            <label class="btn btn-primary btn-xs" data-tag="export">Export</label>
+            <label class="btn btn-primary btn-xs" data-tag="import">Import</label>
+            <label class="btn btn-primary btn-xs" data-tag="showJson">Show JSON</label>
+        </div>
+        <!-- View tab -->
+        <div id="toolbar-view-tab" class="tab-pane fade in">
+            <span class="text-primary">Width:</span>
+            <div class="btn-group btn-group-xs" role="group">
+                <!-- left arrow -->
+                <label class="btn btn-primary btn-xs" data-tag="widthShrink" title="Shrink width">&#8592;</label>
+                <!-- right arrow -->
+                <label class="btn btn-primary btn-xs" data-tag="widthExpand" title="Expand width">&#8594;</label>
+            </div>
+            &nbsp;&nbsp;
+            <span class="text-primary">Height:</span>
+            <div class="btn-group btn-group-xs" role="group">
+                <!-- up arrow -->
+                <label class="btn btn-primary btn-xs" data-tag="heightShrink" title="Shrink height">&#8593;</label>
+                <!-- down arrow -->
+                <label class="btn btn-primary btn-xs" data-tag="heightExpand" title="Expand height">&#8595;</label>
+            </div>
+        </div>
+        <!-- Help tab -->
+        <div id="toolbar-help-tab" class="tab-pane fade in">
+            ...
+        </div>
+    </div>
+
+</div>

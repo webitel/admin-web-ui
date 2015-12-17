@@ -1,0 +1,65 @@
+<div class="col-sm-12 col-md-4">
+    <div class="panel panel-webitel panel-colorful">
+        <!-- style="background-color: #32404e;" -->
+        <div class="panel-heading">
+            <div class="panel-control" style="height: auto;">
+                <div class="onoffswitch">
+                    <% if (enable === "true") { %>
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="acdOnoffswitch-<%= name %>" checked>
+                    <% } else if (enable === "false") { %>
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="acdOnoffswitch-<%= name %>">
+                    <% } %>
+                    <label class="onoffswitch-label" for="acdOnoffswitch-<%= name %>">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+            </div>
+
+            <h3 class="panel-title"><%= name %></h3>
+        </div>
+
+        <div class="panel-body">
+            <div>
+                <span>
+                    <strong>Strategy: </strong>
+                    <%= strategy %>
+                </span>
+            </div>
+            <div>
+                <span>
+                    <strong>Members: </strong>
+                    <%= members %>
+                </span>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 text-center">
+                    <span class="text-5x" style="color: #1AE412;"><%= agentsCounter.available %></span>
+                    <p>Available</p>
+                </div>
+                <div class="col-sm-3 text-center">
+                    <span class="text-5x" style="color: #EA2200"><%= agentsCounter.busy %></span>
+                    <p>Busy</p>
+                </div>
+                <div class="col-sm-3 text-center">
+                    <span class="text-5x" style="color: #D0D41C"><%= agentsCounter.onBreak %></span>
+                    <p>On break</p>
+                </div>
+                <div class="col-sm-3 text-center">
+                    <span class="text-5x" style="color: #CDD2CD"><%= agentsCounter.offLine %></span>
+                    <p>Offline</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="panel-footer">
+            <div class="pull-left">
+                <button class="open-acd-model btn btn-success btn-xs">Open</button>
+                <button class="remove-acd-model btn btn-danger btn-xs">Remove</button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>

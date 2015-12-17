@@ -1,0 +1,52 @@
+
+/* toolbar-logo */
+#cfd-toolbar-container .toolbar-logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 66px;
+    box-shadow: 0 0 2px #337ab7;
+    background-color: #E3F2FF;
+}
+#cfd-toolbar-container .toolbar-logo:hover {
+    cursor: default;
+}
+#cfd-toolbar-container .toolbar-logo h4 {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 12px;
+    padding: 1px;
+    background-color: white;
+}
+
+/* toolbar-tabs */
+#cfd-toolbar-container .toolbar-tabs {
+    height: 66px;
+    margin-left: 152px;
+    box-shadow: 0 0 2px #337ab7;
+}
+#cfd-toolbar-container .toolbar-tabs .nav-tabs li a {
+    color: #2e6da4;
+    text-align: center;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+}
+#cfd-toolbar-container .toolbar-tabs .nav-tabs li a:hover {
+    background-color: transparent;
+}
+#cfd-toolbar-container .toolbar-tabs .nav-tabs li.active a {
+    background-color: #E3F2FF;
+    font-weight: bold;
+}
+#cfd-toolbar-container .toolbar-tabs .tab-content {
+    border-top: 1px solid #82A8CA;
+    padding: 5px;
+}
+#cfd-toolbar-container .toolbar-tabs .tab-content .btn {
+    border-color: #82A8CA;
+    color: #337ab7;
+    background-color: #E3F2FF;
+    font-weight: bold;
+}

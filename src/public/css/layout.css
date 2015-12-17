@@ -1,0 +1,30 @@
+/* Для позначення обовязкового поля */
+.is-required:after {
+    content: "*";
+    color: #f15440;
+    position: absolute;
+    margin-left: 1px;
+    top: 0;
+}
+
+
+/* Прихований блок для відображення тексту помилки */
+.error-block {
+    color: #e74c3c;
+    display: none;
+}
+/* Додатковий клас warning для відобрадення помилки */
+.warning .error-block {
+    display: block;
+}
+
+
+/* Контейнер для іконки поля недоступного для редагування */
+div.lock-input {
+    background: url(/img/read-only_icon.png) 50% 50% no-repeat;
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    width: 24px;
+    height: 20px;
+}

@@ -1,0 +1,64 @@
+div#page-content
+
+    //  зробити три колонки, щоб потім, при зменшенні екрану, контейнери могли переходити один пі додного
+    //
+    div.row
+        div#fixedProfileCont.col-lg-4
+            div(style="width: 250px; background: white;")
+                div.text-center.pad-all
+                    div.pad-ver
+                        img.img-lg.img-border.img-circle(src="img/av1.png", alt="Profile Picture")
+                    h4.text-lg.text-overflow.mar-no Root
+                    //p.text-sm Digital Marketing Director
+                    div.pad-ver.btn-group
+                        a.btn.btn-icon.btn-hover-primary.fa.fa-facebook.icon-lg.add-tooltip(title="", href="#", data-original-title="Facebook", data-container="body", onclick="return false;")
+                        a.btn.btn-icon.btn-hover-info.fa.fa-twitter.icon-lg.add-tooltip(title="", href="#", data-original-title="Twitter", data-container="body", onclick="return false;")
+                        a.btn.btn-icon.btn-hover-danger.fa.fa-google-plus.icon-lg.add-tooltip(title="", href="#", data-original-title="Google+", data-container="body", onclick="return false;")
+                        a.btn.btn-icon.btn-hover-mint.fa.fa-envelope.icon-lg.add-tooltip(title="", href="#", data-original-title="Email", data-container="body", onclick="return false;")
+
+                    button.reloadDialplan.btn.btn-block.btn-success Reload configuration
+
+                    hr
+
+                    div.pull-right
+                        button.refreshCoreStatus.btn.btn-info.btn-icon.icon.fa.fa-refresh(style="margin: 0 3px;")
+
+                    dic.clearfix
+
+
+                    div.pad-hor(style="text-align: left;")
+                        h5 Core
+                        div.coreInfo.text-thin
+
+                    hr
+
+                    div.pad-hor(style="text-align: left;")
+                        h5 Webitel
+                        div.webitelInfo.text-thin
+
+                    hr
+
+                    div.pad-hor(style="text-align: left;")
+                        h5 FreeSwitch
+                        div.freeSwitchInfo.text-thin
+
+                    hr
+
+                    div.pad-hor(style="text-align: left;")
+                        h5 Node memory
+                        div.nodeMemory.text-thin
+
+                    hr
+
+                    div.pad-hor(style="text-align: left;")
+                        h5 OS
+                        div.os.text-thin
+
+                    hr
+
+                    div.pad-hor(style="text-align: left;")
+                        h5 Process up time
+                        div.processUpTime.text-thin
+
+
+    link(href="css/profile/profile.css", rel="stylesheet")

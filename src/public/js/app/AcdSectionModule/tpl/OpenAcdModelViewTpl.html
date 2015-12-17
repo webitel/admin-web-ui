@@ -1,0 +1,164 @@
+<!-- Queue actions -->
+<div class="add-acd-page-actions col-sm-12">
+    <div class="col-sm-6">
+        <button class="acd-open-save btn btn-success">Save</button>
+        <button class="acd-open-close btn btn-default">Close</button>
+    </div>
+</div>
+
+<!-- Queue header fields -->
+<div class="col-sm-12 open-acd-page-header">
+    <form class="form-horizontal col-sm-6">
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Name</label>
+                <div class="col-sm-8">
+                    <input id="<%= nameID %>" class="form-control input-sm" type="text" placeholder="Name" value="<%= name %>" readonly style="background-color: white; cursor: default;  border-color: #eee;">
+                    <div class="lock-input"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Strategy</label>
+                <div class="col-sm-8">
+                    <div class="select-wrap" style="line-height: 30px;">
+                        <select id="<%= strategyID %>" >
+                            <option value="longest-idle-agent">Longest-idle-agent</option>
+                            <option value="ring-all">Ring-all</option>
+                            <option value="round-robin">Round-robin</option>
+                            <option value="top-down">Top-down</option>
+                            <option value="agent-with-least-talk-time">Agent-with-least-talk-time</option>
+                            <option value="agent-with-fewest-calls">Agent-with-fewest-calls</option>
+                            <option value="sequentially-by-agent-order">Sequentially-by-agent-order</option>
+                            <option value="random">Random</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="<%= descriptionID %>">Description</label>
+                <div class="col-sm-8">
+                    <input id="<%= descriptionID %>" class="form-control input-sm" type="text" placeholder="Description" value="<%= description %>">
+                    <small class="error-block"></small>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Queue tabs -->
+<div class="panel col-sm-12">
+    <div class="panel-heading">
+        <div class="panel-control" style="float: left;">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#operators-tab" data-toggle="tab" aria-expanded="true">Operators</a></li>
+                <li class=""><a href="#time-tab" data-toggle="tab" aria-expanded="false">Times</a></li>
+                <li class=""><a href="#other-options-tab" data-toggle="tab" aria-expanded="false">Options</a></li>
+            </ul>
+        </div>
+        <h3 class="panel-title" style="height: 50px;"></h3>
+    </div>
+    <!--Panel body-->
+    <div class="panel-body">
+        <div class="tab-content">
+            <div class="tab-pane fade active in" id="operators-tab">
+
+
+
+
+                <div id="allAgentsLoading" class="col-sm-12" style="text-align: center;">
+                    <i class="fa fa-spinner fa-pulse fa-2x"></i>
+                </div>
+                <form id="agentsListForm" class="form-horizontal">
+                    <div id="queueAgentsListCont" class="col-sm-3 agents-list-wrap">
+                        <span class="agents-list-header">Agents in queue</span>
+                        <ul id="queueAgentsList"></ul>
+                        <span class="agents-list-footer">
+                            <div class="move-all">>>></div>
+                            <div class="move-selected">></div>
+                        </span>
+                    </div>
+                    <div id="agentsListCont" class="col-sm-3 agents-list-wrap agents-cont">
+                        <span class="agents-list-header">Agents</span>
+                        <ul id="agentsList"></ul>
+                        <span class="agents-list-footer">
+                            <div class="move-selected"><</div>
+                            <div class="move-all"><<<</div>
+                        </span>
+                    </div>
+                </form>
+                <div id="allAgentsEmpty" class="col-sm-6" style="display: none;">
+                    No available agents
+                </div>
+
+
+
+            </div>
+            <div class="tab-pane fade" id="time-tab">
+                <form class="form-horizontal col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="<%= maxWaitTimeID %>">Max wait time</label>
+                        <div class="col-sm-8">
+                            <input id="<%= maxWaitTimeID %>" type="text" placeholder="Max wait time" class="form-control input-sm" value="<%= maxWaitTime %>">
+                            <small class="error-block"></small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="<%= maxWaitTimeWithNoAgentID %>" class="col-sm-4 control-label">Max wait time with no agent</label>
+                        <div class="col-sm-8">
+                            <input id="<%= maxWaitTimeWithNoAgentID %>" type="text" placeholder="Max wait time with no agent" class="form-control input-sm" value="<%= maxWaitTimeWithNoAgent %>">
+                            <small class="error-block"></small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="<%= maxWaitTimeWithNoAgentTimeReachedID %>" class="col-sm-4 control-label">Max wait time with no agent time reached</label>
+                        <div class="col-sm-8">
+                            <input id="<%= maxWaitTimeWithNoAgentTimeReachedID %>" type="text" placeholder="Max wait time with no agent time reached" class="form-control input-sm" value="<%= maxWaitTimeWithNoAgentTimeReached %>">
+                            <small class="error-block"></small>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="other-options-tab">
+                <form class="form-horizontal col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="<%= mohSoundID %>" >Moh sound</label>
+                        <div class="col-sm-8">
+                            <input id="<%= mohSoundID %>" type="text" placeholder="Moh sound" class="form-control input-sm" value="<%= mohSound %>">
+                            <small class="error-block"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Time base score</label>
+                        <div class="col-sm-8">
+                            <div class="select-wrap" style="line-height: 30px;">
+                                <select id="<%= timeBaseScoreID %>">
+                                    <option value="queue">Queue</option>
+                                    <option value="system">System</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="<%= discardAbandonedAfterID %>">Discard abandoned after</label>
+                        <div class="col-sm-8">
+                            <input id="<%= discardAbandonedAfterID %>" type="text" placeholder="Discard abandoned after" class="form-control input-sm" value="<%= discardAbandonedAfter %>">
+                            <small class="error-block"></small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Abandoned resume allowed</label>
+                        <div class="col-sm-8" style="height: 30px; line-height: 30px;">
+                            <label class="form-checkbox form-normal form-primary">
+                                <input id="<%= abandonedResumeAllowedID %>" type="checkbox">
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+

@@ -1,0 +1,60 @@
+div#page-title
+    h1.page-header.text-overflow Statistics
+
+div#page-content
+    div.panel.panel-primary
+        div.panel-heading
+            div.panel-control(style="float: left;")
+                ul.nav.nav-tabs
+                    li.active
+                        a#statistics-tab(data-toggle="tab", href="#statistics-tab-box") Statistics
+                    //li
+                        a#charts-tab(data-toggle="tab", href="#charts-tab-box") Charts
+
+        div.panel-body
+            div.tab-content
+
+                //  Таб із таблицею статистики
+                div#statistics-tab-box.tab-pane.fade.active.in
+                    div.periodFilterCont(style="width: 250px; float: left;")
+
+                    //  export to excel
+                    div.export-excel-cont
+                        i.fa.fa-cog.fa-spin.fa-lg
+                        a#exportToExcelLink
+                            img(src="/img/exportToExcel.jpg")
+
+                    div(style="clear: both")
+
+
+                    div#statSectionEventCont(style="margin-top: 10px;")
+                        table#statisticsBootstrapTable
+
+
+                //  Таб із діаграмами
+                div#charts-tab-box.tab-pane.fade
+                    p Tab for diagrams
+
+
+    //  модальне вікно вибору домена для фільтрації статистики по домену
+    div#stat-domain-lookup-modal.modal.fade(tabindex="-1", role="dialog")
+        div.modal-dialog
+            div.modal-content
+                div.modal-header
+                    button.close(data-dismiss="modal")
+                        span &times;
+                    h4 Select domain
+                div.modal-body
+                    table#statDomainListTable
+
+
+
+
+<!-- CSS Datepicker3 -->
+link(href="/js/libs/bootstrap-datepicker/datepicker3.css", rel="stylesheet")
+<!-- CSS custom Statistics -->
+link(href="/css/statistics/statistics.css", rel="stylesheet")
+<!-- CSS for MediaElement -->
+link(href="/js/libs/MediaElement/MediaElement.css", rel="stylesheet")
+<!-- CSS for jsonview -->
+link(href="/js/libs/jsonViewver/dist/jquery.jsonview.css", rel="stylesheet", type="text/css")                    

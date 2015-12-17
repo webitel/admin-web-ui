@@ -1,0 +1,501 @@
+
+
+
+/*                                          AUDIOPLAYER
+ **********************************************************************************************************************/
+/* Обгортає контейнер плеєра */
+#mediaelement-wrap {
+    position: relative;     top: -10px;      left: 10px;
+    display: inline-block;
+}
+
+
+
+
+.audio-player,
+.audio-player div,
+.audio-player h1,
+.audio-player a,
+.audio-player img,
+.audio-player span,
+.audio-player button {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+}
+
+div.audio-player {
+    position: relative;
+    width: 400px;
+    height: 120px;
+
+    background: #4c4e5a;
+    background: -webkit-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+    background: -moz-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+    background: -o-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+    background: -ms-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+    background: linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+/* Title*/
+.audio-player h1 {
+    position: absolute;
+    top: 37px;
+    left: 165px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    color: #ececec;
+    text-shadow: 1px 1px 1px rgba(0,0,0, .5);
+}
+
+/* Cover*/
+.audio-player .cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Buttons*/
+.mejs-controls .mejs-button button {
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    text-indent: -9999px;
+}
+
+/* Кнопка play & pause*/
+.mejs-controls .mejs-play button,
+.mejs-controls .mejs-pause button {
+    width: 21px;
+    height: 21px;
+    top: -25px;
+    left: -30px;
+    background: transparent url("../../img/mediaSection/play-pause.png") 0 0;
+}
+
+.mejs-controls .mejs-pause button { background-position:0 -21px; }
+
+/* Кнопка on & off звуку */
+.mejs-controls .mejs-mute button,
+.mejs-controls .mejs-unmute button {
+    width: 14px;
+    height: 12px;
+    top: -8px;
+    left: 244px;
+    background: transparent url("../../img/mediaSection/mute-unmute.png") 0 0;
+}
+
+.mejs-controls .mejs-unmute button { background-position: 0 -12px; }
+
+/* Контейнер із слайдером для регулювання гучності */
+.mejs-controls div.mejs-horizontal-volume-slider {
+    position: absolute;
+    top: -7px;
+    left: 260px;
+    cursor: pointer;
+}
+    /* Загальний можливий стан гучності */
+    .mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-total {
+        width: 75px;
+        height: 8px;
+        background: #212227;
+
+        -webkit-box-shadow: inset 0px 1px 0px rgba(0,0,0, .3), 0px 1px 0px rgba(255,255,255, .25);
+        -moz-box-shadow: inset 0px 1px 0px rgba(0,0,0, .3), 0px 1px 0px rgba(255,255,255, .25);
+        box-shadow: inset 0px 1px 0px rgba(0,0,0, .3), 0px 1px 0px rgba(255,255,255, .25);
+
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+    }
+    /* Поточний стан гучності */
+    .mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-current {
+        position: absolute;
+        width: 0;
+        height: 6px;
+        top: 1px;
+        left: 1px;
+        background: url("../../img/mediaSection/volume-bar.png") repeat-x;
+
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+    }
+    /* Сам слайдер регулювання гучності */
+    .mejs-controls .mejs-time-rail .mejs-time-handle,
+    .mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-handle {
+        position: absolute;
+        display: block;
+        width: 12px;
+        height: 14px;
+        top: -4px;
+        background: url("../../img/mediaSection/handle.png") no-repeat;
+    }
+    .mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-handle { top: -2px; }
+
+
+/* Progress Slider*/
+.mejs-controls div.mejs-time-rail { width: 200px !important; }
+
+.mejs-controls .mejs-time-rail span {
+    position: absolute;
+    display: block;
+    width: 200px;
+    height: 5px;
+    left: 0;
+    bottom: 0;
+    cursor: pointer;
+
+    -webkit-border-radius: 2px 2px 2px 2px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
+}
+
+.mejs-controls .mejs-time-rail .mejs-time-total { width: 200px !important; background: #999999; }
+
+.mejs-controls .mejs-time-rail .mejs-time-loaded {
+    width: 0;
+    background: #cccccc;
+}
+/* Поточна позиції слайдера прослуховування аудіо */
+.mejs-controls .mejs-time-rail .mejs-time-current {
+    width: 0;
+    background: #64b44c;
+}
+
+
+
+/* При наведені на полосу прослуховування, зверху відображається час */
+.mejs-controls .mejs-time-rail .mejs-time-float {
+    position: absolute;
+    display: none;
+    width: 33px;
+    height: 23px;
+    top: -26px;
+    margin-left: -17px;
+    background: url("../../img/mediaSection/time-box.png");
+}
+.mejs-controls .mejs-time-rail .mejs-time-float-current {
+    width: 33px;
+    display: block;
+    left: 0;
+    top: 4px;
+
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    color: #666666;
+    text-align: center;
+}
+
+/* Загальна тривалість аудіо треку */
+.mejs-duration-container .mejs-duration {
+    position: absolute;
+    left: 209px;
+    top: -11px;
+}
+
+
+
+
+/*                                          CUSTOM AUDIO PLAYER GRID
+ **********************************************************************************************************************/
+
+/* Аудіо контейнер */
+#play-list-cont {
+    width: 400px;
+    margin: auto;
+}
+    /* ul список */
+    #list {
+        list-style: none;
+        padding: 0;
+    }
+        #list li {
+            padding: 5px 0;
+            cursor: default;
+            position: relative;
+        }
+            #list li:hover {
+                background-color: #DBE0E4!important;
+            }
+            #list li.active {
+                background-color: #DBE0E4!important;
+            }
+            #list li.strip {
+                background-color: #F8F7F9;
+            }
+
+
+/* Контейнер для картинки і кнопок play/pause */
+#list .audio-logo {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    float: left;
+    margin-left: 5px;
+}
+#list .audio-logo:hover {
+    cursor: pointer;
+}
+
+    /* Контейнер кнопки play */
+    #list .audio-logo span {
+        width: 100%;
+        height: 100%;
+        position: absolute;     left: 0;    top: 0;
+        background-color: rgba(0, 0, 0, 0.4);
+        border-radius: 3px;
+        opacity: 0;
+    }
+        /* Якщо елемент списку hover, показати кнопку play */
+        #list li:hover .audio-logo span {
+            opacity: 1;
+        }
+        /* Якщо li активний, показати play */
+        #list li.active .audio-logo span {
+            opacity: 1;
+        }
+        /* Кнопка play */
+        #list .audio-logo span i {
+            line-height: 40px;
+            color: white;
+            margin-left: 14px;
+        }
+    /* Картинка аудіо */
+    #list .audio-logo img {
+        width: 40px;
+        height: 40px;
+        border-radius: 3px;
+    }
+
+/* Контейнер для додаткої інформації і контролерів */
+#list .audio-info-controls {
+    width: 350px;
+    height: 40px;
+    float: left;
+    position: relative;
+}
+    /* Контейнер з додатковою інфою */
+    .audio-info-controls .audio-info {
+        width: 350px;
+    }
+        /* Назва аудіотреку (span) */
+        .audio-info-controls .audio-info .audioName {
+            padding-left: 10px;
+            display: block;
+            float: left;
+            width: 200px;
+            height: 20px;
+            overflow: hidden;
+            font-weight: 700;
+        }
+        /* Розмір */
+        .audio-info-controls .audio-info .audioSize {
+            display: block;
+            float: right;
+            margin-right: 5px;
+        }
+         /* Тип */
+        .audio-info-controls .audio-info .audioType {
+            display: block;
+            float: right;
+            margin: 0 5px;
+        }
+        /* Кнопка скачати аудіо */
+        .audio-info-controls .audio-info .audioDownload {
+            display: block;
+            float: right;
+            margin: 0 5px;
+            cursor: pointer;
+            color: #497799;
+        }
+        /* Видалити аудіо */
+        .audio-info-controls .audio-info .audioRemove {
+            display: block;
+            float: right;
+            cursor: pointer;
+            position: relative;
+            top: -5px;
+            left: 3px;
+        }
+
+
+    /* Контейнер із контролами звуку, перемотки, тривалості */
+    .audio-info-controls .audio-control {
+        width: 350px;
+        margin-top: 10px;
+    }
+
+
+
+/*                                          RESPONSIVE AUDIO CONT
+ **********************************************************************************************************************/
+/* Обгортка для аудіо контейнерів */
+.wrap-audio-cont {
+    width: 900px;
+}
+
+/******************************************       CUSTOM AUDIO            *********************************************/
+    /* Обгортка для custom */
+    .wrap-custom-audio-cont {
+        width: 430px;
+        float: left;
+        background: #ffffff;
+    }
+        /* Контейнер хедера  */
+        .wrap-custom-audio-cont .custom-audio-heading {
+            height: 50px;
+            background-color: #4ebcda;
+            color: #ffffff;
+        }
+            /* Заголовок хедера */
+            .wrap-custom-audio-cont .custom-audio-heading .audio-cont-title {
+                line-height: 50px;
+                padding: 0 15px;
+                margin: 0;
+                font-weight: 300;
+                overflow: hidden;
+                font-size: 16px;
+            }
+
+        /* Контейнер боді */
+        .wrap-custom-audio-cont .custom-audio-body {
+            padding: 15px;
+        }
+            /* Контейнер для контролів */
+            .custom-audio-body .audio-body-controls {
+                float: right;
+            }
+                /* Контроли */
+                .custom-audio-body .audio-body-controls button {
+                    margin: 0 5px;
+                }
+
+
+/******************************************       DEFAULT AUDIO            ********************************************/
+    /* Обгортка дял default */
+    .wrap-default-audio-cont {
+        width: 430px;
+        height: 200px;
+        float: left;
+        background: #ffffff;
+        margin-left: 40px;
+    }
+        /* Контейнер хедера  */
+        .wrap-default-audio-cont .custom-audio-heading {
+            height: 50px;
+            background-color: #4ebcda;
+            color: #ffffff;
+        }
+            /* Заголовок хедера */
+            .wrap-default-audio-cont .custom-audio-heading .audio-cont-title {
+                line-height: 50px;
+                padding: 0 15px;
+                margin: 0;
+                font-weight: 300;
+                overflow: hidden;
+                font-size: 16px;
+            }
+
+        /* Контейнер боді */
+        .wrap-default-audio-cont .custom-audio-body {
+            padding: 15px;
+        }
+            /* Контейнер для контролів */
+            .custom-audio-body .audio-body-controls {
+                float: right;
+            }
+                /* Контроли */
+                .custom-audio-body .audio-body-controls button {
+                    margin: 0 5px;
+                }
+
+
+/******************************************      max-width: 930px          ********************************************/
+@media screen and (max-width: 930px) {
+    /* Обгортка для custom */
+    .wrap-custom-audio-cont {
+        float: none;
+    }
+
+    /* Обгортка дял default */
+    .wrap-default-audio-cont {
+        margin-left: 0;
+        margin-top: 15px;
+        float: none;
+    }
+}
+
+
+
+/*                                          UPLOAD PROGRESS BAR
+ **********************************************************************************************************************/
+#uploadProgressBarCont {
+    height: 6px;
+    margin-bottom: 0px;
+    visibility: hidden;
+}
+    .uploadProgressBar {
+        width: 0;
+        background: #9cc96b;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

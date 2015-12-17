@@ -1,0 +1,94 @@
+doctype html
+html(lang="en")
+    head
+        title CallFlow Designer
+
+        meta(charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0")
+
+        //  ϳ�������� ���� ��� Joint
+        link(rel="stylesheet" type="text/css" href="/cfd/css/Joint/joint.min.css")
+
+        //  ��� ����
+        link(rel="stylesheet" type="text/css" href="/cfd/css/cfd/cfd.css")
+
+        //  ���� ��� stencil
+        link(rel="stylesheet" type="text/css" href="/cfd/css/stencil/stencil.css")
+
+        //  Bootstrap Stylesheet
+        link(href="/cfd/css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css")
+
+        //  jsonview style
+        link(href="/cfd/css/jsonview/jquery.jsonview.css" rel="stylesheet" type="text/css")
+
+        //  pnotify
+        link(href="/cfd/js/libs/pnotify/pnotify.custom.css" rel="stylesheet" type="text/css")
+
+        //  fontawesome
+        link(href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css")
+
+        //  toolbar
+        link(rel="stylesheet" type="text/css" href="/cfd/css/toolbar/toolbar.css")
+
+
+
+    body
+        div#cfd-toolbar-container
+            //div(style="float: left; padding: 7px;")
+                //  button.tools-btn.btn.btn-info.btn-xs(data-action="import") Load ex
+                button.tools-btn.btn.btn-success.btn-xs(data-action="export") Save
+                button.tools-btn.btn.btn-warning.btn-xs(data-action="showJson" style="margin-left: 25px;") Show JSON
+                button.tools-btn.btn.btn-danger.btn-xs(data-action="clearGraph") Clear
+
+        //  cfd
+        div#cfd.panel.panel-primary
+
+            //  stencil
+            div.stencil-container
+                label Webitel
+
+            //  canvas
+            div#cfd-canvas
+                div#cfd-canvas-container
+
+            //  property
+            div#cfd-property
+                div#cfd-property-close(title="Open/Close")
+                    div.btn.btn-xs.text-primary.property-close-btn >
+                div#cfd-property-container
+                div#cfd-preview-container
+                    span.text-primary Preview
+
+            //  drag
+            div#cfd-drag
+
+            //  select
+            div#cfd-select
+                div.cfd-select-button.cfd-select-button-leftTop(title="Delete" data-tag="delete")
+                div.cfd-select-button.cfd-select-button-rightMiddle(title="Create link" data-tag="createLink" createLink="createLink")
+                div.cfd-select-button.cfd-select-button-leftBottom(title="Button 1" data-tag="button1")
+                div.cfd-select-button.cfd-select-button-rightTop(title="Button 2" data-tag="button2")
+                div.cfd-select-button.cfd-select-button-rightBottom(title="Button 3" data-tag="button3")
+
+
+        //  modal box
+        div.cfd-modal-box-cover
+        div.cfd-modal-box.panel.panel-primary
+            div.cdf-modal-box-header
+                div.cfd-modal-box-title Modal box
+                div.cfd-modal-box-close x
+            div.cfd-modal-box-content
+
+
+        script(data-main="/cfd/js/main.js" src="/cfd/js/libs/Require/require.js")
+
+
+
+
+
+
+
+
+
+
+
+

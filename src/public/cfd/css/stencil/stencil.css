@@ -1,0 +1,126 @@
+
+/* stencil container */
+.stencil-container {
+    position: absolute;
+    left: 0;
+    width: 150px;
+    color: #bcbcbc;
+    height: 100%;
+}
+
+/* stencil container label */
+.stencil-container label {
+    display: block;
+    text-align: center;
+    background-color: #E3F2FF;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 25px;
+    height: 25px;
+    color: #337ab7;
+    border-bottom: 1px solid #337ab7;
+    border-radius: 4px 0 0 0;
+}
+
+/* stencil*/
+.stencil {
+    position: absolute;
+    top: 30px;
+    bottom: 0;
+    overflow: auto;
+}
+
+/* stencil paper drag */
+.stencil .stencil-paper-drag {
+    display: none;
+}
+
+/* stencil group */
+.stencil .group {
+    overflow: hidden;
+    padding-left: 10px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: max-height 400ms linear;
+}
+.stencil .group.closed {
+    height: 26px;
+    max-height: 26px;
+}
+.stencil .group > .group-label {
+    padding: 5px 4px;
+    position: relative;
+    left: -10px;
+    margin-right: -20px;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-top: 1px solid #337ab7;
+    border-bottom: 1px solid #337ab7;
+    background: #E3F2FF;
+    cursor: pointer;
+    color: #337ab7;
+}
+.stencil .group > .group-label:before {
+    content: '';
+    width: 0;
+    height: 0;
+    display: inline-block;
+    margin-left: 2px;
+    margin-right: 5px;
+    position: relative;
+    top: 5px;
+    border-top: 5px solid #2e6da4;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    border-bottom: 5px solid transparent
+}
+.stencil .group.closed > .group-label:before {
+    top: 2px;
+    left: 2px;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-left: 5px solid #2e6da4;
+}
+
+.stencil .group .elements {
+    margin-left: -10px;
+}
+
+/* stencil-tooltip */
+.stencil-tooltip {
+    position: absolute;
+    display: inline;
+    left: 160px;
+    border: 1px solid #337ab7;
+    border-left-width: 3px;
+    border-radius: 0 4px 4px 0;
+    background-color: white;
+    padding: 5px;
+    min-width: 30px;
+}
+
+/* stencil group button */
+.stencil-container .stencil-group-button {
+    position: absolute;
+    top: 5px;
+    left: 2px;
+    border-color: #82A8CA;
+    color: #337ab7;
+    background-color: #E3F2FF;
+    font-weight: bold;
+    height: 13px;
+    width: 13px;
+    line-height: 11px;
+    padding: 0;
+}
+.stencil-container .stencil-group-button:hover {
+    background-color: #E3F2FF;
+    border-color: #82A8CA;
+    color: #337ab7;
+}
