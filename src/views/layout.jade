@@ -4,12 +4,11 @@ html(lang="en")
         meta(charset="utf-8")
         title Webitel UI
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-
         <!--Open Sans Font -->
         link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin", rel="stylesheet")
 
         <!--Bootstrap Stylesheet -->
-        link(href="/css/common/bootstrap.min.css", rel="stylesheet")
+        link(href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css", rel="stylesheet")
 
         <!--Nifty Stylesheet -->
         link(href="/css/common/nifty.min.css", rel="stylesheet")
@@ -25,8 +24,26 @@ html(lang="en")
 
         <!--Page Load Progress Bar -->
         link(href="/css/common/pace.min.css", rel="stylesheet")
+        link(href='/statistic-filter/style.css', rel='stylesheet')
+        link(href='/statistic-filter/bootstrap-datepicker3.min.css', rel='stylesheet')
+        link(href='/statistic-filter/bootstrap-slider.min.css', rel='stylesheet')
+        link(href='/statistic-filter/selectize.default.css', rel='stylesheet')
+        link(href='/statistic-filter/bootstrap-select.min.css', rel='stylesheet')
+        link(href='/statistic-filter/awesome-bootstrap-checkbox.css', rel='stylesheet')
+        link(href='/statistic-filter/Filter.css', rel='stylesheet')
         script(src="/js/common/pace.min.js")
-
+        script(src='/statistic-filter/jquery-1.11.2.min.js')
+        //script(src='/statistic-filter/angular.min.js')
+        //script(src='/statistic-filter/bootstrap.min.js')
+        script(src='/statistic-filter/bootbox.min.js')
+        script(src='/statistic-filter/docs.min.js')
+        //script(src='/statistic-filter/modules/StatisticModule.js')
+        script(src='/statistic-filter/moment.min.js')
+        script(src='/statistic-filter/bootstrap-datepicker.min.js')
+        script(src='/statistic-filter/bootstrap-slider.min.js')
+        script(src='/statistic-filter/selectize.min.js')
+        script(src='/statistic-filter/bootstrap-select.min.js')
+        script(src='/statistic-filter/query-builder.standalone.min.js')
 
     body
         div#container.effect.mainnav-lg
@@ -146,7 +163,7 @@ html(lang="en")
                                                 a.main-manu-link(href="/acd", pushState="/acd")
                                                     i.fa.fa-th-list(style="width: 22px; height: 12px;")
                                                     span.menu-title ACD
-                                        //if role == "root"
+                                        if role == "root"
                                             li
                                                 a.main-manu-link(href="/cdr", pushState="/cdr")
                                                     i.fa.fa-th-list(style="width: 22px; height: 12px;")
@@ -215,11 +232,6 @@ html(lang="en")
                                             | Fourth tab
                                         div.pad-all
                                             | Text ...
-
-
-
-
-
             <!-- SCROLL TOP BUTTON -->
             button#scroll-top.btn
                 i.fa.fa-chevron-up
@@ -278,8 +290,7 @@ html(lang="en")
 
 
         <!--jQuery -->
-        script(src="/js/common/jquery-2.1.1.js")
-
+        <!--script(src="/js/common/jquery-2.1.1.js")-->
         <!--BootstrapJS -->
         script(src="/js/common/bootstrap.min.js")
 
@@ -295,8 +306,12 @@ html(lang="en")
         <!--Bootstrap-select v1.6.3 -->
         script(src="/js/common/bootstrap-select.min.js")
 
+        script(src='/statistic-filter/modules/Demo-import-export.js')
         <!--RequireJS -->
         script(data-main="/js/app/main", src="/js/libs/RequireJS/require.js")
 
         <!-- JIRA feedback -->
         script(type="text/javascript" src="https://my.webitel.com/s/939895dfcb3abe3f51a80728990a674e-T/en_US1iwwg4/64023/163/1.4.26/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=6aa8443b")
+
+
+

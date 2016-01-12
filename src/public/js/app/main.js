@@ -10,6 +10,10 @@ requirejs.config({
         },
         "webitelConnector": {
             "deps": ["session"]
+        },
+        "angular": {exports: 'angular'},
+        "StatisticModule": {"exports": "statisticModule",
+            "deps": ["angular"]
         }
     },
     paths: {
@@ -73,7 +77,8 @@ requirejs.config({
         "errHandler"            : "/js/app/errHandlerModule/errHandler",
 
 
-
+        "angular": "statistic-filter/angular.min",
+        "StatisticModule": "statistic-filter/modules/StatisticModule",
 
         //  CORE
         "initCore": "/js/app/CORE/init",

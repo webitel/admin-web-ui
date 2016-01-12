@@ -1,0 +1,9 @@
+a:hover.test {
+    color: gray;
+    text-decoration: none;
+}
+
+a.test {
+    color: gray;
+    text-decoration: none;
+}

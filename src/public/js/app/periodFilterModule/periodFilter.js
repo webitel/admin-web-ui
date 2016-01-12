@@ -210,7 +210,7 @@ define("periodFilter",["bsDatepicker"], function(_bsDatepicker) {
 
             periodFilterObj.find('#startTime').datepicker('update', periodFilterValue.setStartDate);
             periodFilterObj.find('#endTime').datepicker('update', periodFilterValue.setEndDate);
-            periodFilterObj.data('datepicker').updateDates();
+            //periodFilterObj.data('datepicker').updateDates();
 
             if (selectedPeriodFilterValue.startTime !== periodFilterValue.setStartDate || selectedPeriodFilterValue.endTime !== periodFilterValue.setEndDate) {
                 selectedPeriodFilterValue.startTime = periodFilterValue.setStartDate;
@@ -309,7 +309,7 @@ define("periodFilter",["bsDatepicker"], function(_bsDatepicker) {
 
         periodFilterObj.find('#startTime').datepicker('update', FIXED_PERIOD_VALUE["isCurrMonth"]().setStartDate);
         periodFilterObj.find('#endTime').datepicker('update', FIXED_PERIOD_VALUE["isCurrMonth"]().setEndDate);
-        periodFilterObj.data('datepicker').updateDates();
+        //periodFilterObj.data('datepicker').updateDates();
     }
 
     function setEventCont(container) {
@@ -387,7 +387,7 @@ define("periodFilter",["bsDatepicker"], function(_bsDatepicker) {
     function setValue(startDate, endDate) {
         periodFilterObj.find('#startTime').datepicker('update', startDate);
         periodFilterObj.find('#endTime').datepicker('update', endDate);
-        periodFilterObj.data('datepicker').updateDates();
+        //periodFilterObj.data('datepicker').updateDates();
 
         selectedPeriodFilterValue.startTime = startDate;
         selectedPeriodFilterValue.endTime   = endDate;

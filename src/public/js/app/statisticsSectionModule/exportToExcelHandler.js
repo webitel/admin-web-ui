@@ -72,12 +72,7 @@ define(["fileSaver"], function(fileSaver) {
                 "callflow.times.bridged_time": 1,
                 "callflow.times.hangup_time": 1
             },
-            "filter": {
-                "callflow.times.created_time": {
-                    "$gte": settings.startDate,
-                    "$lte": settings.endDate
-                }
-            },
+            "filter": settings.filter,
             "limit": reqLimit,
             "sort" : {
                 "callflow.times.created_time": -1
@@ -85,9 +80,9 @@ define(["fileSaver"], function(fileSaver) {
         };
 
         //  якщо домен заданий, добавити його до фільтра
-        if ( settings.domain ) {
+        /*if ( settings.domain ) {
             reqBody.filter["variables.domain_name"] = settings.domain;
-        }
+        }*/
 
 
 
@@ -180,7 +175,7 @@ define(["fileSaver"], function(fileSaver) {
                     left  : {color: "000000", style: 'thin'},
                     right : {color: "000000", style: 'thin'},
                     bottom: {color: "000000", style: 'thin'}
-                },
+                }
             });
 
 
@@ -338,13 +333,13 @@ define(["fileSaver"], function(fileSaver) {
      */
     function modifyReqBody(lastElement) {
 
-        var x = lastElement.callflow[0].times["created_time"];
+        //var x = lastElement.callflow[0].times["created_time"];
 
         //  видалити значення фільтра по початковій даті
-        delete reqBody.filter["callflow.times.created_time"].$lte;
+        //delete reqBody.filter["callflow.times.created_time"].$lte;
 
         //  добавити нове значення фільтра
-        reqBody.filter["callflow.times.created_time"].$lt = x;
+        //reqBody.filter["callflow.times.created_time"].$lt = x;
     }
 
     //  добавляє дані в Excel файл, задає деякі стилі для колонок
