@@ -178,6 +178,8 @@ function getListA(param, callback) {
         "sort"       : sort
     };
 
+    console.log(filterObj);
+
     request.post({
         url: param.webitelServer + CORE_URL.getListA,
         body: JSON.stringify(filterObj),

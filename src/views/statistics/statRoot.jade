@@ -11,40 +11,106 @@ div#page-content
                     //li
                         a#charts-tab(data-toggle="tab", href="#charts-tab-box") Charts
 
-        div.panel-body
-            div.tab-content
+
 
                 //  Таб із таблицею статистики
                 div#statistics-tab-box.tab-pane.fade.active.in
-                    div.periodFilterCont(style="width: 250px; float: left;")
-                    div(style="float: left;")
-                        span.domainFilterCont(style="line-height: 30px; margin-left: 10px; cursor: pointer")
-                            span.fa.fa-filter.fa-lg
-                            span#statDomainFilterValue(style="margin-left: 5px;") Domain
-                        span#statRemDomainFilterValue(style="margin-left: 10px; cursor: pointer;").fa.fa-remove
+                    div.row
+        div
+        #builder-import_export
 
+    div(ng-controller="statisticController" id="data-content")
+        div.row
+            div#applyFilter
+                button.btn.btn-primary.btn-xs(style='float: left;margin-top: 7px;margin-left: 15px;margin-top: -10px;', ng-click='useFilter()') Apply
+                //
+                  export-excel-cont(style="margin-right: 20px;margin-top: -13px;")
+                    i.fa.fa-cog.fa-spin.fa-lg
+                    a#exportToExcelLink
+                        img(src='/img/exportToExcel.jpg')
+                p(id="rowCount", style='float: right;color: #12708a;font-family: Verdana;margin-top: 7px;font-size: 13px;margin-right: 30px;margin-top: -10px;') Rows: {{rows}}
+        div.row(style='margin-left: 15px;margin-right: 15px;')
+            table(style="width: 100%;", id="headerTable")
+                tr
+                    td.col-md-2.small(style='text-align: center; vertical-align: middle;')
+                        p(style='color: grey; font-size: 11px;')
+                            strong
+                                a.test(ng-click='makeSort(0)', href='#') {{sortCaptions[0].caption}}
+                    td.col-md-1.small(style='text-align: center; vertical-align: middle;')
+                        p(style='color: grey; font-size: 11px;')
+                            strong
+                                a.test(ng-click='makeSort(1)', href='#') {{sortCaptions[1].caption}}
+                    td.col-md-2.small(style='text-align: center; vertical-align: middle;')
+                        p(style='color: grey; font-size: 11px;')
+                            strong
+                                a.test(ng-click='makeSort(2)', href='#') {{sortCaptions[2].caption}}
+                    td.col-md-2.small(style='text-align: center; vertical-align: middle;')
+                        p(style='color: grey; font-size: 11px;')
+                            strong
+                                a.test(ng-click='makeSort(3)', href='#') {{sortCaptions[3].caption}}
+                    td.col-md-1.small(style='text-align: center; vertical-align: middle;')
+                        p(style='color: grey; font-size: 11px;')
+                            strong
+                                a.test(ng-click='makeSort(4)', href='#') {{sortCaptions[4].caption}}
+                    td.col-md-1.small(style='text-align: center; vertical-align: middle;')
+                        p(style='color: grey; font-size: 11px;')
+                            strong
+                                a.test(ng-click='makeSort(5)', href='#') {{sortCaptions[5].caption}}
+                    td.col-md-1.small(style='text-align: center; vertical-align: middle;')
+                        p(style='color: grey; font-size: 11px;')
+                            strong
+                                a.test(ng-click='makeSort(6)', href='#') {{sortCaptions[6].caption}}
+                    td.col-md-2.small(style='text-align: center; vertical-align: middle;')
+                        p(style='color: grey; font-size: 11px;')
+                            strong
+                                a.test(ng-click='makeSort(7)', href='#') {{sortCaptions[7].caption}}
+            div(style='overflow-y: scroll; height: 500px;overflow-x: hidden;', scrolly='showMore()')
+                table#myTable.table(ng-repeat='call in calls')
+                    tr(ng-click='clickRowTable(call.uuid)')
+                        td.col-md-2.small(style='text-align: center; vertical-align: middle;font-size: 11px;') {{call.callerName}}
+                        td.col-md-1.small(style='text-align: center; vertical-align: middle;font-size: 11px;') {{call.callerNumber}}
+                        td.col-md-2.small(style='text-align: center; vertical-align: middle;font-size: 11px;') {{call.destinationNumber}}
+                        td.col-md-2.small(style='text-align: center; vertical-align: middle;font-size: 11px;') {{call.createdTime}}
+                        td.col-md-1.small(style='text-align: center; vertical-align: middle;font-size: 11px;') {{call.billSeconds}}
+                        td.col-md-1.small(style='text-align: center; vertical-align: middle;font-size: 11px;') {{call.duration}}
+                        td.col-md-1.small(style='text-align: center; vertical-align: middle;font-size: 11px;') {{call.direction}}
+                        td.col-md-2.small(style='text-align: center; vertical-align: middle;font-size: 11px;') {{call.hangupCause}}
+                    tr(id='{{call.uuid}}', style='display: none;')
+                        td(colspan='8')
+                            div.row
+                                div.col-md-2
+                                    p(style='color: dimgray;font-size: 11px;margin-left: 100px;')
+                                        strong Answered time:
+                                    p(style="margin-left: 100px;")
+                                        | {{call.answeredTime}}
+                                div.col-md-2
+                                    p(style='color: dimgray;font-size: 11px;margin-left: 100px;')
+                                        strong Bridged time:
+                                    p(style="margin-left: 100px;")
+                                        | {{call.bridgedTime}}
+                                div.col-md-2
+                                    p(style='color: dimgray;font-size: 11px;margin-left: 100px;')
+                                        strong Hangup time:
+                                    p(style="margin-left: 100px;")
+                                        | {{call.hangupTime}}
+                                div.col-md-2
+                                    p(style='color: dimgray;font-size: 11px;margin-left: 100px;')
+                                        strong Hangup cause:
+                                    p(style="margin-left: 100px;")
+                                        | {{call.hangupCause}}
+                                div#applyFilter(class="col-md-4")
+                                    button.btn.btn-primary.btn-xs(style="float: right;", ng-click="getJson()") JSON
+                            div.row
+                                div.col-md-2
 
-                    //  export to excel
-                    div.export-excel-cont
-                        i.fa.fa-cog.fa-spin.fa-lg
-                        a#exportToExcelLink
-                            img(src="/img/exportToExcel.jpg")
+                            div.row
+                                div.col-md-2
 
+                            div.row
+                                div.col-md-2
 
-                    div(style="clear: both")
-
-                    div#statSectionEventCont(style="margin-top: 10px;")
-                        table#statisticsBootstrapTable
-
-
-                //  Таб із діаграмами
-                div#charts-tab-box.tab-pane.fade
-                    p Tab for diagrams
-                    a#downloadLink Tetstsdfs
-
-
-
-
+                            div.row
+                            div.row
 
     //  модальне вікно вибору домена для фільтрації статистики по домену
     div#stat-domain-lookup-modal.modal.fade(tabindex="-1", role="dialog")
@@ -56,12 +122,6 @@ div#page-content
                     h4 Select domain
                 div.modal-body
                     table#statDomainListTable
-
-
-
-<!-- CSS Datepicker3 -->
-link(href="/js/libs/bootstrap-datepicker/datepicker3.css", rel="stylesheet")
-
 <!-- CSS custom Statistics -->
 link(href="/css/statistics/statistics.css", rel="stylesheet")
 
@@ -70,3 +130,6 @@ link(href="/js/libs/MediaElement/MediaElement.css", rel="stylesheet")
 
 <!-- CSS for jsonview -->
 link(href="/js/libs/jsonViewver/dist/jquery.jsonview.css", rel="stylesheet", type="text/css")
+
+
+

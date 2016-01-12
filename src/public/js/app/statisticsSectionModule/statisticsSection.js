@@ -87,7 +87,7 @@ define("statisticsSection", ["webitelConnector", "session", "periodFilter", "loc
 
             //  показати головний контенер із контентом
             $("#content-container").show();
-
+            //showFilter();
             periodFilter.init(".periodFilterCont");
             periodFilter.setEventCont(CONT_FOR_DATE_FILTER_EVENT);
 
@@ -136,7 +136,7 @@ define("statisticsSection", ["webitelConnector", "session", "periodFilter", "loc
 
                 //  при змінні, змінювати флаг, щоб згенерувати новий файл
                 generateNewExcelel = true;
-
+                alert("!!");
                 var domain = $("#statDomainListTable tbody tr:hover td .tdDomainDiv").attr("value");
                 $(CONT_FOR_DATE_FILTER_EVENT).trigger("sortByDomain",[domain]);
                 //  показати на фільтрі вибраний домен
@@ -1103,13 +1103,16 @@ define("statisticsSection", ["webitelConnector", "session", "periodFilter", "loc
             require(['Excel/Table'], function(Table) {
 
 
-                if ( !checkElementOnEvent($("#exportToExcelLink").get(0), "click") ) {
+                if ( checkElementOnEvent($("#exportToExcelLink").get(0), "click") ) {
                     
                     $("#exportToExcelLink").on("click", function() {
 
                         var 
                             parentEl = this.parentElement,
                             domain;
+
+                        totalRow = $("#rowCount").text().slice(6);
+                        totalRow = Number(totalRow);
 
                         if ( !totalRow ) {
                             return;
@@ -1144,6 +1147,9 @@ define("statisticsSection", ["webitelConnector", "session", "periodFilter", "loc
 
                         //  підключити додатковий модуль, для відправки запитів і генерації даних
                         require(["/js/app/statisticsSectionModule/exportToExcelHandler.js"], function(worker) {
+
+                            var filter = $("#builder-import_export").queryBuilder('getMongo');
+                            convertFilterToTimestamp(filter);
                             worker.init({
                                 "EB"       : EB,
                                 "Table"    : Table,
@@ -1151,7 +1157,8 @@ define("statisticsSection", ["webitelConnector", "session", "periodFilter", "loc
                                 "startDate": statDateFilter["callflow.times.created_time"].$gte,
                                 "endDate"  : statDateFilter["callflow.times.created_time"].$lte,
                                 "domain"   : domain,
-                                "generateNewExcelel": generateNewExcelel
+                                "generateNewExcelel": generateNewExcelel,
+                                "filter" : filter
                             }, function() {
                                 generateNewExcelel = false;
                                 $(parentEl).removeClass("active");
@@ -1187,6 +1194,73 @@ define("statisticsSection", ["webitelConnector", "session", "periodFilter", "loc
             });
 
             return x;
+        }
+
+        function convertFilterToTimestamp(obj) {
+            var properties = [];
+            for (var p in obj) {
+                if (typeof(obj[p]) == 'object') {
+                    for(var i = 0; i < obj[p].length; i++) {
+                        if(isDate(obj[p][i])) {
+                            var el = obj[p][i][Object.keys(obj[p][i])[0]];
+                            el = el.split(".");
+                            var newDate = el[2]+"/"+ el[1]+"/" + el[0];
+                            obj[p][i][Object.keys(obj[p][i])[0]] = new Date(newDate).getTime() * 1000;
+                        }
+                        if(obj[p][i]["callflow.times.created_time"] ||
+                            obj[p][i]["callflow.times.answered_time"] ||
+                            obj[p][i]["callflow.times.bridged_time"] ||
+                            obj[p][i]["callflow.times.hangup_time"]) {
+                            if(obj[p][i][Object.keys(obj[p][i])]["$gte"] && (typeof obj[p][i][Object.keys(obj[p][i])]["$gte"]) != "number") {
+                                var el1 = obj[p][i][Object.keys(obj[p][i])]["$gte"];
+                                el1 = el1.split(".");
+                                var newDate = el1[2] + "/" + el1[1] + "/" + el1[0];
+                                obj[p][i][Object.keys(obj[p][i])]["$gte"] = new Date(newDate).getTime() * 1000;
+                            }
+
+                            if(obj[p][i][Object.keys(obj[p][i])]["$lte"] && (typeof obj[p][i][Object.keys(obj[p][i])]["$lte"]) != "number") {
+                                var el2 = obj[p][i][Object.keys(obj[p][i])]["$lte"];
+                                el2 = el2.split(".");
+                                var newDate = el2[2] + "/" + el2[1] + "/" + el2[0];
+                                obj[p][i][Object.keys(obj[p][i])]["$lte"] = new Date(newDate).getTime() * 1000;
+                            }
+
+                            if(obj[p][i][Object.keys(obj[p][i])]["$lt"] && (typeof obj[p][i][Object.keys(obj[p][i])]["$lt"]) != "number") {
+                                var el2 = obj[p][i][Object.keys(obj[p][i])]["$lt"];
+                                el2 = el2.split(".");
+                                var newDate = el2[2] + "/" + el2[1] + "/" + el2[0];
+                                obj[p][i][Object.keys(obj[p][i])]["$lt"] = new Date(newDate).getTime() * 1000;
+                            }
+
+                            if(obj[p][i][Object.keys(obj[p][i])]["$gt"] && (typeof obj[p][i][Object.keys(obj[p][i])]["$gt"]) != "number") {
+                                var el2 = obj[p][i][Object.keys(obj[p][i])]["$gt"];
+                                el2 = el2.split(".");
+                                var newDate = el2[2] + "/" + el2[1] + "/" + el2[0];
+                                obj[p][i][Object.keys(obj[p][i])]["$gt"] = new Date(newDate).getTime() * 1000;
+                            }
+                        }
+                    }
+                    properties = properties.concat( convertFilterToTimestamp(obj[p]) );
+                } else {
+                    properties.push(p);
+                }
+            }
+            return properties;
+        }
+
+        function isDate(date) {
+            var resultDate = date[Object.keys(date)[0]];
+            var newDate;
+            try {
+                resultDate = resultDate.split(".");
+                if(resultDate[0] == undefined || resultDate[1] == undefined || resultDate[2] == undefined || resultDate[3] != undefined) {
+                    return false;
+                }
+                newDate = resultDate[2]+ "/" + resultDate[1] + "/" + resultDate[0];
+            }
+            catch(err) {
+            }
+            return (new Date(newDate) !== "Invalid Date" && !isNaN(new Date(newDate))) ? true : false;
         }
 
         return {
