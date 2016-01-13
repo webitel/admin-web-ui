@@ -1,9 +1,22 @@
 a:hover.test {
     color: gray;
     text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
 }
 
 a.test {
     color: gray;
     text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+#tableText
+{
+    font-size: 12px;
+}
+
+tr.border_bottom td {
+    border-bottom:1pt solid #d9d9d9;
 }

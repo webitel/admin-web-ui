@@ -133,7 +133,6 @@ define("statisticsSection", ["webitelConnector", "session", "periodFilter", "loc
 
             //  двойний клік по таблиці списку доменів, для вибору домена для фільтрації
             $("#statDomainListTable").dblclick(function() {
-
                 //  при змінні, змінювати флаг, щоб згенерувати новий файл
                 generateNewExcelel = true;
                 alert("!!");
