@@ -200,6 +200,12 @@ define("appRouter", [
 
                             staticticModule.controller("statisticController", function($scope, $http) {
 
+                                //івент на ентер
+                                $(document).keypress(function (e) {
+                                    if (e.which == 13) {
+                                        $scope.useFilter();
+                                    }
+                                });
                                 $scope.credentials ={login: "root", password: "ROOT_PASSWORD", token: "", key: ""};
                                 $scope.server = { loginUrl: "https://pre.webitel.com:10022/login", dataUrl: "https://pre.webitel.com:10022/api/v2/cdr/searches",
                                     countUrl: "https://pre.webitel.com:10022/api/v2/cdr/counts", getJsonUrl: "https://pre.webitel.com:10022/api/v2/files"};
@@ -243,25 +249,23 @@ define("appRouter", [
                                 var key = "x_key=" + session.getKey();
 
                                 $scope.useFilter = function() {
-                                    $("#headerTable").hide();
-                                    $("#data-content").hide();
-                                    $scope.calls = [];
-                                    $scope.currentPage = 1;
-                                    $scope.sortCaptions[$scope.currentSortId]["caption"] = $scope.sortCaptions[$scope.currentSortId]["caption"].substr(1);
-                                    $scope.currentSortId = 3;
-                                    $scope.sortCaptions[3]["sortType"] = -1;
-                                    if($scope.sortCaptions[3]["caption"][0] != "\u25BC") {
-                                        $scope.sortCaptions[3]["caption"] = $scope.sortCaptions[3]["caption"].insertAt(0, "\u25BC");
-                                    }
                                     var result = $('#builder-import_export').queryBuilder('getMongo');
                                     if (!$.isEmptyObject(result)) {
+                                        $("#data-content").hide();
+                                        $("#loadText").show();
+                                        $scope.calls = [];
+                                        $scope.currentPage = 1;
+                                        $scope.sortCaptions[$scope.currentSortId]["caption"] = $scope.sortCaptions[$scope.currentSortId]["caption"].substr(1);
+                                        $scope.currentSortId = 3;
+                                        $scope.sortCaptions[3]["sortType"] = -1;
+                                        if($scope.sortCaptions[3]["caption"][0] != "\u25BC") {
+                                            $scope.sortCaptions[3]["caption"] = $scope.sortCaptions[3]["caption"].insertAt(0, "\u25BC");
+                                        }
                                         $scope.filterRules = $('#builder-import_export').queryBuilder('getRules');
                                         $scope.currentfilters = result;
                                         $scope.getRowsCount();
                                         $scope.getStartData(1, {"callflow.times.created_time": -1});
                                     }
-                                    $("#headerTable").show();
-                                    $("#data-content").show();
                                 }
                                 $scope.getStartData = function(pageNumber, sort) {
                                         var startFilter = {};
@@ -369,50 +373,53 @@ define("appRouter", [
                                                     hangupTime: hangupTime
                                                 });
                                             }
+                                            $("#loadText").hide();
+                                            $("#data-content").show();
                                         }, function (response) {
                                         });
                                 }
 
                                 $scope.clickRowTable = function(uuid) {
-                                    $("#"+$scope.currentRowId).hide();
+                                    if($scope.currentRowId != "") {
+                                        $("#" + $scope.currentRowId + " div.row:eq(4)").empty();
+                                        $("#" + $scope.currentRowId + " div.row:eq(5)").empty();
+                                        $("#" + $scope.currentRowId).hide();
+                                        $("#showPdf").remove();
+                                    }
                                     for(var i = 0; i < $scope.calls.length; i++) {
                                         if ($scope.calls[i].uuid == uuid) {
                                             $("#" + uuid).show("fast");
                                             $scope.currentRowId = $scope.calls[i].uuid;
                                         }
                                     }
-                                    $("#" + $scope.currentRowId + " div.row:eq(4)").empty();
-                                    $("#" + $scope.currentRowId + " div.row:eq(5)").empty();
-                                    $("#showPdf").remove();
-
-                                    getCdrFileInfo(cdrServerUrl + $scope.currentRowId.slice(2) + "?" + token + "&" + key,
-                                        //  callback приймає тип доступного файлу
-                                        function(type, srcPdf) {
-                                            if ( type === "audio/mpeg" ) {
-                                                showAudioPlayer();
-                                            }
-                                            else if ( type === "application/pdf" ) {
-                                                showPdfFile(srcPdf);
-                                            }
-                                            else if ( type === "video/mp4" ) {
-
-                                            }
-
-                                        },
-                                        //  error callback, для підтримки старого функціоналу
-                                        function() {
-                                            //  якщо в користувача FF || SAFARI відправити ajax запит для перевірки чи доступний аудіо ресурс
-                                            if ( typeof InstallTrigger !== 'undefined' || Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0 ) {
-                                                /*checkCanPlayAjax(cdrServerUrl + row["Uuid"] + "?" + token + "&" + key, function() {
+                                        getCdrFileInfo(cdrServerUrl + $scope.currentRowId.slice(2) + "?" + token + "&" + key,
+                                            //  callback приймає тип доступного файлу
+                                            function (type, srcPdf) {
+                                                if (type === "audio/mpeg") {
                                                     showAudioPlayer();
-                                                });*/
-                                            } else {
-                                                /*checkCanPlay(cdrServerUrl + row["Uuid"] + "?" + token + "&" + key, function() {
-                                                    showAudioPlayer();
-                                                });*/
+                                                }
+                                                else if (type === "application/pdf") {
+                                                    showPdfFile(srcPdf);
+                                                }
+                                                else if (type === "video/mp4") {
+
+                                                }
+
+                                            },
+                                            //  error callback, для підтримки старого функціоналу
+                                            function () {
+                                                //  якщо в користувача FF || SAFARI відправити ajax запит для перевірки чи доступний аудіо ресурс
+                                                if (typeof InstallTrigger !== 'undefined' || Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0) {
+                                                    /*checkCanPlayAjax(cdrServerUrl + row["Uuid"] + "?" + token + "&" + key, function() {
+                                                     showAudioPlayer();
+                                                     });*/
+                                                } else {
+                                                    /*checkCanPlay(cdrServerUrl + row["Uuid"] + "?" + token + "&" + key, function() {
+                                                     showAudioPlayer();
+                                                     });*/
+                                                }
                                             }
-                                        }
-                                    );
+                                        );
                                 }
                                 $scope.getRowsCount = function() {
                                         var startFilter = {};
@@ -442,8 +449,11 @@ define("appRouter", [
                                     $scope.getStartData($scope.currentPage, $scope.currentSortFilter);
                                 }
                                 $scope.makeSort = function(sortId) {
-                                    $("#headerTable").hide();
+                                    if($scope.calls.length == 0) {
+                                        return;
+                                    }
                                     $("#data-content").hide();
+                                    $("#loadText").show();
                                     if($scope.currentSortId == sortId) {
                                         if ($scope.sortCaptions[sortId]["sortType"] == 0) {
                                             $scope.sortCaptions[sortId]["sortType"] = -1;
@@ -453,8 +463,6 @@ define("appRouter", [
                                             //$scope.sortCaptions[sortId]["caption"] = $scope.sortCaptions[sortId]["caption"].insertAt(0,"\u25BC");
                                             $scope.getStartData(1, $scope.currentSortFilter);
                                             $scope.currentSortId = sortId;
-                                            $("#headerTable").show();
-                                            $("#data-content").show();
                                             return;
                                         }
                                         if ($scope.sortCaptions[sortId]["sortType"] == -1) {
@@ -466,8 +474,6 @@ define("appRouter", [
                                             $scope.sortCaptions[sortId]["caption"] = $scope.sortCaptions[sortId]["caption"].insertAt(0,"\u25B2");
                                             $scope.getStartData(1, $scope.currentSortFilter);
                                             $scope.currentSortId = sortId;
-                                            $("#headerTable").show();
-                                            $("#data-content").show();
                                             return;
                                         }
                                         if ($scope.sortCaptions[sortId]["sortType"] == 1) {
@@ -479,8 +485,6 @@ define("appRouter", [
                                             $scope.sortCaptions[sortId]["caption"] = $scope.sortCaptions[sortId]["caption"].insertAt(0,"\u25BC");
                                             $scope.getStartData(1, $scope.currentSortFilter);
                                             $scope.currentSortId = sortId;
-                                            $("#headerTable").show();
-                                            $("#data-content").show();
                                             return;
                                         }
                                     }
@@ -494,12 +498,8 @@ define("appRouter", [
                                         $scope.sortCaptions[sortId]["caption"] = $scope.sortCaptions[sortId]["caption"].insertAt(0,"\u25BC");
                                         $scope.getStartData(1, $scope.currentSortFilter);
                                         $scope.currentSortId = sortId;
-                                        $("#headerTable").show();
-                                        $("#data-content").show();
                                         return;
                                     }
-                                    $("#headerTable").show();
-                                    $("#data-content").show();
                                 }
                                 $scope.getJson = function() {
                                     /*var login = {
@@ -541,6 +541,9 @@ define("appRouter", [
 
                                 $scope.openPdf = function(src) {
                                     window.open(src);
+                                }
+                                $scope.resetFilter = function() {
+                                    $("#builder-import_export").queryBuilder("reset");
                                 }
                                 function convertFilterToTimestamp(obj) {
                                     var properties = [];
@@ -667,7 +670,7 @@ define("appRouter", [
                                         }
                                     }
                                     var filename = "";
-                                    var createdTimeCopy = createdTime.split(", ");
+                                    var createdTimeCopy = createdTime.split(/[\s,]+/);
                                     var date = createdTimeCopy[0];
                                     var time = createdTimeCopy[1];
                                     filename += date.split(".")[2] + date.split(".")[1] + date.split(".")[0];
@@ -675,66 +678,70 @@ define("appRouter", [
                                     filename += time.split(":")[0] + time.split(":")[1];
                                     filename += "_" + callerNumber + "_" + destinationNumber;
                                     var src = cdrServerUrl + $scope.currentRowId.slice(2) + "?" + token + "&" + key + "&file_name=" + filename + ".mp3";
+                                    /*if($("#" + $scope.currentRowId + " div.row:eq(4)").length == 1) {
+                                        $("#" + $scope.currentRowId + " div.row:eq(4)").append("<div class='col-md-2'><audio style='width: 300px;margin-left: 100px;float: left;' controls='controls' src=" + "'" + src + "'" + " preload='none'></audio></div>");
+                                        if (session.getRole() === "root" || session.getRole() === "admin") {
+                                            $("#" + $scope.currentRowId + " div.row:eq(5)").append("<div style='margin-left: 113px;margin-top: 5px;'><div id='applyFilter2'><button style='float: left;' class='btn btn-primary btn-xs' id='deleteAudio'>Delete</button></div></div>");
+                                            $("#" + $scope.currentRowId + " div.row:eq(5) div:eq(1)").append("<div id='applyFilter2'><a role='button' href='" + src + "' style='float: left;margin-right: 5px;' class='btn btn-primary btn-xs' id='downloadAudio'>Download</a></div>");
+                                            $("#deleteAudio").on("click", function () {
 
-                                    $("#" + $scope.currentRowId + " div.row:eq(4)").append("<div class='col-md-2'><audio style='width: 300px;margin-left: 100px;float: left;' controls='controls' src=" + "'" + src + "'" + " preload='none'></audio></div>");
-                                    if ( session.getRole() === "root" || session.getRole() === "admin" ) {
-                                        $("#" + $scope.currentRowId + " div.row:eq(5)").append("<div style='margin-left: 113px;margin-top: 5px;'><div id='applyFilter2'><button style='float: left;' class='btn btn-primary btn-xs' id='deleteAudio'>Delete</button></div></div>");
-                                        $("#" + $scope.currentRowId + " div.row:eq(5) div:eq(1)").append("<div id='applyFilter2'><a role='button' href='" + src + "' style='float: left;margin-right: 5px;' class='btn btn-primary btn-xs' id='downloadAudio'>Download</a></div>");
-                                        $("#deleteAudio").on("click", function() {
-
-                                            bootbox.dialog({
-                                                message: "Do you want to remove this audio record ?",
-                                                size: 'small',
-                                                title: "Remove audio record?",
-                                                className: "remove-audio-record-modal",
-                                                onEscape: function() {},
-                                                buttons: {
-                                                    danger: {
-                                                        label: "Cancel",
-                                                        className: "btn-default",
-                                                        callback: function() {}
+                                                bootbox.dialog({
+                                                    message: "Do you want to remove this audio record ?",
+                                                    size: 'small',
+                                                    title: "Remove audio record?",
+                                                    className: "remove-audio-record-modal",
+                                                    onEscape: function () {
                                                     },
-                                                    success: {
-                                                        label: "Ok",
-                                                        className: "btn-success",
-                                                        callback: function() {
-                                                            //removeRequest();
+                                                    buttons: {
+                                                        danger: {
+                                                            label: "Cancel",
+                                                            className: "btn-default",
+                                                            callback: function () {
+                                                            }
+                                                        },
+                                                        success: {
+                                                            label: "Ok",
+                                                            className: "btn-success",
+                                                            callback: function () {
+                                                                //removeRequest();
+                                                            }
                                                         }
-                                                    }
-                                                }
-                                            });
-
-                                            function removeRequest() {
-                                                var
-                                                    uuid = $scope.currentRowId.slice(2);
-
-                                                $.ajax({
-                                                    "url": "https://pre.webitel.com:10022" + "/removeAudioRecord",
-                                                    "method": "POST",
-                                                    "contentType": "application/json",
-                                                    "timeout": 10000,
-                                                    "data": JSON.stringify({
-                                                        "uuid": uuid
-                                                    }),
-                                                    "dataType": "json",
-                                                    "success": function(data, textStatus, jqXHR ) {
-                                                        if ( textStatus === "success" ) {
-                                                            alert.success("", "Audio record has been removed", 3000);
-                                                            console.log("Audio record (" + data.uuid + ") has been removed");
-                                                            //$("#statisticsBootstrapTable  tr.statMoreInfoTr").remove();
-                                                            $("#" + $scope.currentRowId + " div.row:eq(4)").empty();
-                                                        }
-                                                    },
-                                                    "error": function(jqXHR, textStatus, errorThrown ) {
-                                                        alert.error("", "Audio record has not been removed", 5000);
-                                                        console.error("Audio record (" + data.uuid + ") has not been removed");
-                                                        return;
                                                     }
                                                 });
-                                            }
 
-                                        });
-                                    }
+                                                function removeRequest() {
+                                                    var
+                                                        uuid = $scope.currentRowId.slice(2);
+
+                                                    $.ajax({
+                                                        "url": "https://pre.webitel.com:10022" + "/removeAudioRecord",
+                                                        "method": "POST",
+                                                        "contentType": "application/json",
+                                                        "timeout": 10000,
+                                                        "data": JSON.stringify({
+                                                            "uuid": uuid
+                                                        }),
+                                                        "dataType": "json",
+                                                        "success": function (data, textStatus, jqXHR) {
+                                                            if (textStatus === "success") {
+                                                                alert.success("", "Audio record has been removed", 3000);
+                                                                console.log("Audio record (" + data.uuid + ") has been removed");
+                                                                //$("#statisticsBootstrapTable  tr.statMoreInfoTr").remove();
+                                                                $("#" + $scope.currentRowId + " div.row:eq(4)").empty();
+                                                                $("#" + $scope.currentRowId + " div.row:eq(5)").empty();
+                                                            }
+                                                        },
+                                                        "error": function (jqXHR, textStatus, errorThrown) {
+                                                            alert.error("", "Audio record has not been removed", 5000);
+                                                            console.error("Audio record (" + data.uuid + ") has not been removed");
+                                                            return;
+                                                        }
+                                                    });
+                                                }
+
+                                            });
+                                        }
+                                    }*/
                                 }
                                 function showPdfFile(src) {
                                     var ngClick = "openPdf('" + src + "')";
@@ -777,6 +784,68 @@ define("appRouter", [
 
                                                 for ( var i = 0; i < data.length; i++ ) {
                                                     if ( data[i]["content-type"] === "audio/mpeg" ) {
+                                                        $("#" + $scope.currentRowId + " div.row:eq(4)").append("<div class='col-md-2'><audio style='width: 300px;margin-left: 100px;float: left;' controls='controls' src=" + "'" + src + "'" + " preload='none'></audio></div>");
+                                                        if (session.getRole() === "root" || session.getRole() === "admin") {
+                                                            $("#" + $scope.currentRowId + " div.row:eq(5)").append("<div style='margin-left: 113px;margin-top: 5px;'><div id='applyFilter2'><button style='float: left;' class='btn btn-primary btn-xs' id='deleteAudio'>Delete</button></div></div>");
+                                                            $("#" + $scope.currentRowId + " div.row:eq(5) div:eq(1)").append("<div id='applyFilter2'><a role='button' href='" + src + "' style='float: left;margin-right: 5px;' class='btn btn-primary btn-xs' id='downloadAudio'>Download</a></div>");
+                                                            $("#deleteAudio").on("click", function () {
+
+                                                                bootbox.dialog({
+                                                                    message: "Do you want to remove this audio record ?",
+                                                                    size: 'small',
+                                                                    title: "Remove audio record?",
+                                                                    className: "remove-audio-record-modal",
+                                                                    onEscape: function () {
+                                                                    },
+                                                                    buttons: {
+                                                                        danger: {
+                                                                            label: "Cancel",
+                                                                            className: "btn-default",
+                                                                            callback: function () {
+                                                                            }
+                                                                        },
+                                                                        success: {
+                                                                            label: "Ok",
+                                                                            className: "btn-success",
+                                                                            callback: function () {
+                                                                                //removeRequest();
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                });
+
+                                                                function removeRequest() {
+                                                                    var
+                                                                        uuid = $scope.currentRowId.slice(2);
+
+                                                                    $.ajax({
+                                                                        "url": "https://pre.webitel.com:10022" + "/removeAudioRecord",
+                                                                        "method": "POST",
+                                                                        "contentType": "application/json",
+                                                                        "timeout": 10000,
+                                                                        "data": JSON.stringify({
+                                                                            "uuid": uuid
+                                                                        }),
+                                                                        "dataType": "json",
+                                                                        "success": function (data, textStatus, jqXHR) {
+                                                                            if (textStatus === "success") {
+                                                                                alert.success("", "Audio record has been removed", 3000);
+                                                                                console.log("Audio record (" + data.uuid + ") has been removed");
+                                                                                //$("#statisticsBootstrapTable  tr.statMoreInfoTr").remove();
+                                                                                $("#" + $scope.currentRowId + " div.row:eq(4)").empty();
+                                                                                $("#" + $scope.currentRowId + " div.row:eq(5)").empty();
+                                                                            }
+                                                                        },
+                                                                        "error": function (jqXHR, textStatus, errorThrown) {
+                                                                            alert.error("", "Audio record has not been removed", 5000);
+                                                                            console.error("Audio record (" + data.uuid + ") has not been removed");
+                                                                            return;
+                                                                        }
+                                                                    });
+                                                                }
+
+                                                            });
+                                                        }
                                                         success("audio/mpeg");
                                                     }
                                                     else if ( data[i]["content-type"] === "application/pdf" ) {
@@ -941,10 +1010,12 @@ define("appRouter", [
                                 $scope.credentials.key = session.getKey();
                                 $("#headerTable").hide();
                                 $("#data-content").hide();
+                                $("#loadText").show();
                                 $scope.getRowsCount();
                                 $scope.getStartData($scope.currentPage);
                                 $("#headerTable").show('fast');
                                 $("#data-content").show('fast');
+                                $("#loadText").hide();
                                 //INITIALIZATION//////////////////////////////////////////////////////////
                             });
 
@@ -1038,12 +1109,6 @@ define("appRouter", [
                     {
                         id: 'variables.domain_name',
                         label: 'Domain',
-                        type: 'string',
-                        operators: ["equal","not_equal","in","not_in","begins_with","not_begins_with","contains","not_contains","ends_with","not_ends_with","is_empty","is_not_empty"]
-                    },
-                    {
-                        id: 'variables.uuid',
-                        label: 'UUID',
                         type: 'string',
                         operators: ["equal","not_equal","in","not_in","begins_with","not_begins_with","contains","not_contains","ends_with","not_ends_with","is_empty","is_not_empty"]
                     },
@@ -1389,9 +1454,18 @@ define("appRouter", [
 
                         session.setDomain(domain);
 
-                        var prevRulesFilter = $("#builder-import_export").queryBuilder('getRules');
-                        prevRulesFilter.rules.push({field: "variables.domain_name", id: "variables.domain_name", input: "text", operator: "equal", value: domain});
-                        $("#builder-import_export").queryBuilder("setRules", prevRulesFilter);
+                        var builder_import = $("#builder-import_export");
+                        if(builder_import.length > 0) {
+                            var prevRulesFilter = $("#builder-import_export").queryBuilder('getRules');
+                            prevRulesFilter.rules.push({
+                                field: "variables.domain_name",
+                                id: "variables.domain_name",
+                                input: "text",
+                                operator: "equal",
+                                value: domain
+                            });
+                            $("#builder-import_export").queryBuilder("setRules", prevRulesFilter);
+                        }
                     }
 
                     $("#mainnav-domain-modal").modal("hide");
