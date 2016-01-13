@@ -787,7 +787,7 @@ define("appRouter", [
                                                         $("#" + $scope.currentRowId + " div.row:eq(4)").append("<div class='col-md-2'><audio style='width: 300px;margin-left: 100px;float: left;' controls='controls' src=" + "'" + src + "'" + " preload='none'></audio></div>");
                                                         if (session.getRole() === "root" || session.getRole() === "admin") {
                                                             $("#" + $scope.currentRowId + " div.row:eq(5)").append("<div style='margin-left: 113px;margin-top: 5px;'><div id='applyFilter2'><button style='float: left;' class='btn btn-primary btn-xs' id='deleteAudio'>Delete</button></div></div>");
-                                                            $("#" + $scope.currentRowId + " div.row:eq(5) div:eq(1)").append("<div id='applyFilter2'><a role='button' href='" + src + "' style='float: left;margin-right: 5px;' class='btn btn-primary btn-xs' id='downloadAudio'>Download</a></div>");
+                                                            $("#" + $scope.currentRowId + " div.row:eq(5) div:eq(1)").append("<div id='applyFilter2'><a role='button' href='" + src + "' style='float: left;margin-right: 5px;' class='btn btn-primary btn-xs' id='downloadAudio' download>Download</a></div>");
                                                             $("#deleteAudio").on("click", function () {
 
                                                                 bootbox.dialog({
