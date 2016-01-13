@@ -1105,6 +1105,10 @@ define("statisticsSection", ["webitelConnector", "session", "periodFilter", "loc
                 if ( checkElementOnEvent($("#exportToExcelLink").get(0), "click") ) {
                     
                     $("#exportToExcelLink").on("click", function() {
+                        var result = $('#builder-import_export').queryBuilder('getMongo');
+                        if ($.isEmptyObject(result)) {
+                            return;
+                        }
 
                         var 
                             parentEl = this.parentElement,
@@ -1131,6 +1135,7 @@ define("statisticsSection", ["webitelConnector", "session", "periodFilter", "loc
 
                         //  відобразити початок генерування excel 
                         $(parentEl).addClass("active");
+                        $("#loadExcel").show();
 
 
                         //  визначити домен
@@ -1156,11 +1161,12 @@ define("statisticsSection", ["webitelConnector", "session", "periodFilter", "loc
                                 "startDate": statDateFilter["callflow.times.created_time"].$gte,
                                 "endDate"  : statDateFilter["callflow.times.created_time"].$lte,
                                 "domain"   : domain,
-                                "generateNewExcelel": generateNewExcelel,
+                                "generateNewExcelel": true,
                                 "filter" : filter
                             }, function() {
                                 generateNewExcelel = false;
                                 $(parentEl).removeClass("active");
+                                $("#loadExcel").hide();
                             });
                         })
                     });

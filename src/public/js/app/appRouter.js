@@ -207,8 +207,8 @@ define("appRouter", [
                                     }
                                 });
                                 $scope.credentials ={login: "root", password: "ROOT_PASSWORD", token: "", key: ""};
-                                $scope.server = { loginUrl: "https://pre.webitel.com:10022/login", dataUrl: "https://pre.webitel.com:10022/api/v2/cdr/searches",
-                                    countUrl: "https://pre.webitel.com:10022/api/v2/cdr/counts", getJsonUrl: "https://pre.webitel.com:10022/api/v2/files"};
+                                $scope.server = { loginUrl: session.getWebitelServer() + "/login", dataUrl: session.getWebitelServer() + "/api/v2/cdr/searches",
+                                    countUrl: session.getWebitelServer() + "/api/v2/cdr/counts", getJsonUrl: session.getWebitelServer() + "/api/v2/files"};
 
                                 $scope.calls = [];
                                 $scope.rows = 0;
@@ -244,7 +244,7 @@ define("appRouter", [
                                     "callflow.times.hangup_time": 1
                                 }
 
-                                var cdrServerUrl = "https://pre.webitel.com:10022/api/v2/files/";
+                                var cdrServerUrl = session.getWebitelServer() + "/api/v2/files/";
                                 var token = "access_token=" + session.getToken();
                                 var key = "x_key=" + session.getKey();
 
@@ -522,7 +522,7 @@ define("appRouter", [
                                      }, function(response) {
                                      });*/
                                     $.ajax({
-                                        "url": window.location.href + "/getCdrJSON",
+                                        "url": session.getWebitelServer() + "/getCdrJSON",
                                         "method": "POST",
                                         "contentType": "application/json",
                                         "timeout": 10000,
@@ -808,7 +808,7 @@ define("appRouter", [
                                                                             label: "Ok",
                                                                             className: "btn-success",
                                                                             callback: function () {
-                                                                                //removeRequest();
+                                                                                removeRequest();
                                                                             }
                                                                         }
                                                                     }
@@ -819,7 +819,7 @@ define("appRouter", [
                                                                         uuid = $scope.currentRowId.slice(2);
 
                                                                     $.ajax({
-                                                                        "url": "https://pre.webitel.com:10022" + "/removeAudioRecord",
+                                                                        "url": session.getWebitelServer() + "/removeAudioRecord",
                                                                         "method": "POST",
                                                                         "contentType": "application/json",
                                                                         "timeout": 10000,
@@ -1014,7 +1014,7 @@ define("appRouter", [
                                 $scope.getRowsCount();
                                 $scope.getStartData($scope.currentPage);
                                 $("#headerTable").show('fast');
-                                $("#data-content").show('fast');
+                                $("#data-content").show();
                                 $("#loadText").hide();
                                 //INITIALIZATION//////////////////////////////////////////////////////////
                             });
