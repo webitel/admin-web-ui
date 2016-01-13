@@ -81,7 +81,7 @@ button[data-delete^="group"]:hover, button[data-delete^="rule"]:hover {
     font-size: 12px;
     height: 30px;
 }
-.query-builder button.btn:active, button.btn:focus, button.btn:target, button.btn:active:focus {
+.query-builder button.btn:active, .query-builder button.btn:focus, .query-builder button.btn:target, .query-builder button.btn:active:focus {
     background-color: #12708a;
     border-color: #12708a;
     border-radius: 0px;

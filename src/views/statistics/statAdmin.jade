@@ -23,12 +23,13 @@ div#page-content
                 div#applyFilter(style="margin-top: 10px;margin-left: 30px;")
                     button.btn.btn-primary.btn-xs(style='margin-top: 7px;margin-left: 15px;margin-top: -10px;', ng-click='useFilter()') Apply
                     button.btn.btn-primary.btn-xs(style='margin-top: -10px;margin-left: 0px;margin-top: -10px;', ng-click='resetFilter()') Reset
-                //
-                  export-excel-cont(style="margin-right: 20px;margin-top: -13px;")
-                    i.fa.fa-cog.fa-spin.fa-lg
-                    a#exportToExcelLink
-                        img(src='/img/exportToExcel.jpg')
-                p(id="rowCount", style='float: right;color: #12708a;font-family: Verdana;margin-top: 7px;font-size: 13px;margin-right: 30px;margin-top: -10px;') Rows: {{rows}}
+                div
+                    export-excel-cont(style="margin-right: 35px;float: right;margin-top: -20px;")
+                        i.fa.fa-cog.fa-spin.fa-lg(id="loadExcel", style="display: none;")
+                        a#exportToExcelLink
+                            img(src='/img/exportToExcel.jpg')
+            div.row
+                p(id="rowCount", style='float: right;color: #12708a;font-family: Verdana;margin-top: 7px;font-size: 13px;margin-right: 30px;margin-top: 0px;') Rows: {{rows}}
             div.row(style='margin-left: 15px;margin-right: 15px;')
                 table(style="width: 100%;margin-top: 10px;", id="headerTable")
                     tr(class="border_bottom")

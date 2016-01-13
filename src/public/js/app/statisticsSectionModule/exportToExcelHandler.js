@@ -29,6 +29,7 @@ define(["fileSaver"], function(fileSaver) {
         workBook,
         workSheet,
         blobExcel,
+        pageNumber,
         periodInfo;
 
 
@@ -51,6 +52,7 @@ define(["fileSaver"], function(fileSaver) {
         EB       = settings.EB;
         Table    = settings.Table;
         callback = cb;
+        pageNumber = 1;
 
         periodInfo = "Statistics for: " + timestampToDate(settings.startDate).split(" ")[0] + " - " + timestampToDate(settings.endDate).split(" ")[0];
 
@@ -76,7 +78,8 @@ define(["fileSaver"], function(fileSaver) {
             "limit": reqLimit,
             "sort" : {
                 "callflow.times.created_time": -1
-            }
+            },
+            "pageNumber": 1
         };
 
         //  якщо домен заданий, добавити його до фільтра
@@ -105,6 +108,12 @@ define(["fileSaver"], function(fileSaver) {
         }
 
     }
+
+    // формує заголовочний текст для звіту
+    function makeHeaderText() {
+
+    }
+
     //  створює шаблон для побудови Excel файлу
     function createExcelLayout() {
         var 
@@ -136,10 +145,10 @@ define(["fileSaver"], function(fileSaver) {
                     horizontal: "center"
                 }
             });
-
         receivedData.push([]);
-        receivedData.push([{ value: periodInfo, metadata: { style: periodInfoFormatter.id }}]);
-        receivedData.push([]);
+        //receivedData.push([{ value: periodInfo, metadata: { style: periodInfoFormatter.id }}]);
+        //receivedData.push([]);
+        //receivedData.push([]);
 
         var thead = [];
 
@@ -332,7 +341,7 @@ define(["fileSaver"], function(fileSaver) {
      * Спочатку фільтрація проходить по заданим фільтрам в UI. Після отримання першої порції даних, береться останій елемент і його поле created_time підставляється в фільтр
      */
     function modifyReqBody(lastElement) {
-
+        reqBody.pageNumber = reqBody.pageNumber+ 1;
         //var x = lastElement.callflow[0].times["created_time"];
 
         //  видалити значення фільтра по початковій даті
@@ -340,6 +349,7 @@ define(["fileSaver"], function(fileSaver) {
 
         //  добавити нове значення фільтра
         //reqBody.filter["callflow.times.created_time"].$lt = x;
+
     }
 
     //  добавляє дані в Excel файл, задає деякі стилі для колонок
@@ -350,7 +360,7 @@ define(["fileSaver"], function(fileSaver) {
 
         table = new Table();
 
-        table.setReferenceRange([1, 4], [10, receivedData.length]);
+        table.setReferenceRange([1, 2], [10, receivedData.length]);
         table.setTableColumns([
             'Caller name',
             'Caller number',
@@ -365,7 +375,7 @@ define(["fileSaver"], function(fileSaver) {
         ]);
 
         //  змержити комірка для тексту
-        workSheet.mergeCells('A2','B2');
+        //workSheet.mergeCells('A2','B2');
 
 
         workSheet.setData(receivedData);
@@ -439,6 +449,7 @@ define(["fileSaver"], function(fileSaver) {
 
         return theDate;
     }
+
 
 
     return {
