@@ -204,10 +204,22 @@ define("appRouter", [
 
                                 //івент на ентер
                                 $(document).keypress(function (e) {
+
                                     if (e.which == 13) {
-                                        $scope.useFilter();
+
+                                        //отримаємо активний елемент форми
+                                        var focusElement = $(":focus");
+
+                                        //знімаємо з нього фокус
+                                        focusElement.blur();
+
+                                        //чи ми знаходимся на сторінці статистики
+                                        if($("#builder-import_export").length > 0) {
+                                            $scope.useFilter();
+                                        }
                                     }
                                 });
+
                                 $scope.credentials ={login: "root", password: "ROOT_PASSWORD", token: "", key: ""};
                                 $scope.server = { loginUrl: session.getWebitelServer() + "/login", dataUrl: session.getWebitelServer() + "/api/v2/cdr/searches",
                                     countUrl: session.getWebitelServer() + "/api/v2/cdr/counts", getJsonUrl: session.getWebitelServer() + "/api/v2/files"};
