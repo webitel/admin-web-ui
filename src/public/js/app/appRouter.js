@@ -196,6 +196,8 @@ define("appRouter", [
                         });
                         require(['angular', 'session'], function(angular, session) {
                             showFilter();
+                            $("#data-content").hide();
+                            $("#loadText").show();
                             var staticticModule = angular.module("statisticModule",[]);
 
                             staticticModule.controller("statisticController", function($scope, $http) {
@@ -376,10 +378,15 @@ define("appRouter", [
                                             $("#loadText").hide();
                                             $("#data-content").show();
                                         }, function (response) {
+                                            alert.warning("","Error connection to " + session.getWebitelServer());
                                         });
                                 }
 
                                 $scope.clickRowTable = function(uuid) {
+                                    if($scope.currentRowId == uuid) {
+                                        return;
+                                    }
+
                                     if($scope.currentRowId != "") {
                                         $("#" + $scope.currentRowId + " div.row:eq(4)").empty();
                                         $("#" + $scope.currentRowId + " div.row:eq(5)").empty();
@@ -1013,7 +1020,7 @@ define("appRouter", [
                                 $("#loadText").show();
                                 $scope.getRowsCount();
                                 $scope.getStartData($scope.currentPage);
-                                $("#headerTable").show('fast');
+                                $("#headerTable").show();
                                 $("#data-content").show();
                                 $("#loadText").hide();
                                 //INITIALIZATION//////////////////////////////////////////////////////////
