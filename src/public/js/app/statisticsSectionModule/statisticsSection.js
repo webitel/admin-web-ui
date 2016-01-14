@@ -1158,8 +1158,8 @@ define("statisticsSection", ["webitelConnector", "session", "periodFilter", "loc
                                 "EB"       : EB,
                                 "Table"    : Table,
                                 "totalRow" : totalRow,
-                                "startDate": statDateFilter["callflow.times.created_time"].$gte,
-                                "endDate"  : statDateFilter["callflow.times.created_time"].$lte,
+                                "startDate": undefined,
+                                "endDate"  : undefined,
                                 "domain"   : domain,
                                 "generateNewExcelel": true,
                                 "filter" : filter
