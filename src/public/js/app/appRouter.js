@@ -298,7 +298,7 @@ define("appRouter", [
                                                 callerNumber = data[i].callflow[0].caller_profile.caller_id_number;
                                                 destinationNumber = data[i].callflow[0].caller_profile.destination_number;
                                                 createdTime = data[i].callflow[0].times.created_time > 0 ? new Date(data[i].callflow[0].times.created_time / 1000).toLocaleString() : 0;
-                                                answeredTime = data[i].callflow[0].times.answered_time > 0 ? new Date(data[i].callflow[0].times.answered_time / 1000).toLocaleDateString() : 0;
+                                                answeredTime = data[i].callflow[0].times.answered_time > 0 ? new Date(data[i].callflow[0].times.answered_time / 1000).toLocaleString() : 0;
                                                 bridgedTime = data[i].callflow[0].times.bridged_time > 0 ? new Date(data[i].callflow[0].times.bridged_time / 1000).toLocaleString() : 0;
                                                 hangupTime = data[i].callflow[0].times.hangup_time > 0 ? new Date(data[i].callflow[0].times.hangup_time / 1000).toLocaleString() : 0;
                                                 for (var j = 0; j < $scope.filterRules.rules.length; j++) {
@@ -337,7 +337,7 @@ define("appRouter", [
                                                     if ($scope.filterRules.rules[j].id == "callflow.times.answered_time") {
                                                         for (var k = 0; k < data[i].callflow.length; k++) {
                                                             if ($scope.filterRules.rules[j].value == data[i].callflow[k].times.answered_time) {
-                                                                answeredTime = data[i].callflow[k].times.answered_time > 0 ? new Date(data[i].callflow[k].times.answered_time / 1000).toLocaleDateString() : 0;
+                                                                answeredTime = data[i].callflow[k].times.answered_time > 0 ? new Date(data[i].callflow[k].times.answered_time / 1000).toLocaleString() : 0;
                                                                 break;
                                                             }
                                                         }

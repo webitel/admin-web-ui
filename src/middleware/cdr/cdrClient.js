@@ -308,7 +308,6 @@ function getCdrJSON(param, callback) {
 
 //  отримати дані для експорту в Excel
 function getDataForExcel(param, callback) {
-
     var uri = param["webitelServer"] + CORE_URL.getCdrJSON;
 
     request.post({

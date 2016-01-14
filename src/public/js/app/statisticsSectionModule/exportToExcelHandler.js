@@ -17,7 +17,7 @@ define(["fileSaver"], function(fileSaver) {
 
             "Billsec"  : "variables billsec",
             "Duration" : "variables duration",
-            "Direction": "variables webitel_direction",
+            "Direction": "variables direction",
 
             //"Uuid": "variables uuid",
             "Answered": "callflow 0 times answered_time",
@@ -68,6 +68,7 @@ define(["fileSaver"], function(fileSaver) {
                 "variables.billsec": 1,
                 "variables.duration": 1,
                 "variables.webitel_direction": 1,
+                "variables.direction": 1,
 
                 //"variables.uuid": 1,
                 "callflow.times.answered_time": 1,
