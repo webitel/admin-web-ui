@@ -236,6 +236,7 @@ define("appRouter", [
                                 $scope.calls = [];
                                 $scope.rows = 0;
                                 $scope.currentRowId = "";
+                                $scope.filterState = false;
 
                                 $scope.currentfilters = $("#builder-import_export").queryBuilder("getMongo");
                                 $scope.filterRules = {rules: {}};
@@ -274,6 +275,7 @@ define("appRouter", [
 
                                 // обробник на натискання кнопки застосувати фільтр
                                 $scope.useFilter = function() {
+                                    $scope.currentRowId = "";
                                     var result = $('#builder-import_export').queryBuilder('getMongo');
 
                                     //перевіряємо чи обєкт фільтру не пустий
