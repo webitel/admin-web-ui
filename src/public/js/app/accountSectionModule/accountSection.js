@@ -647,7 +647,10 @@ define("accountSection", ["webitelConnector", "session", "alert", "fieldValidato
     //  Виклкається з модального вікна створення акаунта
     window.WAdmin.AccountSection.addNewAcc = function() {
         var accData = $(".addNewAccForm").serializeArray(),
-            accRole = $("#acc-create-role").find(":selected").val(),
+            //accRole = $("#acc-create-role").find(":selected").val(),
+
+        //todo 16.01.2016
+            accRole = "user",
             accLogin,           //  обовязкове для заповнення
             accCallerName,      //  обовязкове для заповнення
             accPass,            //  необовязкове
@@ -773,6 +776,9 @@ define("accountSection", ["webitelConnector", "session", "alert", "fieldValidato
             }
         }
         //  endregion
+
+        // todo 16.01.2016
+        attr.variables.push("account_role=" + $("#acc-create-role").find(":selected").val());
 
         webitel.userCreate(accRole, accLogin, accPass, selectedDomain, attr, function(res) {
             if (res.status === 0) {

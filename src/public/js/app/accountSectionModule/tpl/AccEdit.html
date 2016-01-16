@@ -66,12 +66,30 @@
                             <option value="qm">QM</option>
                             <option value="supervisor">Supervisor</option>
                             <option value="agent">Agent</option>
-                        <% } else { %>
+                        <% } else if ( role === "user" ) { %>
                             <option value="admin">Admin</option>
                             <option value="user" selected>User</option>
                             <option value="qm">QM</option>
                             <option value="supervisor">Supervisor</option>
                             <option value="agent">Agent</option>
+                        <% } else if ( role === "qm" ) { %>
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                        <option value="qm" selected>QM</option>
+                        <option value="supervisor">Supervisor</option>
+                        <option value="agent">Agent</option>
+                        <% } else if ( role === "supervisor" ) { %>
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                        <option value="qm">QM</option>
+                        <option value="supervisor" selected>Supervisor</option>
+                        <option value="agent">Agent</option>
+                        <% } else if ( role === "agent" ) { %>
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                        <option value="qm">QM</option>
+                        <option value="supervisor">Supervisor</option>
+                        <option value="agent" selected>Agent</option>
                         <% } %>
                     </select>
                 </div>

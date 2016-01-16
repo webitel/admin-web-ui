@@ -291,9 +291,8 @@ define("AccountModel", ["alert"], function(alert) {
 
 
             updateData: function(callback, scope) {
-                var self = this;
                 var attrs = {
-                    "parameters": this.prepareEditedParameters(),
+                    //"parameters": this.prepareEditedParameters(),
                     "variables": this.prepareEditedParameters()
                 };
 
