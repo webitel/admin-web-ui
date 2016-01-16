@@ -2,7 +2,6 @@ var config = require(global["APP_ROOT_PATH"] + '/config/index.js'),
     log    = require(global["APP_ROOT_PATH"] + '/boot/winston.js')(module),
     request = require('request');
 
-
 module.exports = function(app) {
     app.route('/login')
         .get(function(req, res, next) {
@@ -63,7 +62,6 @@ module.exports = function(app) {
                     "Content-Type": "application/json"
                 }
             },  function(err, requestRes, resBody) {
-
                 var response,
                     token, key, tokenExpire,
                     role, domain,
@@ -118,11 +116,10 @@ module.exports = function(app) {
                     return;
                 }
 
-
                 token = response.token || "";
                 key   = response.key || "";
                 tokenExpire = response.expires || "";
-                role   = response.role || "";
+                role   = response.roleName || "";
                 domain = response.domain || "";
                 webitelServer = webSer;
 
@@ -130,17 +127,6 @@ module.exports = function(app) {
                     webSocket = webitelServer.replace("https://", "wss://");
                 } else {
                     webSocket = webitelServer.replace("http://", "ws://");
-                }
-
-                //  задати роль не як числове значення, а стрічкою
-                if ( role === 2 ) {
-                    role = "root";
-                } else if ( role === 1 ) {
-                    role = "admin";
-                } else if ( role === 0  || role === "") {       //  TODO роль user повинна приходити як 0
-                    role = "user";
-                } else {
-                    role = "";
                 }
 
                 //  забарти домен із логіну
@@ -157,7 +143,8 @@ module.exports = function(app) {
                     "webitelServer": webitelServer,
                     "token": token,
                     "key"  : key,
-                    "tokenExpire": tokenExpire
+                    "tokenExpire": tokenExpire,
+                    "acl": response.acl
                 };
 
                 res.end(JSON.stringify({
