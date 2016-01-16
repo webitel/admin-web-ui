@@ -74,7 +74,7 @@ if (Webitel != undefined) {
     WebitelDeviceType = {
         Sip: 'sip'
     };
-	
+
 	WebitelSipGatewayAttribute = {
         Param: 'param',
         Var: 'var',
@@ -318,7 +318,7 @@ if (Webitel != undefined) {
                 Down: 'sip_gateway_down',
                 Kill: 'sip_gateway_kill'
             },
-			
+
             Show: {
                 Channel: 'show_channel'
             },
@@ -2865,7 +2865,7 @@ if (Webitel != undefined) {
             // SYS
             getVar: WebitelConnection.getVariable,
             setVar: WebitelConnection.setVariable,
-            
+
             /*
              *  Список шлюзов.
              *  @domain {String} - домен шлюза.
@@ -2913,7 +2913,7 @@ if (Webitel != undefined) {
              * @domain {String}: домен.
              * @callback {Function} - callback Функция обратного вызова.
              */
-            showChannel: WebitelConnection.showChannel,			
+            showChannel: WebitelConnection.showChannel,
             getAgentsList: WebitelConnection.getAgentsList,
             rawapi: WebitelConnection.rawapi,
             eavesdrop: WebitelConnection.eavesdrop,
@@ -2922,7 +2922,7 @@ if (Webitel != undefined) {
             genToken: WebitelConnection.genToken,
             sipProfileList: WebitelConnection.sipProfileList,
             sipProfileRescan: WebitelConnection.sipProfileRescan,
-			
+
             getRecordFileFromUUID: WebitelConnection.getRecordFileFromUUID,
             channelDump: WebitelConnection.channelDump
         };

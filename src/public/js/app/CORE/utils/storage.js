@@ -117,7 +117,6 @@ define(["alert"], function(alert) {
 
     //  зберегти дані в сховищі по ключю
     function set(key, dataJson) {
-
         if ( !usedStorage ) {
             defineStorage(execute);
             return;

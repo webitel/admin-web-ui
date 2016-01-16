@@ -46,6 +46,7 @@ define(["storage", "alert"], function(storage, alert) {
         token = sessionData.token || "";
         key   = sessionData.key || "";
         tokenExpire = sessionData.tokenExpire || "";
+        acl = sessionData.acl;
     })();
 
 
@@ -79,6 +80,9 @@ define(["storage", "alert"], function(storage, alert) {
     function getTokenExpire() {
         return tokenExpire;
     }
+    function getAcl() {
+        return acl;
+    }
 
 
     return {
@@ -91,6 +95,7 @@ define(["storage", "alert"], function(storage, alert) {
         getWebitelServer: getWebitelServer,
         getToken: getToken,
         getKey  : getKey,
-        getTokenExpire: getTokenExpire
+        getTokenExpire: getTokenExpire,
+        getAcl: getAcl
     }
 });

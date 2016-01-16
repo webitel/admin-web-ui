@@ -61,23 +61,15 @@ div#page-content
                                 a.test(ng-click='makeSort(7)', href='#') {{sortCaptions[7].caption}}
                 div(style='overflow-y: scroll; height: 500px;overflow-x: hidden;', scrolly='showMore()')
                     table#myTable.table(ng-repeat='call in calls')
-                        tr(class="border_bottom", ng-click='clickRowTable(call.uuid)')
-                            td.col-md-2.small(style='text-align: center; vertical-align: middle;font-size: 11px;')
-                                p#tableText  {{call.callerName}}
-                            td.col-md-1.small(style='text-align: center; vertical-align: middle;font-size: 11px;')
-                                 p#tableText  {{call.callerNumber}}
-                            td.col-md-2.small(style='text-align: center; vertical-align: middle;font-size: 11px;')
-                                 p#tableText  {{call.destinationNumber}}
-                            td.col-md-2.small(style='text-align: center; vertical-align: middle;font-size: 11px;')
-                                 p#tableText  {{call.createdTime}}
-                            td.col-md-1.small(style='text-align: center; vertical-align: middle;font-size: 11px;')
-                                 p#tableText  {{call.billSeconds}}
-                            td.col-md-1.small(style='text-align: center; vertical-align: middle;font-size: 11px;')
-                                 p#tableText  {{call.duration}}
-                            td.col-md-1.small(style='text-align: center; vertical-align: middle;font-size: 11px;')
-                                 p#tableText  {{call.direction}}
-                            td.col-md-2.small(style='text-align: center; vertical-align: middle;font-size: 11px;')
-                                 p#tableText  {{call.hangupCause}}
+                        tr(class="border_bottom", ng-click='clickRowTable(call.uuid)', style="height: 60px;")
+                            td.col-md-2.small(style='text-align: center; vertical-align: middle;font-size: 13px;') {{call.callerName}}
+                            td.col-md-1.small(style='text-align: center; vertical-align: middle;font-size: 13px;') {{call.callerNumber}}
+                            td.col-md-2.small(style='text-align: center; vertical-align: middle;font-size: 13px;') {{call.destinationNumber}}
+                            td.col-md-2.small(style='text-align: center; vertical-align: middle;font-size: 13px;') {{call.createdTime}}
+                            td.col-md-1.small(style='text-align: center; vertical-align: middle;font-size: 13px;') {{call.billSeconds}}
+                            td.col-md-1.small(style='text-align: center; vertical-align: middle;font-size: 13px;') {{call.duration}}
+                            td.col-md-1.small(style='text-align: center; vertical-align: middle;font-size: 13px;') {{call.direction}}
+                            td.col-md-2.small(style='text-align: center; vertical-align: middle;font-size: 13px;') {{call.hangupCause}}
                         tr(id='{{call.uuid}}', style='display: none;', class="border_bottom")
                             td(colspan='8')
                                 div.row
