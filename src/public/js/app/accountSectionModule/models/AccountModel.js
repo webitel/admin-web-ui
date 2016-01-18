@@ -80,19 +80,19 @@ define("AccountModel", ["alert"], function(alert) {
                     var currentRole = this.get("role");
 
                     if (currentRole === "admin") {
-                        this.replaceParameter("account_role", "admin");
+                        //this.replaceParameter("account_role", "admin");
                     }
                     if(currentRole === "user"){
-                        this.replaceParameter("account_role", "user");
+                        //this.replaceParameter("account_role", "user");
                     }
                     if(currentRole === "qm") {
-                        this.replaceParameter("account_role", "qm");
+                        //this.replaceParameter("account_role", "qm");
                     }
                     if(currentRole === "supervisor") {
-                        this.replaceParameter("account_role", "supervisor");
+                        //this.replaceParameter("account_role", "supervisor");
                     }
                     if(currentRole === "agent") {
-                        this.replaceParameter("account_role", "agent");
+                        //this.replaceParameter("account_role", "agent");
                     }
                 }, this);
 
