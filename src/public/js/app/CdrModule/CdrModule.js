@@ -5,7 +5,6 @@ define("CdrModule", ["CdrCollection"], function(CdrCollection) {
         version: "0.0.1",
         init: function() {
             console.info("CdrModule version: " + this.version);
-            debugger;
             var cdrCollection = new CdrCollection();
         }
     };

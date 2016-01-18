@@ -75,7 +75,7 @@ if (Webitel != undefined) {
         Sip: 'sip'
     };
 
-	WebitelSipGatewayAttribute = {
+    WebitelSipGatewayAttribute = {
         Param: 'param',
         Var: 'var',
         OVar: 'ovar',
@@ -1924,7 +1924,7 @@ if (Webitel != undefined) {
             createDomain: function(name, customerId, option, cb) {
 
                 /**
-                    option = {
+                 option = {
                         "parameters": [],
                         "variables": []
                     }
@@ -2272,7 +2272,7 @@ if (Webitel != undefined) {
                 cmd.execute();
             },
 
-                       gatewayList: function (domain, cb) {
+            gatewayList: function (domain, cb) {
                 var _cb, _domain;
                 if (typeof arguments[0] == "function") {
                     _cb = arguments[0];

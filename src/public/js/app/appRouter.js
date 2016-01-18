@@ -231,11 +231,11 @@ define("appRouter", [
                             profilePage.createWebitel();
                         });
                     }
-                    else if ( url === "/cdr" ) {
+                    /*else if ( url === "/cdr" ) {
                         require(["CdrModule"], function (CdrModule) {
                             CdrModule.init();
                         });
-                    }
+                    }*/
                 },
                 error: function(err) {
                     errHandler.handleXhr(err.status);
