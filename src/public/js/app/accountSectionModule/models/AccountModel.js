@@ -292,14 +292,15 @@ define("AccountModel", ["alert"], function(alert) {
 
             updateData: function(callback, scope) {
                 var attrs = {
-                    //"parameters": this.prepareEditedParameters(),
-                    "variables": this.prepareEditedParameters()
+                    "parameters": this.prepareEditedParameters(),
+                    "variables": this.prepareEditedVariables()
                 };
 
                 var name = this.get("name");
                 var domain = this.get("domain");
 
-
+                // todo 16.01.2016
+                attrs.variables.push("account_role=" + this.get("role"));
 
                 webitel.userUpdate(name, domain, attrs, function(res) {
                     if ( res.status !== 0 ) {

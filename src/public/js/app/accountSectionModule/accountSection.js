@@ -128,13 +128,15 @@ define("accountSection", ["webitelConnector", "session", "alert", "fieldValidato
                         useVoicemail = elem.value;
                     else if (elem.key === "vm-password")
                         accessPin = elem.value;
+
                 }
 
                 for (var i=0; i<variables.length; i++) {
                     var elem = variables[i];
                     if (elem.key === "effective_caller_id_name") {
                         callerName = elem.value;
-                    }
+                    } else if (elem.key === "account_role")
+                        role = elem.value;
                 }
 
                 var accModel = new AccountModel({

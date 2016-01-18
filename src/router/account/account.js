@@ -39,5 +39,10 @@ module.exports = function(app) {
                     role: req.session.user.role
                 });
             }
+            else {
+                res.render("account/accUser.jade", {
+                    role: req.session.user.role
+                });
+            }
         })
 };
