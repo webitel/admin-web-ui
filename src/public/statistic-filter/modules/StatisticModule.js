@@ -2,7 +2,7 @@
  * Created by s.fedyuk on 22.12.2015.
  */
 
-define("StatisticModule",["angular", "session"], function(angular, session) {
+define("StatisticModule",["angular", "session", "alert"], function(angular, session, alert) {
     function init() {
         // відобаражаємо складний фільтр з базовим фільтром
         showFilter();
@@ -261,7 +261,7 @@ define("StatisticModule",["angular", "session"], function(angular, session) {
                     $("#data-content").show();
 
                 }, function (response) {
-                    alert.warning("", "Error connection to " + session.getWebitelServer());
+                    alert.error("", response.statusText + " status: " + response.status);
                 });
             }
 
@@ -345,6 +345,7 @@ define("StatisticModule",["angular", "session"], function(angular, session) {
                 $http(data).then(function (response) {
                     $scope.rows = response.data;
                 }, function (response) {
+                    alert.error("", response.statusText + " status: " + response.status);
                 });
             }
 
