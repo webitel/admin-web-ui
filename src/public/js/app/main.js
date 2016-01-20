@@ -76,9 +76,10 @@ requirejs.config({
         "alert"                 : "/js/app/alertModule/alert",
         "errHandler"            : "/js/app/errHandlerModule/errHandler",
 
-
+        // Last modules
         "angular": "statistic-filter/angular.min",
         "StatisticModule": "statistic-filter/modules/StatisticModule",
+        "roleChecker": "/js/app/roleModule/RoleChecker",
 
         //  CORE
         "initCore": "/js/app/CORE/init",
