@@ -17,19 +17,23 @@ define("StatisticModule",["angular", "session", "alert"], function(angular, sess
         staticticModule.controller("statisticController", function ($scope, $http) {
 
             //івент на ентер
-            $(document).keypress(function (e) {
+            $("#data-content").keypress(function (e) {
 
                 if (e.which == 13) {
 
-                    //отримаємо активний елемент форми
-                    var focusElement = $(":focus");
-
-                    //знімаємо з нього фокус
-                    focusElement.blur();
-
                     //чи ми знаходимся на сторінці статистики
                     if ($("#builder-import_export").length > 0) {
+
+                        //отримаємо активний елемент форми
+                        var focusElement = $(":focus");
+
+                        //знімаємо з нього фокус
+                        focusElement.blur();
+
                         $scope.useFilter();
+                    }
+                    else {
+                        e.preventDefault();
                     }
                 }
             });

@@ -199,6 +199,7 @@ define("appRouter", [
 
                             require(["StatisticModule"], function(statisticModule) {
                                 statisticModule.init();
+
                                 require(["statisticsSection"], function(statisticsSection) {
                                     statisticsSection.createWebitel();
                                 });

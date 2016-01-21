@@ -36,7 +36,7 @@ define("roleChecker",["session"], function(session) {
     function checkPermission(operation, resourceName) {
 
         // якщо поточний користувач немає ресурсів для ролей
-        if(currentAcl) {
+        if(Object.getOwnPropertyNames(currentAcl).length == 0) {
 
             throw new Error("Current user does not have acl resources");
         }
@@ -47,7 +47,7 @@ define("roleChecker",["session"], function(session) {
             if(isResourseAvailable(resourceName)) {
 
                 // чи доступна операція з відповідним ресорсом ролі для поточного користувача
-                if(isOperationAvailable(operation)) {
+                if(isOperationAvailable(resourceName, operation)) {
 
                     return true;
                 }
@@ -74,14 +74,14 @@ define("roleChecker",["session"], function(session) {
         return false;
     }
 
-    // перевіряє чи доступна операція для поточног користувпача
-    function isOperationAvailable(operation) {
+    // перевіряє чи доступна операція для поточного користувпача
+    function isOperationAvailable(resourceName, operation) {
 
         // проходимя по всіх операціях для ресурсів ролі
-        for(var i = 0; i < operations.length; i++) {
+        for(var i = 0; i < currentAcl[resourceName].length; i++) {
 
             // якщо операція для поточного ресурсу ролі доступна
-            if(operations[i] == operation) {
+            if(currentAcl[resourceName][i] == operation) {
 
                 return true;
             }
