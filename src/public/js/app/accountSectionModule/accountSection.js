@@ -1,6 +1,6 @@
 
-define("accountSection", ["webitelConnector", "session", "alert", "fieldValidator", "AccountModel", "AccountEditView"],
-    function(webitelConnector, session, alert, fieldValidator, AccountModel, AccountEditView) {
+define("accountSection", ["webitelConnector", "session", "alert", "fieldValidator", "AccountModel", "AccountEditView","roleChecker"],
+    function(webitelConnector, session, alert, fieldValidator, AccountModel, AccountEditView, roleChecker) {
 
     var regOnlyNumbers = new RegExp('^[1-9]+$');
 
