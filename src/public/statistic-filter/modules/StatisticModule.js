@@ -266,6 +266,8 @@ define("StatisticModule",["angular", "session", "alert"], function(angular, sess
 
                 }, function (response) {
                     alert.error("", response.statusText + " status: " + response.status);
+                    $("#data-content").show();
+                    $("#loadText").hide();
                 });
             }
 
@@ -440,7 +442,7 @@ define("StatisticModule",["angular", "session", "alert"], function(angular, sess
             // обробник при кліку на кнопку для перегляду JSON обєкта в додатковій інофрмації по дзвінку
             $scope.getJson = function () {
 
-                $.ajax({
+                /*$.ajax({
                     "url": session.getWebitelServer() + "/getCdrJSON",
                     "method": "POST",
                     "contentType": "application/json",
@@ -455,6 +457,31 @@ define("StatisticModule",["angular", "session", "alert"], function(angular, sess
                     "error": function (jqXHR, textStatus, errorThrown) {
                         this.alert("Can not read data");
                     }
+                });*/
+
+                var startFilter = {};
+                startFilter.columns = {};
+                startFilter.fields = {};
+
+                startFilter.filter = {"variables.uuid": $scope.currentRowId.slice(2)};
+                startFilter.sort = {};
+                startFilter.limit = 1;
+
+                var data = {
+                    method: "POST",
+                    url: $scope.server.dataUrl,
+                    headers: {
+                        'x-key': session.getKey(),
+                        'x-access-token': session.getToken()
+                    },
+                    data: startFilter
+                };
+
+                // отримуємо відповідь від сервера(json обєкт)
+                $http(data).then(function (response) {
+                    showCdrJsonWindow(JSON.stringify(response.data));
+                }, function (response) {
+                    alert.error("", response.statusText + " status: " + response.status);
                 });
             }
 
