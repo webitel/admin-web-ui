@@ -207,6 +207,9 @@ define("gatewaySection", ["webitelConnector", "session", "alert", "bsWizard"], f
                 profileName = gwName.split("::")[0];
                 gatewayName = gwName.split("::")[1];
             }
+            else {
+                gatewayName = gwName;
+            }
 
 
             if ( isGwChecked ) {
