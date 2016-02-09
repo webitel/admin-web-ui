@@ -1,4 +1,4 @@
-define("AccountModel", ["alert"], function(alert) {
+define("AccountModel", ["alert","session", "roleChecker"], function(alert, session, roleChecker) {
 
 
 
@@ -80,19 +80,19 @@ define("AccountModel", ["alert"], function(alert) {
                     var currentRole = this.get("role");
 
                     if (currentRole === "admin") {
-                        //this.replaceParameter("account_role", "admin");
+                        this.replaceVariable("account_role", "admin");
                     }
                     if(currentRole === "user"){
-                        //this.replaceParameter("account_role", "user");
+                        this.replaceVariable("account_role", "user");
                     }
                     if(currentRole === "qm") {
-                        //this.replaceParameter("account_role", "qm");
+                        this.replaceVariable("account_role", "qm");
                     }
                     if(currentRole === "supervisor") {
-                        //this.replaceParameter("account_role", "supervisor");
+                        this.replaceVariable("account_role", "supervisor");
                     }
                     if(currentRole === "agent") {
-                        //this.replaceParameter("account_role", "agent");
+                        this.replaceVariable("account_role", "agent");
                     }
                 }, this);
 
@@ -300,18 +300,41 @@ define("AccountModel", ["alert"], function(alert) {
                 var domain = this.get("domain");
 
                 // todo 16.01.2016
-                attrs.variables.push("account_role=" + this.get("role"));
+                //attrs.variables.push("account_role=" + this.get("role"));
 
-                webitel.userUpdate(name, domain, attrs, function(res) {
-                    if ( res.status !== 0 ) {
-                        alert.error("", res.response.response, 5000);
-                        console.error(res.response.response);
-                        return;
+                // перевіряємо чи редагування можливе тільки для свого аккаунта
+                if(roleChecker.checkPermission("uo", "account") && !roleChecker.checkPermission("*", "account")) {
+
+                    // якщо аккаунт, який потрібно редагувати є аккаунт під яким зайшов користувач
+                    if(this.get("name") == session.getLogin()) {
+                        webitel.userUpdate(name, domain, attrs, function (res) {
+                            if (res.status !== 0) {
+                                alert.error("", res.response.response, 5000);
+                                console.error(res.response.response);
+                                return;
+                            }
+
+                            alert.success("", "Account \"" + name + "\" has been updated", 3000);
+                            callback.call(scope);
+                        });
                     }
+                    else {
+                        alert.error("", "Permission denied!");
+                    }
+                }
 
-                    alert.success("", "Account \"" + name + "\" has been updated", 3000);
-                    callback.call(scope);
-                });
+                else {
+                    webitel.userUpdate(name, domain, attrs, function (res) {
+                        if (res.status !== 0) {
+                            alert.error("", res.response.response, 5000);
+                            console.error(res.response.response);
+                            return;
+                        }
+
+                        alert.success("", "Account \"" + name + "\" has been updated", 3000);
+                        callback.call(scope);
+                    });
+                }
             }
         });
 

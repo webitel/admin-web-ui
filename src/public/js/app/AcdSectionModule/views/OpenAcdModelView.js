@@ -27,8 +27,9 @@
 define([
     "backbone",
     "text!/js/app/AcdSectionModule/tpl/OpenAcdModelViewTpl.html",
-    "text!/js/app/AcdSectionModule/tpl/AcdTpl.html"
-], function(Backbone, OpenAcdModelViewTpl, AcdTpl) {
+    "text!/js/app/AcdSectionModule/tpl/AcdTpl.html",
+    "roleChecker"
+], function(Backbone, OpenAcdModelViewTpl, AcdTpl, roleChecker) {
 
     var OpenAcdModelView = Backbone.View.extend({
         initialize: function(options) {
@@ -98,6 +99,12 @@ define([
             $("#page-content div.row").append(this.$el);
 
 
+            // при необхідності закрити доступ до редагування даних
+            roleChecker.acdAccess.hideSaveButton();
+
+            // при необхідносіт закрити доступ до перегляду операторів
+            roleChecker.acdAccess.hideTiersContent();
+
             setSomeFields.call(this);
             //  встановлює значення для тих полів, які не можна передати через шаблон
             function setSomeFields() {
@@ -166,6 +173,9 @@ define([
 
                 return liEl;
             }
+
+            // перевіряємо чи є доступ до редагування операторів
+            roleChecker.acdAccess.hideTiersButtons();
 
         },
         events: {

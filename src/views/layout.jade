@@ -135,32 +135,26 @@ html(lang="en")
                                             a.main-manu-link(href="/account", pushState="/account")
                                                 i.fa.fa-users(style="width: 22px; height: 12px;")
                                                 span.menu-title Account
-                                        if role != "user"
-                                            li
-                                                a.main-manu-link(href="/gateways", pushState="/gateways")
-                                                    i.fa.fa-plane(style="width: 22px; height: 12px;")
-                                                    span.menu-title Gateways
-                                        if role != "user"
-                                            li
-                                                a.main-manu-link(href="/callflow", pushState="/callflow")
-                                                    i.fa.fa-sitemap(style="width: 22px; height: 12px;")
-                                                    span.menu-title Callflow
+                                        li
+                                            a.main-manu-link(href="/gateways", pushState="/gateways")
+                                                i.fa.fa-plane(style="width: 22px; height: 12px;")
+                                                span.menu-title Gateways
+                                        li
+                                            a.main-manu-link(href="/callflow", pushState="/callflow")
+                                                i.fa.fa-sitemap(style="width: 22px; height: 12px;")
+                                                span.menu-title Callflow
                                         li
                                             a.main-manu-link(href="/statistics", pushState="/statistics")
                                                 i.fa.fa-bar-chart-o(style="width: 22px; height: 12px;")
                                                 span.menu-title Statistics
-
-                                        if role != "user"
-                                            li
-                                                a.main-manu-link(href="/media", pushState="/media")
-                                                    i.fa.fa-play(style="width: 22px; height: 12px;")
-                                                    span.menu-title Media
-
-                                        if role != "user"
-                                            li
-                                                a.main-manu-link(href="/acd", pushState="/acd")
-                                                    i.fa.fa-th-list(style="width: 22px; height: 12px;")
-                                                    span.menu-title ACD
+                                        li
+                                            a.main-manu-link(href="/media", pushState="/media")
+                                                i.fa.fa-play(style="width: 22px; height: 12px;")
+                                                span.menu-title Media
+                                        li
+                                            a.main-manu-link(href="/acd", pushState="/acd")
+                                                i.fa.fa-th-list(style="width: 22px; height: 12px;")
+                                                span.menu-title ACD
 
 
                                         li.list-divider

@@ -42,6 +42,15 @@ define("accountSection", ["webitelConnector", "session", "alert", "fieldValidato
      */
     function init() {
 
+        // обмежуємо доступ до створення аккаунта
+        roleChecker.accountAccess.hideCreateAccountButton();
+
+        // обмежуємо доступ до створення домена
+        roleChecker.domainAccess.hideCreateDomainButton();
+
+        // приховуємо таб доменів для перегляду
+        roleChecker.sectionPanel.hideDomainTab();
+
         //  якщо домен невибраний, тоді нічого не відображати для юзера
         if ( !isDomainSelected() ) {
             alert.warning("", "Domain does not selected", 5000);
@@ -62,7 +71,7 @@ define("accountSection", ["webitelConnector", "session", "alert", "fieldValidato
     }
 
     function isDomainSelected() {
-        if ( session.getRole() === "admin" || session.getRole() === "user" ) {
+        if ( session.getRole() != "root" ) {
             selectedDomain = session.getDomain();
         }
         else {
@@ -489,8 +498,13 @@ define("accountSection", ["webitelConnector", "session", "alert", "fieldValidato
             }
         }
 
-        // Додаєм ще одну колонку, яка містить іконку видалення домена
-        if ( session.getRole() === "root" || session.getRole() === "admin" ) {
+        // Додаєм ще одну колонку, яка містить іконку видалення і редагування домена
+
+        var isUpdateAccess = roleChecker.checkPermission("u", "account") || roleChecker.checkPermission("uo", "account");
+        var isDeleteAccess = roleChecker.checkPermission("d", "account") || roleChecker.checkPermission("do", "account");
+
+        // якщо є хоча б доступ до однієї операції(редагування, видалення)
+        if (isUpdateAccess || isDeleteAccess) {
             accColumnName.push({
                 field: "actions",
                 title: "",
@@ -498,8 +512,8 @@ define("accountSection", ["webitelConnector", "session", "alert", "fieldValidato
                 valign: 'middle',
                 sortable: false,
                 formatter: function () {
-                    return '<button class="btn btn-xs btn-mint btn-icon icon-xs fa fa-pencil-square-o" onclick="WAdmin.AccountSection.showEditAccModal();"></button> ' +
-                        '<button class="btn btn-xs btn-danger btn-icon icon-xs fa fa-times" onclick="WAdmin.AccountSection.showRemAccModal();"></button>';
+                    return  (isUpdateAccess ? '<button class="btn btn-xs btn-mint btn-icon icon-xs fa fa-pencil-square-o" onclick="WAdmin.AccountSection.showEditAccModal();"></button> ' : '') +
+                        (isDeleteAccess ? '<button class="btn btn-xs btn-danger btn-icon icon-xs fa fa-times" onclick="WAdmin.AccountSection.showRemAccModal();"></button>' : '');
                 }
             });
         }
@@ -544,7 +558,7 @@ define("accountSection", ["webitelConnector", "session", "alert", "fieldValidato
                 $('#domListTable').bootstrapTable("load", domainDataRow);
             }
             else if (res.status === 1) {
-                alert.error(null, this.responseText, null);
+                alert.error(null, res.response, null);
             }
         });
     }
@@ -582,13 +596,16 @@ define("accountSection", ["webitelConnector", "session", "alert", "fieldValidato
             }
         }
 
+        // перевіряємо чи є доступ на видалення домена
+        var isDeleteAccess = roleChecker.checkPermission("d", "domain");
+
         columnHead.push({
             field: headers[i],
             title: headers[i],
             align: 'center',
             valign: 'middle',
             formatter: function() {
-                return '<button class="btn btn-xs btn-danger btn-icon icon-xs fa fa-times" onclick="WAdmin.AccountSection.showRemDomModal();"></button>';
+                return isDeleteAccess ? '<button class="btn btn-xs btn-danger btn-icon icon-xs fa fa-times" onclick="WAdmin.AccountSection.showRemDomModal();"></button>' : '';
             }
         })
         return columnHead;
@@ -631,19 +648,45 @@ define("accountSection", ["webitelConnector", "session", "alert", "fieldValidato
         var user = $(".remAccFormUser").text(),
             domain = $(".remAccFormDomain").text();
 
-        webitel.userRemove(user, domain, function(res) {
-             if (res.status === 0) {
-                 $("#accountListTable").trigger("refreshAccTable");
-                 $("#rem-acc-modal").modal("hide");
-                 alert.success(null, this.responseText, 3000);
-                 // обновити таблицю акаунтів
-             }
-             else if (res.status === 1) {
-                 alert.error(null, this.responseText, 10000);
-             } else {
-                 alert.error(null, this.responseText, 10000);
+        debugger;
+
+        // перевіряємо чи редагування можливе тільки для свого аккаунта
+        if(roleChecker.checkPermission("do", "account") && !roleChecker.checkPermission("*", "account")) {
+
+            if(user == session.getLogin()) {
+                webitel.userRemove(user, domain, function (res) {
+                    if (res.status === 0) {
+                        $("#accountListTable").trigger("refreshAccTable");
+                        $("#rem-acc-modal").modal("hide");
+                        alert.success(null, this.responseText, 3000);
+                        // обновити таблицю акаунтів
+                    }
+                    else if (res.status === 1) {
+                        alert.error(null, this.responseText, 10000);
+                    } else {
+                        alert.error(null, this.responseText, 10000);
+                    }
+                })
             }
-        })
+            else {
+                alert.error("", "Permission denied!");
+            }
+        }
+        else {
+            webitel.userRemove(user, domain, function (res) {
+                if (res.status === 0) {
+                    $("#accountListTable").trigger("refreshAccTable");
+                    $("#rem-acc-modal").modal("hide");
+                    alert.success(null, this.responseText, 3000);
+                    // обновити таблицю акаунтів
+                }
+                else if (res.status === 1) {
+                    alert.error(null, this.responseText, 10000);
+                } else {
+                    alert.error(null, this.responseText, 10000);
+                }
+            })
+        }
     };
 
     //  Виклкається з модального вікна створення акаунта
@@ -857,25 +900,56 @@ define("accountSection", ["webitelConnector", "session", "alert", "fieldValidato
     //  Підтвердження видалення домена із модального вікна
     window.WAdmin.AccountSection.remDomModal = function() {
         var domain = $(".remDomFormModal").text();
-        webitel.domainRemove(domain, function(res) {
-            if (res.status === 0) {
-                $("#rem-dom-modal").modal("hide");
-                $(".refDomTable").trigger("click");
-                alert.success(null, this.responseText, 3000);
 
-                //  івент видалення домена. Потрібно перечитати lookup доменів
-                $("#select-domain").trigger("domainRemoved");
+        // перевіряємо чи редагування можливе тільки для свого аккаунта
+        if(roleChecker.checkPermission("do", "domain") && !roleChecker.checkPermission("*", "domain")) {
 
-                if ( selectedDomain === $(".remDomFormModal" ).text()) {
-                    $("#accountListTable").trigger("removedDomIsSelected");
+            if(domain == session.getDomain()) {
+                webitel.domainRemove(domain, function (res) {
+                    if (res.status === 0) {
+                        $("#rem-dom-modal").modal("hide");
+                        $(".refDomTable").trigger("click");
+                        alert.success(null, this.responseText, 3000);
+
+                        //  івент видалення домена. Потрібно перечитати lookup доменів
+                        $("#select-domain").trigger("domainRemoved");
+
+                        if (selectedDomain === $(".remDomFormModal").text()) {
+                            $("#accountListTable").trigger("removedDomIsSelected");
+                        }
+                    }
+                    else if (res.status === 1) {
+                        alert.error(null, this.responseText, null);
+                    } else {
+                        alert.error(null, this.responseText, null);
+                    }
+                })
+            }
+            else {
+                alert.error("","Permission denied!");
+            }
+        }
+        else {
+            webitel.domainRemove(domain, function (res) {
+                if (res.status === 0) {
+                    $("#rem-dom-modal").modal("hide");
+                    $(".refDomTable").trigger("click");
+                    alert.success(null, this.responseText, 3000);
+
+                    //  івент видалення домена. Потрібно перечитати lookup доменів
+                    $("#select-domain").trigger("domainRemoved");
+
+                    if (selectedDomain === $(".remDomFormModal").text()) {
+                        $("#accountListTable").trigger("removedDomIsSelected");
+                    }
                 }
-            }
-            else if (res.status === 1) {
-                alert.error(null, this.responseText, null);
-            } else {
-                alert.error(null, this.responseText, null);
-            }
-        })
+                else if (res.status === 1) {
+                    alert.error(null, this.responseText, null);
+                } else {
+                    alert.error(null, this.responseText, null);
+                }
+            })
+        }
     };
 
     //  Показати модальне вікно редагування акаунта. Генерую цей івент для таблиці акаунтів, для того, щоб легко було витягнути дані по вибраному акаунту

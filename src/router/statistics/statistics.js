@@ -31,7 +31,11 @@ module.exports = function(app) {
                 return;
             }
 
-            if (req.session.user.role === "root") {
+            res.render("statistics/statRoot.jade", {
+                role: req.session.user.role
+            });
+
+            /*if (req.session.user.role === "root") {
                 res.render("statistics/statRoot.jade", {
                     role: req.session.user.role
                 });
@@ -45,7 +49,7 @@ module.exports = function(app) {
                 res.render("statistics/statUser.jade", {
                     role: req.session.user.role
                 });
-            }
+            }*/
         });
 
     app.route('/statistics/getData')

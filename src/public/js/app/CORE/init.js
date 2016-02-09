@@ -4,6 +4,8 @@
 
 
 
-define(["storage", "session", "appRouter", "webitelConnector"], function(storage, session, appRouter, webitelConnector) {
+define(["storage", "session", "appRouter", "webitelConnector", "roleChecker"], function(storage, session, appRouter, webitelConnector, roleChecker) {
 
+    // закриваємо доступ до деяких розділів
+    roleChecker.sectionPanel.changeVisibilityLeftPanel();
 });

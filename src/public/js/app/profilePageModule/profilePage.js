@@ -133,6 +133,9 @@ define("profilePage", ["webitelConnector", "session", "alert", "locStor", "cookS
         if (coreStatus["Users_Session"]) {
             $(".coreInfo").append($("<p>").text("User session: " + coreStatus["Users_Session"]));
         }
+        if(coreStatus["Max_Users_Session"]) {
+            $(".coreInfo").append($("<p>").text("Max users session: " + coreStatus["Max_Users_Session"]));
+        }
         if (coreStatus["Domain_Session"]) {
             $(".coreInfo").append($("<p>").text("Domain session: " + coreStatus["Domain_Session"]));
         }

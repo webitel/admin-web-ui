@@ -2,7 +2,7 @@
  * Created by s.fedyuk on 22.12.2015.
  */
 
-define("StatisticModule",["angular", "session", "alert"], function(angular, session, alert) {
+define("StatisticModule",["angular", "session", "alert", "roleChecker"], function(angular, session, alert, roleChecker) {
     function init() {
         // відобаражаємо складний фільтр з базовим фільтром
         showFilter();
@@ -13,6 +13,9 @@ define("StatisticModule",["angular", "session", "alert"], function(angular, sess
 
         // створюємо модуль для роботи з дзвінками на сторінці
         var staticticModule = angular.module("statisticModule", []);
+
+        // получаємо наявність доступу до файлів статистики
+        var isFileAccess = roleChecker.checkPermission("r", "cdr/files");
 
         staticticModule.controller("statisticController", function ($scope, $http) {
 
@@ -294,6 +297,7 @@ define("StatisticModule",["angular", "session", "alert"], function(angular, sess
                         $scope.currentRowId = $scope.calls[i].uuid;
                     }
                 }
+
                 // перевіряємо чи для дзвінка доступні файли
                 getCdrFileInfo(cdrServerUrl + $scope.currentRowId.slice(2) + "?" + token + "&" + key,
                     //  callback приймає тип доступного файлу
@@ -302,7 +306,10 @@ define("StatisticModule",["angular", "session", "alert"], function(angular, sess
                             showAudioPlayer();
                         }
                         else if (type === "application/pdf") {
-                            showPdfFile(srcPdf);
+
+                            if(isFileAccess) {
+                                showPdfFile(srcPdf);
+                            }
                         }
                         else if (type === "video/mp4") {
 
@@ -442,23 +449,6 @@ define("StatisticModule",["angular", "session", "alert"], function(angular, sess
             // обробник при кліку на кнопку для перегляду JSON обєкта в додатковій інофрмації по дзвінку
             $scope.getJson = function () {
 
-                /*$.ajax({
-                    "url": session.getWebitelServer() + "/getCdrJSON",
-                    "method": "POST",
-                    "contentType": "application/json",
-                    "timeout": 10000,
-                    "data": JSON.stringify({
-                        "uuid": $scope.currentRowId.slice(2)
-                    }),
-                    "dataType": "json",
-                    "success": function (data) {
-                        showCdrJsonWindow(JSON.stringify(data));
-                    },
-                    "error": function (jqXHR, textStatus, errorThrown) {
-                        this.alert("Can not read data");
-                    }
-                });*/
-
                 var startFilter = {};
                 startFilter.columns = {};
                 startFilter.fields = {};
@@ -556,6 +546,10 @@ define("StatisticModule",["angular", "session", "alert"], function(angular, sess
             // відкриває нове вікно з json обєктом
             function showCdrJsonWindow(jsonData) {
 
+                if(!isFileAccess) {
+                    alert.error("", "Permission denied!");
+                    return;
+                }
                 var jsonWindow = window.open("", "jsonWindow", "width=800, height=600");
 
                 if (jsonWindow) {
@@ -685,78 +679,86 @@ define("StatisticModule",["angular", "session", "alert"], function(angular, sess
 
                                 // якщо тип контенту для дзвінка є формату mp3 файла
                                 if (data[i]["content-type"] === "audio/mpeg") {
-
                                     // додаємо контейнер з аудіо плеєром на сторінку
                                     $("#" + $scope.currentRowId + " div.row:eq(4)").append("<div class='col-md-2'><audio style='width: 300px;margin-left: 100px;float: left;' controls='controls' src="
                                     + "'" + src + "'" + " preload='none'></audio></div>");
-                                    if (session.getRole() === "root" || session.getRole() === "admin") {
 
                                         // додаємо кнопки для завантаження і видалення p3 файлу на сторінку
-                                        $("#" + $scope.currentRowId + " div.row:eq(5)").append("<div style='margin-left: 113px;margin-top: 5px;'><div id='applyFilter2'><button style='float: left;' class='btn btn-primary btn-xs' id='deleteAudio'>Delete</button></div></div>");
-                                        $("#" + $scope.currentRowId + " div.row:eq(5) div:eq(1)").append("<div id='applyFilter2'><a role='button' href='" + src + "' style='float: left;margin-right: 5px;' class='btn btn-primary btn-xs' id='downloadAudio' download>Download</a></div>");
 
-                                        // формуємо івент на клік кнопки для видалення mp3 файлу
-                                        $("#deleteAudio").on("click", function () {
+                                        // доступ для видалення
+                                        var isDeleteAccess = roleChecker.checkPermission("d", "cdr/files")|| roleChecker.checkPermission("do", "cdr/files");
 
-                                            bootbox.dialog({
-                                                message: "Do you want to remove this audio record ?",
-                                                size: 'small',
-                                                title: "Remove audio record?",
-                                                className: "remove-audio-record-modal",
-                                                onEscape: function () {
-                                                },
-                                                buttons: {
-                                                    danger: {
-                                                        label: "Cancel",
-                                                        className: "btn-default",
-                                                        callback: function () {
-                                                        }
+                                        if(isDeleteAccess) {
+                                            $("#" + $scope.currentRowId + " div.row:eq(5)").append("<div style='margin-left: 113px;margin-top: 5px;'><div id='applyFilter2'><button style='float: left;' class='btn btn-primary btn-xs' id='deleteAudio'>Delete</button></div></div>");
+
+                                            // формуємо івент на клік кнопки для видалення mp3 файлу
+                                            $("#deleteAudio").on("click", function () {
+
+                                                bootbox.dialog({
+                                                    message: "Do you want to remove this audio record ?",
+                                                    size: 'small',
+                                                    title: "Remove audio record?",
+                                                    className: "remove-audio-record-modal",
+                                                    onEscape: function () {
                                                     },
-                                                    success: {
-                                                        label: "Ok",
-                                                        className: "btn-success",
-                                                        callback: function () {
+                                                    buttons: {
+                                                        danger: {
+                                                            label: "Cancel",
+                                                            className: "btn-default",
+                                                            callback: function () {
+                                                            }
+                                                        },
+                                                        success: {
+                                                            label: "Ok",
+                                                            className: "btn-success",
+                                                            callback: function () {
 
-                                                            // при підтвердженні видалення файлу виконуєм запит до сервера на видалення файлу
-                                                            removeRequest();
+                                                                // при підтвердженні видалення файлу виконуєм запит до сервера на видалення файлу
+                                                                removeRequest();
+                                                            }
                                                         }
-                                                    }
-                                                }
-                                            });
-
-                                            // видалення аудіо файлу з сервера статистики
-                                            function removeRequest() {
-                                                var
-                                                    uuid = $scope.currentRowId.slice(2);
-
-                                                $.ajax({
-                                                    "url": session.getWebitelServer() + "/removeAudioRecord",
-                                                    "method": "POST",
-                                                    "contentType": "application/json",
-                                                    "timeout": 10000,
-                                                    "data": JSON.stringify({
-                                                        "uuid": uuid
-                                                    }),
-                                                    "dataType": "json",
-                                                    "success": function (data, textStatus, jqXHR) {
-                                                        if (textStatus === "success") {
-                                                            alert.success("", "Audio record has been removed", 3000);
-                                                            console.log("Audio record (" + data.uuid + ") has been removed");
-                                                            //$("#statisticsBootstrapTable  tr.statMoreInfoTr").remove();
-                                                            $("#" + $scope.currentRowId + " div.row:eq(4)").empty();
-                                                            $("#" + $scope.currentRowId + " div.row:eq(5)").empty();
-                                                        }
-                                                    },
-                                                    "error": function (jqXHR, textStatus, errorThrown) {
-                                                        alert.error("", "Audio record has not been removed", 5000);
-                                                        console.error("Audio record (" + data.uuid + ") has not been removed");
-                                                        return;
                                                     }
                                                 });
-                                            }
 
-                                        });
-                                    }
+                                                // видалення аудіо файлу з сервера статистики
+                                                function removeRequest() {
+                                                    var
+                                                        uuid = $scope.currentRowId.slice(2);
+
+                                                    $.ajax({
+                                                        "url": session.getWebitelServer() + "/removeAudioRecord",
+                                                        "method": "POST",
+                                                        "contentType": "application/json",
+                                                        "timeout": 10000,
+                                                        "data": JSON.stringify({
+                                                            "uuid": uuid
+                                                        }),
+                                                        "dataType": "json",
+                                                        "success": function (data, textStatus, jqXHR) {
+                                                            if (textStatus === "success") {
+                                                                alert.success("", "Audio record has been removed", 3000);
+                                                                console.log("Audio record (" + data.uuid + ") has been removed");
+                                                                //$("#statisticsBootstrapTable  tr.statMoreInfoTr").remove();
+                                                                $("#" + $scope.currentRowId + " div.row:eq(4)").empty();
+                                                                $("#" + $scope.currentRowId + " div.row:eq(5)").empty();
+                                                            }
+                                                        },
+                                                        "error": function (jqXHR, textStatus, errorThrown) {
+                                                            alert.error("", "Audio record has not been removed", 5000);
+                                                            console.error("Audio record (" + data.uuid + ") has not been removed");
+                                                            return;
+                                                        }
+                                                    });
+                                                }
+
+                                            });
+                                        }
+
+                                        if(isFileAccess) {
+                                            $("#" + $scope.currentRowId + " div.row:eq(5) div:eq(1)").append("<div id='applyFilter2'><a role='button' href='" + src + "' style='float: left;margin-right: 5px;' class='btn btn-primary btn-xs' id='downloadAudio' download>Download</a></div>");
+                                        }
+
+
                                     success("audio/mpeg");
                                 }
                                 else if (data[i]["content-type"] === "application/pdf") {

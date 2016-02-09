@@ -43,10 +43,11 @@ define("AcdSection", ["webitelConnector", "session", "alert", "text!/js/app/AcdS
         //  показати головний контенер із контентом
         $("#content-container").show();
 
+
         useBackbone();
     }
     function isDomainSelected() {
-        if ( session.getRole() === "admin" || session.getRole() === "user" ) {
+        if ( session.getRole() != "root" ) {
             currentDomain = session.getDomain();
         }
         else {

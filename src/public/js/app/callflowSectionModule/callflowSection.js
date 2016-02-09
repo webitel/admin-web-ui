@@ -4,8 +4,8 @@
  */
 
 
-define("callflowSection", ["webitelConnector", "alert", "jsoneditor", "bootbox", "rowSorted", "tagInput", "chosen", "text!/additionalFiles/CallFlowSection/AllTimeZone.txt"],
-    function(webitelConnector, alert, JSONEditor, _bootbox, _rowSorted, _tagInput, chosen, AllTimeZone) {
+define("callflowSection", ["webitelConnector", "alert", "jsoneditor", "bootbox", "rowSorted", "tagInput", "chosen", "text!/additionalFiles/CallFlowSection/AllTimeZone.txt", "roleChecker"],
+    function(webitelConnector, alert, JSONEditor, _bootbox, _rowSorted, _tagInput, chosen, AllTimeZone, roleChecker) {
 
         var currentDomainName = '',
             $defTable,
@@ -46,6 +46,12 @@ define("callflowSection", ["webitelConnector", "alert", "jsoneditor", "bootbox",
                 liveEdit = false,
                 changePage = false;
 
+            // получити доступ до редагування
+            var isEditAccess = roleChecker.checkPermission("u", "rotes/default") || roleChecker.checkPermission("uo", "rotes/default");
+
+            // получити доступ до видалення
+            var isDeleteAccess = roleChecker.checkPermission("d", "rotes/default") || roleChecker.checkPermission("do", "rotes/default");
+
             $defTable = $('#default-tabs-box table').bootstrapTable({
                 url: "callflow/data/routes/default?domain=" + currentDomainName,
                 field: "_id",
@@ -76,8 +82,8 @@ define("callflowSection", ["webitelConnector", "alert", "jsoneditor", "bootbox",
                         "formatter": function () {
                             return "</div class='form-group'>" +
                                         "<button class='btn btn-default btn-icon icon-lg fa fa-sort move-action'></button>" +
-                                        "<button class='btn btn-default edit-default'>Edit</button>" +
-                                        "<button class='btn btn-default delete-default'>Delete</button>" +
+                                         ( isEditAccess ? "<button class='btn btn-default edit-default'>Edit</button>" : "") +
+                                         ( isDeleteAccess ? "<button class='btn btn-default delete-default'>Delete</button>" : "") +
                                         "<button class='btn btn-default cfd-default'>Designer</button>" +
                                     "</div>"
                         }
@@ -737,6 +743,12 @@ define("callflowSection", ["webitelConnector", "alert", "jsoneditor", "bootbox",
                 liveEdit = false,
                 changePage = false;
 
+            // получити доступ до редагування
+            var isEditAccess = roleChecker.checkPermission("u", "rotes/public") || roleChecker.checkPermission("uo", "rotes/public");
+
+            // получити доступ до видалення
+            var isDeleteAccess = roleChecker.checkPermission("d", "rotes/public") || roleChecker.checkPermission("do", "rotes/public");
+
             $pubTable = $('#public-table').bootstrapTable({
                 url: "callflow/data/routes/public?domain=" + currentDomainName,
                 field: "_id",
@@ -760,8 +772,8 @@ define("callflowSection", ["webitelConnector", "alert", "jsoneditor", "bootbox",
                         width: "4",
                         "formatter": function () {
                             return "</div class='form-group'>" +
-                                "<button class='btn btn-default edit-public'>Edit</button>" +
-                                "<button class='btn btn-default delete-public'>Delete</button>" +
+                                ( isEditAccess ? "<button class='btn btn-default edit-public'>Edit</button>" : "") +
+                                ( isDeleteAccess ? "<button class='btn btn-default delete-public'>Delete</button>" : "") +
                                 "</div>"
                         }
                     }
@@ -1170,8 +1182,36 @@ define("callflowSection", ["webitelConnector", "alert", "jsoneditor", "bootbox",
 
             //  extension
             initExtensionTab();
+
+            // базова ініціалізація прав
+            initAccess();
         }
 
+        function initAccess() {
+
+            // приховуємо вкладку для default callflow
+
+            roleChecker.callflowAccess.defaultPart.hideTab();
+
+            // приховуємо кнопку для додавання callflow
+            roleChecker.callflowAccess.defaultPart.hideAddButton();
+
+            // приховуємо вкладку для public callflow
+            roleChecker.callflowAccess.publicPart.hideTab();
+
+            // приховуємо кнопку для додавання callflow
+            roleChecker.callflowAccess.publicPart.hideAddButton();
+
+            // приховуємо вкладк для extension callflow
+            roleChecker.callflowAccess.extensionPart.hideTab();
+
+            // приховуємо кнопку для додавання callflow
+            roleChecker.callflowAccess.extensionPart.hideAddButton();
+
+            // приховуємо доступ до варіблів кнопки
+            roleChecker.callflowAccess.domainPart.hideVariablesButton();
+
+        }
         function initMenuJSON (editor) {
             // TODO
             /*
@@ -1827,6 +1867,13 @@ define("callflowSection", ["webitelConnector", "alert", "jsoneditor", "bootbox",
                 liveEdit = false,
                 changePage = false;
 
+            // получити доступ до редагування
+            var isEditAccess = roleChecker.checkPermission("u", "rotes/extension") || roleChecker.checkPermission("uo", "rotes/extension");
+
+            // получити доступ до видалення
+
+            var isDeleteAccess = roleChecker.checkPermission("d", "rotes/extension") || roleChecker.checkPermission("do", "rotes/extension");
+
             $extensionTable = $('#extension-table').bootstrapTable({
                 url: "callflow/data/routes/extension?domain=" + currentDomainName,
                 field: "_id",
@@ -1857,7 +1904,8 @@ define("callflowSection", ["webitelConnector", "alert", "jsoneditor", "bootbox",
                         width: "4",
                         "formatter": function () {
                             return "</div class='form-group'>" +
-                                "<button class='btn btn-default edit-extension'>Edit</button>" +
+                                ( isEditAccess ? "<button class='btn btn-default edit-extension'>Edit</button>" : "") +
+                                ( isDeleteAccess ? "<button class='btn btn-default delete-extension'>Delete</button>" : "") +
                                 "</div>"
                         }
                     }
@@ -2223,6 +2271,9 @@ define("callflowSection", ["webitelConnector", "alert", "jsoneditor", "bootbox",
                     return;
                 }
 
+                // закриваємо доступ при необхідності до видалення варіблів
+                roleChecker.callflowAccess.domainPart.hideDeleteVariableButton();
+
                 $.ajax({
                     type: "GET",
                     url: '/callflow/data/routes/variables?domain=' + currentDomainName,
@@ -2233,6 +2284,10 @@ define("callflowSection", ["webitelConnector", "alert", "jsoneditor", "bootbox",
                             alert.error("", "You are unauthorized. Please relogin!", 5000);
                             return;
                         }
+
+                        // приховуємо кнопку для додавання нових варіблів
+                        roleChecker.callflowAccess.domainPart.hideAddButton();
+
 
                         if (response.length === 0) {
                             responseVariables = {};
@@ -2268,6 +2323,17 @@ define("callflowSection", ["webitelConnector", "alert", "jsoneditor", "bootbox",
             //  підтвердження збереження модального вікна з variables
             $("#add-variables-modal .saveVariables").off("click");
             $("#add-variables-modal .saveVariables").on("click", function() {
+
+                // перевіряємо чи є доступ до редагування варіаблів
+                /*if(!(roleChecker.checkPermission("u", "rotes/domain")||roleChecker.checkPermission("uo", "rotes/domain")) && $("#add-variables-btn").length == 0) {
+
+                    alert.error("", "Permission denied!", 3000);
+                    return;
+                }*/
+
+                // при необхідності закриваємо поля для редагування
+                roleChecker.callflowAccess.domainPart.hideFieldsForEditVariables();
+
                 $.ajax({
                     type: "PUT",
                     url: '/callflow/data/routes/variables?domain=' + currentDomainName,

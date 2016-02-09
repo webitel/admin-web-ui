@@ -279,7 +279,6 @@ function getListA(param, callback) {
 
 //  отримати всю інфу про дзвінок в json форматі
 function getCdrJSON(param, callback) {
-
     var filterObj = {
         "columns": {},
         "fields" : {},
