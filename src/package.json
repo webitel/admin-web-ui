@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://makaronio@stash.webitel.com:7990/scm/wtel/w-admin-v2.git"
+    "url": "https://github.com/webitel/admin-web-ui.git"
   },
   "author": "makaron",
   "license": "ISC"

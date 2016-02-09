@@ -4,7 +4,6 @@ var fs      = require('fs'),
     https   = require('https'),
     express = require('express');
 
-
 var APP_ROOT_PATH = path.dirname(require.main.filename);
 global["APP_ROOT_PATH"] = APP_ROOT_PATH;
 
@@ -18,19 +17,7 @@ require(APP_ROOT_PATH + "/router/index.js")(app);
 
 if (config.get("ssl:enabled") != true) {
     http.createServer(app).listen(app.get('port'), function(){
-        //log.info("Server webitel-admin running: protocol=http, port=" + app.get('port'));
-
-        log.info(
-            "\n ____________________________" +
-            "\n/  Webitel UI running on     \\" +
-            "\n\\  http://          :" + app.get('port') + "   /" +
-            "\n ----------------------------" +
-            "\n\t   \\\t^__^" +
-            "\n\t\t\\\t(OO)\_______" +
-            "\n\t\t\t(__)\       )\\/\\" +
-            "\n\t\t\t    ||---WW |" +
-            "\n\t\t\t    ||     ||" +
-            "\n");
+        log.info("Server webitel-admin running: protocol=http, port=" + app.get('port'));
     });
 }
 else {
@@ -43,19 +30,7 @@ else {
     };
 
     https.createServer(sll_config, app).listen(app.get('port'), function () {
-        //log.info("Server webitel-admin running: protocol=https, port=" + app.get('port'));
-
-        log.info(
-            "\n ____________________________" +
-            "\n/  Webitel UI running on     \\" +
-            "\n\\  https://         :" + app.get('port') + "   /" +
-            "\n ----------------------------" +
-            "\n\t   \\\t^__^" +
-            "\n\t\t\\\t(oo)\_______" +
-            "\n\t\t\t(__)\       )\\/\\" +
-            "\n\t\t\t    ||----W |" +
-            "\n\t\t\t    ||     ||" +
-            "\n");
+        log.info("Server webitel-admin running: protocol=https, port=" + app.get('port'));
     });
 }
 
