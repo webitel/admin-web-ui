@@ -80,6 +80,7 @@ requirejs.config({
         "angular": "statistic-filter/angular.min",
         "StatisticModule": "statistic-filter/modules/StatisticModule",
         "roleChecker": "/js/app/roleModule/RoleChecker",
+        "mediaDuplicateFinder": "/js/app/mediaSectionModule/mediaDuplicateFinder",
 
         //  CORE
         "initCore": "/js/app/CORE/init",

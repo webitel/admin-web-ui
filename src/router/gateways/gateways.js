@@ -24,7 +24,11 @@ module.exports = function(app) {
                 return;
             }
 
-            if (req.session.user.role === "root") {
+            res.render("gateway/gwRoot.jade", {
+                role: req.session.user.role
+            });
+
+            /*if (req.session.user.role === "root") {
                 res.render("gateway/gwRoot.jade", {
                     role: req.session.user.role
                 });
@@ -38,6 +42,6 @@ module.exports = function(app) {
                 res.render("gateway/gwUser.jade", {
                     role: req.session.user.role
                 });
-            }
+            }*/
         })
 };

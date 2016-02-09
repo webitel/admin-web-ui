@@ -1,8 +1,9 @@
 define([
     "backbone",
     "text!/js/app/AcdSectionModule/tpl/AcdModelViewBlockTpl.html",
-    "errHandler"
-], function(Backbone, AcdModelViewBlockTpl, errHandler) {
+    "errHandler",
+    "roleChecker"
+], function(Backbone, AcdModelViewBlockTpl, errHandler, roleChecker) {
 
     var router = app.router;
 
@@ -25,6 +26,15 @@ define([
         renderPartial: function() {
             var htmlTpl = this.templateBlock(this.model.toJSON());
             $(this.$el.children()).replaceWith(htmlTpl);
+
+            // закриваємо доступ до додавання нових черг
+            roleChecker.acdAccess.hideAddButton();
+
+            // закриваємо доступ для видалення черг
+            roleChecker.acdAccess.hideRemoveButton();
+
+            // закриваємо доступ для включення і виключення черг
+            roleChecker.acdAccess.hideOnOffQueueButton();
         },
         events: {
             "click .open-acd-model": "openAcdModel",

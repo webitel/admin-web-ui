@@ -148,7 +148,8 @@ module.exports = function(app) {
                 };
 
                 res.end(JSON.stringify({
-                    res: "+OK"
+                    res: "+OK",
+                    acl: response.acl
                 }));
             });
         })

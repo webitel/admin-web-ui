@@ -26,7 +26,8 @@ requirejs.config({
 
 
         "errHandler": "/js/app/errHandlerModule/errHandler",
-        "fieldValidator" : "/js/patterns/strategy/fieldValidator"
+        "fieldValidator" : "/js/patterns/strategy/fieldValidator",
+        "sectionRoleRouter": "/js/app/roleModule/sectionRoleRouter"
     },
     shim: {},
     waitSeconds: 20

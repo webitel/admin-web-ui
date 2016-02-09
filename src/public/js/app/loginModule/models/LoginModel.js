@@ -7,11 +7,11 @@
  *      - viewRendered вюха відмальована(щоб знати коли вставляти дані в UI)
  */
 
-define(["storage", "alert", "errHandler", "fieldValidator"],function(storage, alert, errHandler, validator) {
-
+define(["storage", "alert", "errHandler", "fieldValidator", "sectionRoleRouter"], function(storage, alert, errHandler, validator, roleRouter) {
 
     var LoginModel = Backbone.Model.extend({
         "initialize": function(attributes, options) {
+
             console.info("LoginModel has been initialized");
 
             this.on("viewRendered", this.getDataFromStorage);
@@ -306,7 +306,12 @@ define(["storage", "alert", "errHandler", "fieldValidator"],function(storage, al
                             "webitelServer": webitelServer,
                             "rememberMe": rememberMe
                         });
-                        window.location.replace("/statistics");
+
+                        // формуємо url першого доступного розділу системи
+                        var availableUrl = roleRouter.routeAccess.findFirstAvailableSection(response.acl);
+
+                        // переходимо на відповідний доступний розділ
+                        window.location.replace("/" + availableUrl);
                     }
                 }
                 else if ( xhr.status === 500 ) {

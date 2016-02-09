@@ -24,7 +24,11 @@ module.exports = function(app) {
                 return;
             }
 
-            if (req.session.user.role === "root") {
+            res.render("account/accRoot.jade", {
+                role: req.session.user.role
+            });
+
+            /*if (req.session.user.role === "root") {
                 res.render("account/accRoot.jade", {
                     role: req.session.user.role
                 });
@@ -43,6 +47,6 @@ module.exports = function(app) {
                 res.render("account/accUser.jade", {
                     role: req.session.user.role
                 });
-            }
+            }*/
         })
 };

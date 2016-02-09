@@ -9,7 +9,7 @@ define("alert", [], function() {
             title : "Success",
             message : mess || "",
             closeBtn : true,
-            timer : time || 9000000
+            timer : time || 5000
         });
     }
 
@@ -21,7 +21,7 @@ define("alert", [], function() {
             title : "Error",
             message : mess || "",
             closeBtn : true,
-            timer : time || 9000000
+            timer : time || 5000
         });
     }
 
@@ -33,7 +33,7 @@ define("alert", [], function() {
             title : "Info",
             message : mess || "",
             closeBtn : true,
-            timer : time || 9000000
+            timer : time || 5000
         });
     }
 
@@ -45,7 +45,7 @@ define("alert", [], function() {
             title : "Warning",
             message : mess || "",
             closeBtn : true,
-            timer : time || 9000000
+            timer : time || 5000
         });
     }
 

@@ -7,7 +7,6 @@
 
 
 define(["storage", "alert"], function(storage, alert) {
-
     var login,
         pass,
         role,
@@ -83,7 +82,6 @@ define(["storage", "alert"], function(storage, alert) {
     function getAcl() {
         return acl;
     }
-
 
     return {
         getLogin : getLogin,

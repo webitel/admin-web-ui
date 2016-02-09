@@ -54,6 +54,7 @@ define(["text!/js/app/AcdSectionModule/tpl/AcdCollectionViewTpl.html"
                     $("#page-content div.row").html(this.$el);
                 }
 
+
                 return this;
             },
 

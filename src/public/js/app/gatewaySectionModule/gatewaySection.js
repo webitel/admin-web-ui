@@ -12,7 +12,7 @@
  */
 
 
-define("gatewaySection", ["webitelConnector", "session", "alert", "bsWizard"], function(webitelConnector, session, alert, _bsWizard) {
+define("gatewaySection", ["webitelConnector", "session", "alert", "bsWizard", "roleChecker"], function(webitelConnector, session, alert, _bsWizard, roleChecker) {
 
     var gwList = [],
         addGwWizard,
@@ -50,6 +50,9 @@ define("gatewaySection", ["webitelConnector", "session", "alert", "bsWizard"], f
         //  ініціалізувати візард добавлення шлюза. Підписатися на його івенти
         initAddGwWizard();
         subsribeOnAddGwWizardEvent();
+
+        // приховуємо при необхідності кнопку для додавання шлюзу
+        roleChecker.gatewayAccess.hideAddGatewayButton();
     }
 
     //  init bootstrap-wizard for addGwModal
@@ -211,7 +214,14 @@ define("gatewaySection", ["webitelConnector", "session", "alert", "bsWizard"], f
                 gatewayName = gwName;
             }
 
+            // отримуємо доступ до редагування шлюзу
+            var isGatewayAccessUpdate = roleChecker.checkPermission("u", "gateway");
 
+            if(!isGatewayAccessUpdate) {
+
+                alert.error("", "Permission denied!", 5000);
+                return;
+            }
             if ( isGwChecked ) {
                 webitel.gatewayUp(gatewayName, profileName, function(res) {
                     if ( res.status === 0 && this.responseText === "+OK attached\n" ) {

@@ -16,8 +16,8 @@
  */
 
 
-define("mediaSection", ["webitelConnector", "session", "audioPlayer", "alert"],
-    function(webitelConnector, session,  _audioPlayer, alert) {
+define("mediaSection", ["webitelConnector", "session", "audioPlayer", "alert", "roleChecker", "mediaDuplicateFinder"],
+    function(webitelConnector, session,  _audioPlayer, alert, roleChecker, mediaDuplicateFinder) {
 
         var coreUrl = session.getWebitelServer(),
             selectedDomain,
@@ -102,9 +102,12 @@ define("mediaSection", ["webitelConnector", "session", "audioPlayer", "alert"],
 
             //  заюзав додаткову властивість дял метода init, по якій перевіряю чи був ініціалізований модуль
             init["state"] = "initialized";
+
+            // закриваємо доступ до додавання нових медіа файлів
+            roleChecker.mediaAccess.hideAddMediaButton();
         }
         function isDomainSelected() {
-            if ( session.getRole() === "admin" || session.getRole() === "user" ) {
+            if ( session.getRole() != "root" ) {
                 selectedDomain = session.getDomain();
             }
             else {
@@ -170,9 +173,38 @@ define("mediaSection", ["webitelConnector", "session", "audioPlayer", "alert"],
                     return;
                 }
 
+                // власна колекція для зберігання файлів які були виброані з файлової системи
+                //var mediaFiles = [];
+                //var duplicateIndexes = [];
+
+                // робимо копію двох колекцій
+                //for(var i = 0; i < this.files.length; i++) {
+                //    mediaFiles.push(this.files[i]);
+                //}
+
+                //for(var i = 0; i < mediaFiles.length; i++) {
+                    // якщо такий файл вже існує то видаємо повідомлення
+
+                    // отримуємо назву файлу без його розширення
+                    //var audioName = mediaFiles[i].name.replace(/\.[^/.]+$/, "");
+
+                    //if (mediaDuplicateFinder.isExistsAudioName(audioName)) {
+                       // mediaFiles.splice(i, 1);
+                        //mediaFiles.length++;
+                     //   duplicateIndexes.push(i);
+                     //   alert.warning("", "This name(s) of media file(s) already exist(s)!", 3000);
+                        //return;
+                    //}
+                //}
+
+                // якщо нема файлів для завантаження
+                //if(copyMediaFiles.length  === 0) {
+                //    return;
+              //  }
+
                 //  перевірити чи тип вибраних файлів mp3 або wav і чи вибрані файли одного типу
                 for (var i = 0; i < this.files.length; i++) {
-                    if (this.files[i].type === "audio/mp3" || this.files[i].type === "audio/wav") {
+                    if (this.files[i].type === "audio/mp3" || this.files[i].type === "audio/wav" || this.files[i].type === "audio/mpeg") {
                         if ( !audioType ) {
                             audioType = this.files[i].type;
                         } else {
@@ -269,6 +301,10 @@ define("mediaSection", ["webitelConnector", "session", "audioPlayer", "alert"],
                 audionType = data[i].type;
                 audioSize = ((data[i].size) / 1024 / 1024).toFixed(2);
 
+                var isReadAccess = roleChecker.checkPermission("r", "cdr/media");
+
+                var isDeleteAccess = roleChecker.checkPermission("d", "cdr/media");
+
                 audio_str =
                     "<li class='" + liClass + "'>" +
                         "<div class='audio-logo'>" +
@@ -280,12 +316,12 @@ define("mediaSection", ["webitelConnector", "session", "audioPlayer", "alert"],
                         "<div class='audio-info-controls'>" +
                             "<div class='audio-info'>" +
                                 "<span class='audioName'>" + audioName + "</span>" +
-                                "<span class='audioRemove'>" +
+                                (isDeleteAccess ? "<span class='audioRemove'>" +
                                     "<i class='fa fa-remove'></i>" +
-                                "</span>" +
-                                "<span class='audioDownload'>" +
+                                "</span>" : '') +
+                                (isReadAccess ? "<span class='audioDownload'>" +
                                     "<i class='fa fa-cloud-download fa-lg'></i>" +
-                                "</span>" +
+                                "</span>" : '') +
                                 "<span class='audioType'>" + audionType + "</span>" +
                                 "<span class='audioSize'>" + audioSize + " MB</span>" +
                             "</div>" +
